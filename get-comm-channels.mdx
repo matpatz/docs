@@ -1,0 +1,58 @@
+---
+title: "get_comm_channels"
+---
+
+```luau
+get_comm_channels(): {number, BindableEvent}
+```
+
+**Example:**
+
+The script prints every id, and BindableEvent created via create\_comm\_channel.
+
+<CodeGroup>
+
+```text Example 1
+table.foreach(get_comm_channels(), function(id, comm)
+    print(comm.Id, comm.Event)
+end)
+```
+
+```text Example 2
+// Sillison
+```
+
+</CodeGroup>
+
+<Warning>
+  get\_comm\_channels is not implemented in any Executor.
+</Warning>
+
+<Check>
+  This function can be implemented in Lua.
+</Check>
+
+```luau
+local channels = {}
+
+local function create_comm_channel(): (number, BindableEvent)
+	local Id = #channels + 1
+	local Event = Instance.new("BindableEvent", gethui())
+
+	channels[Id] = {
+		Id = Id,
+		Event = Event
+	}
+
+	return Id, Event
+end
+
+local function get_comm_channel(Id: number): BindableEvent?
+	local Channel = channels[Id]
+	return Channel and Channel.Event
+end
+
+local function get_comm_channels()
+	return channels
+end
+```

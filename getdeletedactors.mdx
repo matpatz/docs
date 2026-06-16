@@ -1,0 +1,44 @@
+---
+title: "getdeletedactors"
+---
+
+```luau
+function getdeletedactors(): {Actor}
+```
+
+Returns a table of every actor that has been deleted from the game.
+
+<Tip>
+  Alias: `get_deleted_actors`
+</Tip>
+
+> Deleted actors are no longer in the DataModel but are still referenced in memory until garbage collected.
+
+<CodeGroup>
+
+```luau Example 1
+for _, actor in getdeletedactors() do
+    print(actor.Name)
+end
+```
+
+```luau Example 2
+local deleted = getdeletedactors()
+print("Deleted actors: " .. #deleted)
+```
+
+</CodeGroup>
+
+<Check>
+  This function can be implemented in Lua.
+</Check>
+
+```luau
+local actors = {}
+game.DescendantRemoving:Connect(function(actor)
+	table.insert(actor)
+	print(#actors)
+end)
+
+-- would need to be in autoexec
+```

@@ -1,0 +1,40 @@
+---
+title: "Template.md"
+---
+
+Information on the function.
+
+```luau
+
+functionname(script: LuaSourceContainer): string -- parameters and output
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `script` | [`LuaSourceContainer`](https://create.roblox.com/docs/reference/engine/classes/LuaSourceContainer) | The script to hash. |
+
+## Returns
+
+`string` - a 96-character hexadecimal string (48 bytes).
+
+## Example
+
+<CodeGroup>
+
+```text Example 1
+usage
+```
+
+```text Example 2
+usage
+```
+
+</CodeGroup>
+
+<Tip>
+  Comparing two hashes is much cheaper than comparing the bytecode strings returned by `getscriptbytecode{:luau}`. Good for polling loops.
+
+  \+\_\*&\_\+
+</Tip>

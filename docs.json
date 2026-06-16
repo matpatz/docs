@@ -16,15 +16,118 @@
           "index",
           "quickstart"
         ]
-      }
+      },
+      {
+        "group": "Api",
+        "pages": [
+          "index",
+          {
+            "group": "Actors",
+            "pages": [
+              "actors",
+              "get_comm_channel",
+              "get-comm-channels",
+              "getactors",
+              "getactorthreads",
+              "getdeletedactors",
+              "is-parallel",
+              "run-on-actor",
+              "run-on-thread"
+            ]
+          },
+          {
+            "group": "Cache Library",
+            "pages": []
+          },
+          {
+            "group": "Closures",
+            "pages": []
+          },
+          {
+            "group": "Console",
+            "pages": []
+          },
+          {
+            "group": "Crypt Library",
+            "pages": []
+          },
+          {
+            "group": "Debug Library",
+            "pages": []
+          },
+          {
+            "group": "Drawing Library",
+            "pages": []
+          },
+          {
+            "group": "DrawingImmediate  Library",
+            "pages": []
+          },
+          {
+            "group": "Environment",
+            "pages": []
+          },
+          {
+            "group": "FileSystem",
+            "pages": []
+          },
+          {
+            "group": "Input",
+            "pages": []
+          },
+          {
+            "group": "Instance",
+            "pages": []
+          },
+          {
+            "group": "Oth Library",
+            "pages": []
+          },
+          {
+            "group": "Metatable",
+            "pages": []
+          },
+          {
+            "group": "Miscellaneous",
+            "pages": []
+          },
+          {
+            "group": "RakNet Library",
+            "pages": []
+          },
+          {
+            "group": "Reflection",
+            "pages": []
+          },
+          {
+            "group": "Script",
+            "pages": [
+              "getloadedmodules",
+              "getdeletedmodules",
+              "getthreadident",
+              "getrunningscripts",
+              "etscriptbytecode",
+              "getscriptclosure",
+              "getscriptfromclosure",
+              "getscriptfromthread",
+              "getscriptthread",
+              "getscripthash"
+            ]
+          },
+          {
+            "group": "Signal",
+            "pages": []
+          },
+          {
+            "group": "WebSocket Library",
+            "pages": []
+          }
+        ]
+      },
+      "template-md"
     ],
     "global": {
       "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
         {
           "anchor": "Blog",
           "href": "https://mintlify.com/blog",

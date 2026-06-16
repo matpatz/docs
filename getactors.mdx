@@ -1,0 +1,50 @@
+---
+title: "getactors"
+---
+
+```luau
+function getactors(): {Actor}
+```
+
+<Tip>
+  Alias: get\_actors
+</Tip>
+
+**Example:**
+
+<CodeGroup>
+
+```luau Example 1 highlight={1}
+local actors = getactors()
+table.foreachi(actors, function(i, actor)
+    print(i, actor.Name)
+end)
+```
+
+```luau Example 2 highlight={1}
+local actor = getactors()[1]
+run_on_actor(actor, [[
+	print(`Hello from {actor}`)
+]])
+```
+
+```luau Example 3
+print(table.find(getactors(), "Client"))
+```
+
+</CodeGroup>
+
+<Check>
+  This function can be implemented in Lua.
+</Check>
+
+```luau highlight={7}
+task.spawn(function()
+    local start1 = os.clock()
+    local actors1 = game:QueryDescendants("Actor")
+    print("QueryDescendants:", os.clock() - start1)
+    local start2 = os.clock()
+    local actors2 = getactors()
+    print("getactors:", os.clock() - start2) -- Should be faster
+end)
+```

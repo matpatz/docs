@@ -1,0 +1,46 @@
+---
+title: "getscripthash"
+---
+
+Returns a SHA-384 hash of a script's bytecode. Most commonly used to detect when a script's source has been modified or recompiled.
+
+```luau
+getscripthash(script: LuaSourceContainer): string
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `script` | [`LuaSourceContainer`](https://create.roblox.com/docs/reference/engine/classes/LuaSourceContainer) | The script to hash. |
+
+## Returns
+
+`string` - a 96-character hexadecimal string (48 bytes).
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local animate = cloneref(game:GetService("Players")).LocalPlayer.Character.Animate
+local hash = getscripthash(animate)
+
+print(hash)
+```
+
+```luau Example 2
+local hashes = {}
+table.foreach(getscripts(), function(i, script)
+	table.insert(hashes, getscripthash(script))
+end)
+
+-- not really but: you get the point
+if #hashes ~= 620 then
+	error("The game has been updated, stopping execution.", 2)
+else
+	print(string.rep("67 ", 67))
+end
+```
+
+</CodeGroup>

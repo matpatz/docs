@@ -1,0 +1,53 @@
+---
+title: "get_comm_channel"
+---
+
+```luau
+function get_comm_channel(id: number): BindableEvent
+```
+
+Returns the `BindableEvent` associated with the given communication channel `id`, allowing actors to send and receive messages across VMs.
+
+**Example:**
+
+```luau highlight={8}
+local id, channel = create_comm_channel()
+channel.Event:Connect(function(data)
+    print(data) -- Hello, World!
+end)
+
+run_on_actor(getactors()[1], [[
+    local id = ...
+    local channel = get_comm_channel(id)
+    channel:Fire("Hello, World!")
+]], id)
+```
+
+<Check>
+  This function can be implemented in Lua.
+</Check>
+
+```luau
+local channels = {}
+
+local function create_comm_channel(): (number, BindableEvent)
+	local Id = #channels + 1
+	local Event = Instance.new("BindableEvent", gethui())
+
+	channels[Id] = {
+		Id = Id,
+		Event = Event
+	}
+
+	return Id, Event
+end
+
+local function get_comm_channel(Id: number): BindableEvent?
+	local Channel = channels[Id]
+	return Channel and Channel.Event
+end
+
+local function get_comm_channels()
+	return channels
+end
+```

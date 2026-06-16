@@ -1,0 +1,39 @@
+---
+title: "getscriptfromthread"
+---
+
+Returns the script associated with a given thread (coroutine). Useful for identifying which script spawned or owns a particular thread.
+
+```luau
+getscriptfromthread(thread: thread): LuaSourceContainer?
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `thread` | `thread` | The coroutine thread to retrieve the script from. |
+
+## Returns
+
+`[LuaSourceContainer](https://create.roblox.com/docs/reference/engine/classes/LuaSourceContainer)?` - the script that owns the given thread, or `nil` if the thread has no associated script.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+table.foreach(getallthreads(), function(i, thread)
+	print(getscriptfromthread(thread))
+end)
+```
+
+```luau Example 2
+local t = coroutine.create(function()
+	local owner = getscriptfromthread(coroutine.running())
+	print(`Thread is owned by {owner}`)
+end)
+coroutine.resume(t)
+```
+
+</CodeGroup>

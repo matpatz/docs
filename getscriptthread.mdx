@@ -1,0 +1,49 @@
+---
+title: "getscriptthread"
+---
+
+Returns the main thread associated with a given script. The inverse of `getscriptfromthread` — useful for interacting with or inspecting the thread a script is running on.
+
+```luau
+getscriptthread(script: LuaSourceContainer): thread?
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `script` | [`LuaSourceContainer`](https://create.roblox.com/docs/reference/engine/classes/LuaSourceContainer) | The script whose thread you want to retrieve. |
+
+## Returns
+
+`thread?` - the coroutine thread associated with the given script, or `nil` if the script is not currently running.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1 wrap
+local MapManager = game:GetService("ReplicatedStorage").Modules.Client.UI.MapManager
+local Thread = getscriptthread(MapManager) -- May be multiple items
+
+-- How would you find the exact thread? by a stupid hook on task.spawn checking the name, then line count and hooking it.
+-- or SOMEONE could make a new funciton for that, since threads are neglected
+-- Everything's for functions, even though theyre lame and easily identifable, but threads cant be identifed in any way less than a hook, which is time consuming.
+```
+
+```luau Example 2
+-- After the parents death the thread still runs.
+for _, script in getnilinstances() do
+    if not script:IsA("LocalScript") then
+        continue
+    end
+
+    local thread = getscriptthread(script);
+
+    if thread and coroutine.status(thread) ~= "dead" then
+        task.cancel(thread)
+    end
+end
+```
+
+</CodeGroup>

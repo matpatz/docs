@@ -1,0 +1,28 @@
+---
+title: "getthreadidentity"
+---
+
+```luau
+function getthreadidentity(): number
+```
+
+<Tip>
+  Aliases: `getidentity` `getthreadcontext` `get_thread_identity` `getthreadcaps`
+</Tip>
+
+Returns the current thread's identity.
+
+**Example:** Prints the current thread's identity to the console.
+
+<CodeGroup>
+
+```luau Example 1
+print(getthreadidentity()) --> 8 (without previous changes)
+```
+
+```luau Example 2
+local identity = getthreadidentity()
+print("Thread identity: " .. identity)
+```
+
+</CodeGroup>

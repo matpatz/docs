@@ -1,0 +1,54 @@
+---
+title: "getactorthreads"
+---
+
+```luau
+function getactorthreads(): {thread}
+```
+
+<Tip>
+  Alias: get\_actor\_threads
+</Tip>
+
+**Example:** Indexes every actor thread and outputs it to the console.
+
+<CodeGroup>
+
+```luau Example 1
+table.foreach(getactorthreads(), print)
+```
+
+```luau Example 2
+local threads = getactorthreads()
+table.foreach(threads, function(i, thread)
+	run_on_thread(thread, [[
+		print(thread)
+	]])
+end)
+```
+
+```luau Example 3
+-- Count how many actor threads are running
+print("Active actor threads: " .. #getactorthreads())
+```
+
+</CodeGroup>
+
+<Check>
+  This function can be implemented in Lua.
+</Check>
+
+```luau highlight={5}
+task.spawn(function()
+    local start1 = os.clock()
+    local t1 = game:QueryDescendants("Actor")
+    print("QueryDescendants:", os.clock() - start1)
+    local start2 = os.clock()
+    local t2 = getactorthreads()
+    print("getactorthreads:", os.clock() - start2) -- Should be faster
+end)
+```
+
+> Threads come from Roblox's parallel Luau model — when a `Script` is parented inside an `Actor`, a dedicated thread is created for it, isolated from the main thread and all other actors.
+>
+> Parallel meaning at the same time.

@@ -1,0 +1,32 @@
+---
+title: "run_on_thread"
+---
+
+```luau
+function run_on_thread(thread: thread, script: string, ...): ()
+```
+
+Executes code on a actors thread
+
+> Each Script inside an Actor has a thread, but they die quickly.
+
+Example 1:
+
+<CodeGroup>
+
+```luau Example 1
+run_on_thread(getactorthreads()[1], [[
+    print("Hello, world!")
+]])
+```
+
+```luau Example 2
+local threads = getactorthreads()
+table.foreach(threads, function(i, thread)
+	run_on_thread(thread, [[
+		print(thread)
+	]])
+end)
+```
+
+</CodeGroup>

@@ -1,0 +1,51 @@
+---
+title: "getscriptclosure"
+description: "Returns the script's main closure, recompiled from bytecode on every call."
+---
+
+Returns the main closure of a `LocalScript{:luau}` or `ModuleScript{:luau}`, recompiled from the script's bytecode on every call.
+
+When Roblox compiles a script, it wraps all of its code in an implicit top-level function — the main closure. Every local, function definition, and `return{:luau}` you write lives inside it. Roblox calls it once when the script loads, then discards it. `getscriptclosure(){:luau}` reconstructs that function from the script's stored bytecode without re-executing it, giving you a callable handle you can pass to `debug{:luau}` functions.
+
+```luau
+getscriptclosure(script: LuaSourceContainer): function
+```
+
+Each call recompiles the closure from the script's bytecode.
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `script` | [`LuaSourceContainer`](https://create.roblox.com/docs/reference/engine/classes/LuaSourceContainer) | The script to compile a closure from. |
+
+## Returns
+
+`function`
+
+## Aliases
+
+- `getscriptfunction{:luau}`
+
+## Example
+
+In a game whose shop UI is a `LocalScript{:luau}`, recover its hardcoded string literals even though Roblox stripped `.Source{:luau}` on the client.
+
+<details>
+  <summary>Solution</summary>
+
+  ```luau
+  local target = game:GetService("Players").LocalPlayer.PlayerScripts:FindFirstChildOfClass("LocalScript")
+  local closure = getscriptclosure(target)
+  for i, k in ipairs(debug.getconstants(closure)) do
+      print(`[{i}] {typeof(k)} {tostring(k)}`)
+  end
+  ```
+</details>
+
+## Edge cases
+
+- **Each call returns a new closure.** Two `getscriptclosure(sameScript){:luau}` calls produce two distinct function objects. `getfunctionhash(){:luau}` on each matches - same bytecode, recompiled per call.
+- **The returned closure is executor-allocated.** `isexecutorclosure(){:luau}` returns `true{:luau}` even when `script{:luau}` is a Roblox-shipped `LocalScript{:luau}` or `ModuleScript{:luau}`.
+- **Upvalues are not restored.** The recompiled closure has no upvalues — `debug.getupvalues(){:luau}` returns an empty table. Use `getscriptthread(){:luau}` and inspect the live thread if you need actual upvalue state.
+- **Roblox strips `.Source{:luau}` on the client.** `getscriptclosure(){:luau}` paired with `debug.getconstants(){:luau}` is the way around it — the returned closure carries the script's bytecode, which `debug{:luau}` reads directly.
