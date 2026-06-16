@@ -2,10 +2,39 @@
 title: "disassemble"
 ---
 
+Returns a human-readable Luau bytecode disassembly for a `LocalScript` or `ModuleScript`.
+
+```luau
+disassemble(script: LuaSourceContainer): string
+```
+
+Where `decompile` rebuilds readable Luau source, `disassemble` stays one level lower and lists the script's compiled bytecode instructions as text. Reach for it when you want to see the exact opcodes, or when the decompiler can't recover part of a script.
+
+Seliware uses the Konstant v2.1 disassembler.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `script` | [`LuaSourceContainer`](https://create.roblox.com/docs/reference/engine/classes/LuaSourceContainer) | The script to disassemble. |
+
+## Returns
+
+`string` - the script's bytecode disassembly, as readable text.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local asm = disassemble(workspace.Part.LocalScript)
+```
+
 ```luau Example 2
 -- Alternative usage
 task.spawn(function()
-    disassemble(script: LuaSourceContainer): string
+    local asm = disassemble(game.Players.LocalPlayer.Character.Animate)
+    print(asm)
 end)
 ```
 

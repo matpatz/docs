@@ -2,10 +2,39 @@
 title: "getscriptbytecode"
 ---
 
+Returns the compiled Luau bytecode of a `LocalScript` or `ModuleScript` as a string.
+
+```luau
+getscriptbytecode(script: LuaSourceContainer): string
+```
+
+Pass a script Instance and the function returns the bytecode the engine compiled from its source. Returns `nil` when the client can't reach the script.
+
+Most commonly used to feed bytecode into a custom decompiler or disassembler. The built-in `decompile()` and `disassemble()` accept a script Instance directly and call `getscriptbytecode()` internally - reach for it yourself only when you need the raw bytes.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `script` | [`LuaSourceContainer`](https://create.roblox.com/docs/reference/engine/classes/LuaSourceContainer) | The script to read bytecode from. |
+
+## Returns
+
+`string` - the script's compiled bytecode in binary form.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local bytecode = getscriptbytecode(workspace.Part.LocalScript)
+```
+
 ```luau Example 2
 -- Alternative usage
 task.spawn(function()
-    getscriptbytecode(script: LuaSourceContainer): string
+    local bytecode = getscriptbytecode(game.Players.LocalPlayer.Character.Animate)
+    print(bytecode)
 end)
 ```
 
