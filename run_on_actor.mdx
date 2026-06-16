@@ -12,7 +12,7 @@ An [Actor](https://create.roblox.com/docs/reference/engine/classes/Actor) is a R
 
 Most commonly used to push work into an Actor's own Luau context, which is what multi-threaded scripts need when they can't share one state.
 
-The actor runs in a separate Lua state, so `shared` and `_G` <span title="While untested with getgenv(), it's still not recommended." style="text-decoration:underline dotted;text-underline-offset:0.2em;cursor:help;">don't cross between it and the calling script</span> - each side has its own. Pass any value the code needs through the `...` varargs instead.
+The actor runs in a separate Lua state, so `shared` and `_G` <span title="While untested with getgenv(), it's still not recommended." style={{ textDecoration: "underline dotted", textUnderlineOffset: "0.2em", cursor: "help" }}>don't cross between it and the calling script</span> - each side has its own. Pass any value the code needs through the `...` varargs instead.
 
 ## Parameters
 

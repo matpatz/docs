@@ -8,7 +8,7 @@ Returns the event for an already-opened channel (by its id).
 get_comm_channel(id: number): BindableEvent?
 ```
 
-`id` is the number that `create_comm_channel` gave you back when the channel was opened. Used on the receiving side of an actor split: a <span title="A script running on its own Roblox Actor (e.g. started via run_on_actor), with an isolated environment separate from the main thread." style="text-decoration:underline dotted;text-underline-offset:0.2em;cursor:help;">worker thread</span> should call `get_comm_channel(id)` to reach the same one. The result is a Roblox [`BindableEvent`](https://create.roblox.com/docs/reference/engine/classes/BindableEvent), so use `:Fire(...)` to send messages and `.Event:Connect(...)` to receive them, or `.Event:Wait()` to yield until the next one arrives.
+`id` is the number that `create_comm_channel` gave you back when the channel was opened. Used on the receiving side of an actor split: a <span title="A script running on its own Roblox Actor (e.g. started via run_on_actor), with an isolated environment separate from the main thread." style={{ textDecoration: "underline dotted", textUnderlineOffset: "0.2em", cursor: "help" }}>worker thread</span> should call `get_comm_channel(id)` to reach the same one. The result is a Roblox [`BindableEvent`](https://create.roblox.com/docs/reference/engine/classes/BindableEvent), so use `:Fire(...)` to send messages and `.Event:Connect(...)` to receive them, or `.Event:Wait()` to yield until the next one arrives.
 
 ## Parameters
 

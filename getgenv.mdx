@@ -3,7 +3,7 @@ title: "getgenv"
 ---
 
 Returns the executor's global environment - a shared table across all scripts in the same Roblox session.
-<span class="subtext">Userscripts can add values to it, but they're gone the moment you leave a Roblox game.</span>
+<span className="subtext">Userscripts can add values to it, but they're gone the moment you leave a Roblox game.</span>
 
 ```luau
 getgenv(): table
@@ -16,7 +16,7 @@ getgenv(): table
 | Seliware's environment | Seliware's functions and libraries (`getgc`, `hookfunction`, the `WebSocket` library, and the rest), including whatever a user's script writes there - bools, numbers, tables, etc. |
 | Roblox globals | Reachable through the env's raw metatable - `print`, `task`, and everything else a normal Roblox script sees. |
 
-<span class="subtext">Reaching Roblox globals through `getgenv()` (like `getgenv().print`) works, but there is no reason to - they are already in scope, so call `print`, `task`, and the rest directly. The one exception is `require`: use `getrenv().require` for the game's copy, covered on the `getrenv` page.</span>
+<span className="subtext">Reaching Roblox globals through `getgenv()` (like `getgenv().print`) works, but there is no reason to - they are already in scope, so call `print`, `task`, and the rest directly. The one exception is `require`: use `getrenv().require` for the game's copy, covered on the `getrenv` page.</span>
 
 ## Example
 
