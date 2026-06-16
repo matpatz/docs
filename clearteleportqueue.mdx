@@ -1,0 +1,49 @@
+---
+title: "clearteleportqueue"
+---
+
+```luau
+clearteleportqueue(): ()
+```
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Aliases
+
+- `clear_teleport_queue{:luau}`
+- `clearqueueonteleport{:luau}`
+
+## Example
+```
+
+Clears every script queued with `queueonteleport` so none of them run on the next teleport.
+
+```luau
+clearteleportqueue(): ()
+```
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+clearteleportqueue(): ()
+```
+
+```luau Example 2
+queueonteleport([[ print("this would run after the teleport") ]])
+-- wait, i changed my mind
+clearteleportqueue() -- queue is empty now, the script above never runs
+```
+
+</CodeGroup>
+
+<Tip>
+  Clears scripts queued via `queueonteleport`.
+</Tip>

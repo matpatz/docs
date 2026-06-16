@@ -1,0 +1,37 @@
+---
+title: "getfflagtype"
+---
+
+Returns the data type of the specified Fast Flag.
+
+```luau
+getfflagtype(flag: string): string
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `flag` | `string` | The name of the Fast Flag. |
+
+## Returns
+
+`string` - The FFlag data type (e.g. `'bool'`, `'int'`, `'string'`).
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+print("Flag Type: ", getfflagtype("DFIntTaskSchedulerTargetFps")) -- int
+```
+
+```luau Example 2
+print(getfflagtype("FFlagCoreGuiDrivesLocalPlayer")) -- bool
+```
+
+</CodeGroup>
+
+<Tip>
+  Useful when determining what type of value to assign via `setfflag`.
+</Tip>

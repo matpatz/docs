@@ -2,38 +2,74 @@
 title: "getscriptfromthread"
 ---
 
-Returns the script associated with a given thread (coroutine). Useful for identifying which script spawned or owns a particular thread.
-
 ```luau
-getscriptfromthread(thread: thread): LuaSourceContainer?
+getscriptfromthread(t: thread): Instance?
 ```
+
+Game-side threads spawned by a running LocalScript map back to that LocalScript Instance. 
+
+The common source of valid threads is the table returned by `getreg(){:luau}`. Pass each thread from the registry to `getscriptfromthread{:luau}` and you get the owning script back. Multiple threads can map to the same script - one LocalScript can spawn many coroutines, and each one points to that same LocalScript.
+
+Most commonly used inside a hook to figure out which game script triggered the call, by passing `coroutine.running(){:luau}` from the hook body.
 
 ## Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
-| `thread` | `thread` | The coroutine thread to retrieve the script from. |
+|-----------|------|-------------|
+| `t` | `thread` | The Lua thread to look up. |
 
 ## Returns
 
-`[LuaSourceContainer](https://create.roblox.com/docs/reference/engine/classes/LuaSourceContainer)?` - the script that owns the given thread, or `nil` if the thread has no associated script.
+`Instance?{:luau}` - the script that owns `t{:luau}`, or `nil{:luau}` if no script owns it. Executor-created threads always return `nil{:luau}`.
+
+## Example
+
+Print the owning script for every thread `getreg(){:luau}` returns. Threads with no game-side owner are skipped.
+```
+
+Maps a Lua thread back to the script Instance it belongs to.
+
+```luau
+getscriptfromthread(t: thread): Instance?
+```
+
+Game-side threads spawned by a running LocalScript map back to that LocalScript Instance. 
+
+The common source of valid threads is the table returned by `getreg()`. Pass each thread from the registry to `getscriptfromthread` and you get the owning script back. Multiple threads can map to the same script - one LocalScript can spawn many coroutines, and each one points to that same LocalScript.
+
+Most commonly used inside a hook to figure out which game script triggered the call, by passing `coroutine.running()` from the hook body.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `t` | `thread` | The Lua thread to look up. |
+
+## Returns
+
+`Instance?` - the script that owns `t`, or `nil` if no script owns it. Executor-created threads always return `nil`.
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-table.foreach(getallthreads(), function(i, thread)
-	print(getscriptfromthread(thread))
-end)
+getscriptfromthread(t: thread): Instance?
 ```
 
 ```luau Example 2
-local t = coroutine.create(function()
-	local owner = getscriptfromthread(coroutine.running())
-	print(`Thread is owned by {owner}`)
-end)
-coroutine.resume(t)
+for _, item in ipairs(getreg()) do -- this would've been easier if getallthreads() existed :(
+    if type(item) == "thread" then
+        local owner = getscriptfromthread(item)
+        if owner then
+            print(`{owner:GetFullName()}`)
+        end
+    end
+end
 ```
 
 </CodeGroup>
+
+<Tip>
+  `gettenv(t).script` returns the same Instance as `getscriptfromthread(t)` for any matching thread. Useful when you already have the thread's env table on hand and don't want a second call.
+</Tip>

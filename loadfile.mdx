@@ -1,0 +1,79 @@
+---
+title: "loadfile"
+---
+
+```luau
+loadfile(path: string, chunkname: string?): function?, string?
+```
+
+`path{:luau}` is relative to Seliware's workspace folder.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `path` | `string` | Luau source file to load.  |
+| `chunkname` | `string?` | Optional label that appears in stack traces and error messages. Defaults to the file path. |
+
+## Returns
+
+`(function, nil)` on success, `(nil, string)` on failure. Always check the second return before invoking the first.
+
+| Outcome | First return | Second return |
+|---------|--------------|---------------|
+| File compiled cleanly | callable function | `nil{:luau}` |
+| File missing or syntax error | `nil{:luau}` | error message |
+
+## Example
+
+Cache a helper function via `loadfile(){:luau}` so you can re-call it without re-reading the file:
+```
+
+Reads the file at `path`, compiles it as Luau, and returns the resulting chunk as a function. The function is not called yet - invoke it yourself when you're ready to run the code.
+
+```luau
+loadfile(path: string, chunkname: string?): function?, string?
+```
+
+`path` is relative to Seliware's workspace folder.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `path` | `string` | Luau source file to load.  |
+| `chunkname` | `string?` | Optional label that appears in stack traces and error messages. Defaults to the file path. |
+
+## Returns
+
+`(function, nil)` on success, `(nil, string)` on failure. Always check the second return before invoking the first.
+
+| Outcome | First return | Second return |
+|---------|--------------|---------------|
+| File compiled cleanly | callable function | `nil` |
+| File missing or syntax error | `nil` | error message |
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+loadfile(path: string, chunkname: string?): function?, string?
+```
+
+```luau Example 2
+local helper, err = loadfile("meow/aimbot.luau", "aimbot")
+if not helper then
+    warn(`couldn't load helper: {err}`)
+    return
+end
+
+helper()
+-- ...
+```
+
+</CodeGroup>
+
+<Tip>
+  Compiles the script but does not execute it until the returned function is called.
+</Tip>

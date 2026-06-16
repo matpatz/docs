@@ -1,0 +1,40 @@
+---
+title: "get_comm_channels"
+---
+
+```luau
+get_comm_channels(): {[number]: BindableEvent}
+```
+
+Returns a dictionary of all active communication channels created via `create_comm_channel` during the current session, mapped by their unique IDs.
+
+## Returns
+
+`{[number]: BindableEvent}` - A dictionary where the keys are channel IDs and values are their corresponding `BindableEvent` objects.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+-- Print details of all active communication channels
+for id, event in pairs(get_comm_channels()) do
+    print(`Channel ID: {id}, Event: {event}`)
+end
+```
+
+```luau Example 2
+-- Check if any communication channels are currently open
+local active_channels = get_comm_channels()
+if next(active_channels) == nil then
+    print("No active channels found.")
+else
+    print("Found active communication channels.")
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  Useful for debugging multi-actor scripts to check which channels were successfully registered.
+</Tip>

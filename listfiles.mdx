@@ -1,0 +1,61 @@
+---
+title: "listfiles"
+---
+
+```luau
+listfiles(path: string?): {string}
+```
+
+`path{:luau}` is workspace-relative. Call `listfiles(){:luau}` with no argument and you get the workspace root itself - note this only works when the argument is omitted entirely, passing an empty string (`listfiles(""){:luau}`) does not. The listing is one level deep - subfolders show up as entries, but their contents don't. To walk a tree, recurse with `isfolder{:luau}` on each entry.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `path` | `string?` | Folder to list. Omit it to list the workspace root. |
+
+## Returns
+
+`{string}` - a table of full paths for every file and subfolder inside `path{:luau}`. The order is not guaranteed. Empty folders return an empty table.
+
+## Example
+
+Enumerate every hub script you've saved under `hubs/`:
+```
+
+Returns a table of strings - one entry per file and subfolder inside `path`. 
+```luau
+listfiles(path: string?): {string}
+```
+
+`path` is workspace-relative. Call `listfiles()` with no argument and you get the workspace root itself - note this only works when the argument is omitted entirely, passing an empty string (`listfiles("")`) does not. The listing is one level deep - subfolders show up as entries, but their contents don't. To walk a tree, recurse with `isfolder` on each entry.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `path` | `string?` | Folder to list. Omit it to list the workspace root. |
+
+## Returns
+
+`{string}` - a table of full paths for every file and subfolder inside `path`. The order is not guaranteed. Empty folders return an empty table.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+listfiles(path: string?): {string}
+```
+
+```luau Example 2
+for _, entry in ipairs(listfiles("hubs")) do
+    print(entry)
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  Returned paths use **backslashes** as separators (`hubs\blade_ball.luau`), even though the paths you pass in use forward slashes.
+</Tip>

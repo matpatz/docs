@@ -1,0 +1,45 @@
+---
+title: "request"
+---
+
+Sends an HTTP request with customizable options.
+
+```luau
+request(options: table): table
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `options` | `table` | A configuration table containing keys: `Url`, `Method`, `Headers`, `Body`, `Cookies`, etc. |
+
+## Returns
+
+`table` - A response table containing keys: `StatusCode`, `StatusDescription`, `Headers`, `Body`, `Cookies`.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local res = request({
+    Url = "https://httpbin.org/get",
+    Method = "GET"
+})
+print("Code: ", res.StatusCode)
+```
+
+```luau Example 2
+local res = request({
+    Url = "https://httpbin.org/post",
+    Method = "POST",
+    Body = "myBodyData"
+})
+```
+
+</CodeGroup>
+
+<Tip>
+  Allows sending complex requests (POST, headers, authentication) from client scripts.
+</Tip>

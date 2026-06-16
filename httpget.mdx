@@ -1,0 +1,39 @@
+---
+title: "httpget"
+---
+
+Performs an HTTP GET request and returns the response body string.
+
+```luau
+httpget(url: string): string
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `url` | `string` | The URL to send the GET request to. |
+
+## Returns
+
+`string` - The response body content.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local html = httpget("https://google.com")
+print(html)
+```
+
+```luau Example 2
+local rawCode = httpget("https://raw.githubusercontent.com/user/script.lua")
+loadstring(rawCode)()
+```
+
+</CodeGroup>
+
+<Tip>
+  Bypasses standard Roblox HttpService limitations.
+</Tip>

@@ -1,0 +1,88 @@
+---
+title: "setreadonly"
+---
+
+```luau
+setreadonly(t: table, readonly: boolean): ()
+```
+
+Most commonly used to lock the table again after unlocking it.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `t` | `table` | The table to lock or unlock. |
+| `readonly` | `boolean` | `true{:luau}` locks the table, `false{:luau}` unlocks it. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+Hook the __namecall metamethod, and prevent the \<RemoteEvent\> UpdateFPS from firing.
+
+<details>
+<summary>Solution</summary>
+```
+
+Locks or unlocks a table - locked tables can't have their contents changed until they're unlocked.
+
+```luau
+setreadonly(t: table, readonly: boolean): ()
+```
+
+Most commonly used to lock the table again after unlocking it.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `t` | `table` | The table to lock or unlock. |
+| `readonly` | `boolean` | `true` locks the table, `false` unlocks it. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+setreadonly(t: table, readonly: boolean): ()
+```
+
+```luau Example 2
+local updatefps = game:GetService("ReplicatedStorage"):WaitForChild("UpdateFPS")
+
+local prev = getidentity()
+setidentity(3)
+
+local mt = getrawmetatable(game)
+local oldNamecall = mt.__namecall
+
+setreadonly(mt, false)
+mt.__namecall = newcclosure(function(self, ...)
+    -- block FireServer on updatefps from the game's own scripts and let seliware through
+    if self == updatefps and not checkcaller() then
+        local method = getnamecallmethod()
+
+        if method == "FireServer" or method == "fireServer" then
+            return
+        end
+    end
+
+    return oldNamecall(self, ...)
+end)
+setreadonly(mt, true)
+
+setidentity(prev)
+```
+
+</CodeGroup>
+
+<Tip>
+  Unified wrapper equivalent to calling `makereadonly` or `makewritable`.
+</Tip>

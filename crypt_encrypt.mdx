@@ -2,34 +2,87 @@
 title: "crypt.encrypt"
 ---
 
-Encrypts a plain text string using a key, cipher mode, and optional initialization vector (IV).
-
 ```luau
-crypt.encrypt(data: string, key: string, iv: string?, cipher: string): (string, string)
+crypt.encrypt(data: string, key: string, iv: string?, mode: string?): (string, string)
 ```
+
+`key{:luau}` is a base64-encoded 256-bit [AES key](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) (call `crypt.generatekey(){:luau}` to make one).
+
+`iv{:luau}` is a base64-encoded 16-byte [initialization vector](https://en.wikipedia.org/wiki/Initialization_vector).
+
+Default `mode{:luau}` is `"CBC"{:luau}`. Other accepted modes: `"ECB"{:luau}`, `"CTR"{:luau}`, `"CFB"{:luau}`, `"OFB"{:luau}`, `"GCM"{:luau}`. <br /> [Learn more here](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation).
 
 ## Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
-| `data` | `string` | The plain text data to encrypt. |
-| `key` | `string` | The encryption key. |
-| `iv` | `string` | *(Optional)* The initialization vector. If not provided or `nil`, a random IV is generated and returned. |
-| `cipher` | `string` | The cipher mode (e.g. `"CBC"`, `"ECB"`, etc.). |
+|-----------|------|-------------|
+| `data` | `string` | The plaintext to encrypt. |
+| `key` | `string` | Base64-encoded 32-byte AES key. |
+| `iv` | `string?` | Base64-encoded 16-byte IV. Random if omitted. |
+| `mode` | `string?` | One of the modes. Defaults to `"CBC"`. |
 
 ## Returns
 
-1. `string` - The encrypted cipher text.
-2. `string` - The initialization vector (IV) used for the encryption.
+`(string, string)` - a tuple of (ciphertext, IV) where both are base64-encoded. The IV is returned even when the caller provided one, so the value can always be stored or transmitted alongside the ciphertext.
+
+## Example
+
+Cache some sensitive data to disk so the next script run can reuse it without re-fetching.<br />Encrypt it first so anyone who copies or shares the file can't read the value. <a href="/docs/contributors#jake3232" title="Contributed by jake3232"><img src={pfpJake3232.src} alt="jake3232" style="width:1.75rem;height:1.75rem;border-radius:9999px;display:inline-block;vertical-align:middle;object-fit:cover;margin-left:0.5rem;" /></a>
+
+<details>
+<summary>Solution</summary>
+```
+
+import pfpJake3232 from '../../../assets/8066320ada56107c30dbf7f6dd44fa0b.webp';
+
+Encrypts a string with AES using the given key and mode.
+
+```luau
+crypt.encrypt(data: string, key: string, iv: string?, mode: string?): (string, string)
+```
+
+`key` is a base64-encoded 256-bit [AES key](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) (call `crypt.generatekey()` to make one).
+
+`iv` is a base64-encoded 16-byte [initialization vector](https://en.wikipedia.org/wiki/Initialization_vector).
+
+Default `mode` is `"CBC"`. Other accepted modes: `"ECB"`, `"CTR"`, `"CFB"`, `"OFB"`, `"GCM"`. <br /> [Learn more here](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation).
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `data` | `string` | The plaintext to encrypt. |
+| `key` | `string` | Base64-encoded 32-byte AES key. |
+| `iv` | `string?` | Base64-encoded 16-byte IV. Random if omitted. |
+| `mode` | `string?` | One of the modes. Defaults to `"CBC"`. |
+
+## Returns
+
+`(string, string)` - a tuple of (ciphertext, IV) where both are base64-encoded. The IV is returned even when the caller provided one, so the value can always be stored or transmitted alongside the ciphertext.
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local key = crypt.generatekey()
-local encrypted, iv = crypt.encrypt("test", key, nil, "CBC")
-assert(iv, "crypt.encrypt should return an IV")
+crypt.encrypt(data: string, key: string, iv: string?, mode: string?): (string, string)
+```
+
+```luau Example 2
+-- run crypt.generatekey() once, paste the 44-char result here
+local KEY = "your-base64-key"
+
+local cipher, iv = crypt.encrypt("LIC-A1B2C3D4-EXP-2026", KEY)
+writefile("license.cache", `{cipher}|{iv}`)
+
+-- best practice is to do that in a queue_on_teleport call (runs faster than autoexec),
+-- or on your server
+
+-- because what if someone hooks crypt.encrypt()?
 ```
 
 </CodeGroup>
+
+<Tip>
+  Always save the generated IV, as it is required to decrypt the data later.
+</Tip>

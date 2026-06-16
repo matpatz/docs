@@ -1,0 +1,40 @@
+---
+title: "debug.setname"
+---
+
+Sets the name of the specified function in the debug structure.
+
+```luau
+debug.setname(func: function, name: string): ()
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `func` | `function` | The target function to rename. |
+| `name` | `string` | The new debug name for the function. |
+
+## Returns
+
+`void`
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local function test() end
+debug.setname(test, "new_func_name")
+print(debug.getinfo(test).name) -- "new_func_name"
+```
+
+```luau Example 2
+debug.setname(function() end, "anonymous_hook")
+```
+
+</CodeGroup>
+
+<Tip>
+  Renaming functions makes stack traces and profiling outputs easier to read.
+</Tip>

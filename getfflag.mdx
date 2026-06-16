@@ -1,0 +1,75 @@
+---
+title: "getfflag"
+---
+
+```luau
+getfflag(name: string): any
+```
+
+Pass the flag's literal name, without a prefix (e.g. `"EnablePreloading"{:luau}`, not `"DFFlagEnablePreloading"{:luau}`).
+
+Flag names follow one of six type prefixes: `FFlag{:luau}` / `DFFlag{:luau}` (booleans), `FInt{:luau}` / `DFInt{:luau}` (integers), `FString{:luau}` / `DFString{:luau}` (strings). The leading `D` marks dynamic flags, which refresh at runtime; the rest lock at session start.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `name` | `string` | Flag name. |
+
+## Returns
+
+Return type tracks the flag's declared type:
+
+| Flag prefix | Returns |
+|-------------|---------|
+| `FFlag{:luau}` or `DFFlag{:luau}` | `boolean` |
+| `FInt{:luau}` or `DFInt{:luau}` | `number` |
+| `FString{:luau}` or `DFString{:luau}` | `string` |
+
+## Example
+```
+
+Reads the current value of a Roblox Fast Flag.
+
+```luau
+getfflag(name: string): any
+```
+
+Pass the flag's literal name, without a prefix (e.g. `"EnablePreloading"`, not `"DFFlagEnablePreloading"`).
+
+Flag names follow one of six type prefixes: `FFlag` / `DFFlag` (booleans), `FInt` / `DFInt` (integers), `FString` / `DFString` (strings). The leading `D` marks dynamic flags, which refresh at runtime; the rest lock at session start.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `name` | `string` | Flag name. |
+
+## Returns
+
+Return type tracks the flag's declared type:
+
+| Flag prefix | Returns |
+|-------------|---------|
+| `FFlag` or `DFFlag` | `boolean` |
+| `FInt` or `DFInt` | `number` |
+| `FString` or `DFString` | `string` |
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+getfflag(name: string): any
+```
+
+```luau Example 2
+local preloading = getfflag("EnablePreloading")
+print(`EnablePreloading = {preloading}`)
+```
+
+</CodeGroup>
+
+<Tip>
+  Roblox configuration Fast Flags control various engine properties.
+</Tip>

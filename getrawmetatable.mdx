@@ -1,0 +1,67 @@
+---
+title: "getrawmetatable"
+---
+
+```luau
+getrawmetatable(object: table | userdata): table?
+```
+
+If the `__metatable{:luau}` metamethod is set, `getmetatable{:luau}` returns that value instead of the actual metatable itself. `getrawmetatable{:luau}` skips that lock, and returns the metatable directly.
+
+Most commonly used to grab the `game{:luau}`'s `__index{:luau}` or `__namecall{:luau}` metamethods so you're able to hook them.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `object` | `table \| userdata` | The table or userdata to inspect. |
+
+## Returns
+
+`table?` - the metatable of `object{:luau}`, or `nil{:luau}` if it has none. The returned table is the source's metatable - **not a copy**. Editing the metatable mutates the live source.
+
+## Example
+```
+
+import pfpLishbon from '../../../assets/f34325c420ee4b735ce883c193628496.webp';
+import pfpEssenly from '../../../assets/a_2c04fbcedb068e15437bbfe1073dca99.gif';
+
+Returns the raw metatable of `object`, even when `__metatable` is set.
+
+```luau
+getrawmetatable(object: table | userdata): table?
+```
+
+If the `__metatable` metamethod is set, `getmetatable` returns that value instead of the actual metatable itself. `getrawmetatable` skips that lock, and returns the metatable directly.
+
+Most commonly used to grab the `game`'s `__index` or `__namecall` metamethods so you're able to hook them.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `object` | `table \| userdata` | The table or userdata to inspect. |
+
+## Returns
+
+`table?` - the metatable of `object`, or `nil` if it has none. The returned table is the source's metatable - **not a copy**. Editing the metatable mutates the live source.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+getrawmetatable(object: table | userdata): table?
+```
+
+```luau Example 2
+print(getmetatable(game)) --> "This metatable is locked!"
+print(getrawmetatable(game)) --> table: 0x... 
+                             --- which is the actual metatable
+```
+
+</CodeGroup>
+
+<Tip>
+  Anticheats and antitampers set `__metatable` on their own tables to hide the real metatable from `getmetatable`. `getrawmetatable` reads past that lock, so you can still see and hook what they protect. <a href="/docs/contributors#lishbon" title="Contributed by lishbon"><img src={pfpLishbon.src} alt="lishbon" style="width:1.75rem;height:1.75rem;border-radius:9999px;display:inline-block;vertical-align:middle;object-fit:cover;margin-left:0.5rem;" /></a>
+</Tip>

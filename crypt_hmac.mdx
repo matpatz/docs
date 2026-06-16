@@ -2,7 +2,7 @@
 title: "crypt.hmac"
 ---
 
-Computes a Hash-based Message Authentication Code (HMAC) for the given data payload using a secret key and hashing algorithm.
+Computes a Hash-based Message Authentication Code (HMAC) for the given data payload using a key and algorithm.
 
 ```luau
 crypt.hmac(data: string, key: string, algorithm: string): string
@@ -13,22 +13,28 @@ crypt.hmac(data: string, key: string, algorithm: string): string
 | Parameter | Type | Description |
 | --- | --- | --- |
 | `data` | `string` | The data message payload to sign. |
-| `key` | `string` | The secret key to authenticate the message. |
-| `algorithm` | `string` | The hashing algorithm to use (e.g. `'md5'`, `'sha1'`, `'sha256'`, `'sha512'`). |
+| `key` | `string` | The secret key. |
+| `algorithm` | `string` | The hashing algorithm to use (e.g. `'sha256'`). |
 
 ## Returns
 
-`string` - The resulting HMAC signature as a hexadecimal string.
+`string` - The resulting HMAC signature as a hex string.
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local key = "secret-key"
-local data = "important-message-payload"
-local signature = crypt.hmac(data, key, "sha256")
-print("HMAC Signature: " .. signature)
+local signature = crypt.hmac("payload", "secret_key", "sha256")
+print("Signature: ", signature)
+```
+
+```luau Example 2
+local hmacVal = crypt.hmac("my-data", "key", "md5")
 ```
 
 </CodeGroup>
+
+<Tip>
+  Used to verify both data integrity and authenticity of communication payloads.
+</Tip>

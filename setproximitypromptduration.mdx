@@ -1,0 +1,38 @@
+---
+title: "setproximitypromptduration"
+---
+
+Modifies the hold duration of the specified ProximityPrompt.
+
+```luau
+setproximitypromptduration(prompt: ProximityPrompt, duration: number): ()
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `prompt` | `ProximityPrompt` | The target ProximityPrompt. |
+| `duration` | `number` | The new duration in seconds. |
+
+## Returns
+
+`void`
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+setproximitypromptduration(prompt, 0) -- Instant activation
+```
+
+```luau Example 2
+setproximitypromptduration(prompt, 1.5)
+```
+
+</CodeGroup>
+
+<Tip>
+  Setting duration to 0 allows instant triggering of proximity actions.
+</Tip>

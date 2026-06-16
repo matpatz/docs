@@ -2,29 +2,71 @@
 title: "islclosure"
 ---
 
-Checks whether the specified function is a Lua closure (a function implemented in Luau source code).
+```luau
+islclosure(func: function): boolean
+```
+
+Most commonly used to find user-script functions and look inside them.<br />For example, `getconstants{:luau}` only works on Luau closures:
+```
+
+Tells you whether a function was written in Luau.
 
 ```luau
 islclosure(func: function): boolean
 ```
 
+Most commonly used to find user-script functions and look inside them.<br />For example, `getconstants` only works on Luau closures:
+
+```luau
+for _, fn in ipairs(getgc()) do
+    if type(fn) == "function" then
+        if islclosure(fn) then
+            -- it's a LocalScript's/ModuleScript's Luau function!
+            for i, k in ipairs(getconstants(fn)) do
+                print(`constant {i}: {tostring(k)}`)
+            end
+        else
+            -- it's an internal roblox's engine C function, pass
+        end
+    end
+end
+```
+
 ## Parameters
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `func` | `function` | The function to inspect. |
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `func`    | `function` | The function to check. |
 
 ## Returns
 
-`boolean` - `true` if the function is a Lua closure, `false` otherwise.
+`true` if `func` is a Luau closure, `false` if it's a C closure.
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-assert(islclosure(function() end) == true, "Standard Lua functions are Lua closures")
-assert(islclosure(print) == false, "C functions are not Lua closures")
+islclosure(func: function): boolean
+```
+
+```luau Example 2
+for _, fn in ipairs(getgc()) do
+    if type(fn) == "function" then
+        if islclosure(fn) then
+            -- it's a LocalScript's/ModuleScript's Luau function!
+            for i, k in ipairs(getconstants(fn)) do
+                print(`constant {i}: {tostring(k)}`)
+            end
+        else
+            -- it's an internal roblox's engine C function, pass
+        end
+    end
+end
 ```
 
 </CodeGroup>
+
+<Tip>
+  Lua closures are user-defined or script-defined Luau functions.
+</Tip>

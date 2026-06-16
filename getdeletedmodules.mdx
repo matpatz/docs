@@ -1,3 +1,36 @@
 ---
 title: "getdeletedmodules"
 ---
+
+```luau
+getdeletedmodules(): {ModuleScript}
+```
+
+Returns a list of all ModuleScript instances that were deleted or removed from the game hierarchy but still reside in memory.
+
+## Returns
+
+`{ModuleScript}` - An array of deleted ModuleScript instances.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+-- Print all deleted module scripts still in memory
+for _, module in ipairs(getdeletedmodules()) do
+    print(module.Name)
+end
+```
+
+```luau Example 2
+-- Track module script cleanups
+local count = #getdeletedmodules()
+print(`Deleted ModuleScripts in cache: {count}`)
+```
+
+</CodeGroup>
+
+<Tip>
+  Anti-cheat systems may check if deleted scripts are still running. Use this function to identify orphaned ModuleScripts.
+</Tip>

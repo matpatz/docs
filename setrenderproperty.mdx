@@ -1,0 +1,66 @@
+---
+title: "setrenderproperty"
+---
+
+```luau
+setrenderproperty(drawing: DrawingObject, property: string, value: any): ()
+```
+
+This is the function form of assigning the property (`drawing.Radius = 50{:luau}`). Handy when the property name is dynamic.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `drawing` | `DrawingObject` | The drawing to change. |
+| `property` | `string` | The property name, like `"Position"` or `"Color"`. |
+| `value` | `any` | The new value. Use the type that property expects. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+```
+
+Sets a property on a drawing object.
+
+```luau
+setrenderproperty(drawing: DrawingObject, property: string, value: any): ()
+```
+
+This is the function form of assigning the property (`drawing.Radius = 50`). Handy when the property name is dynamic.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `drawing` | `DrawingObject` | The drawing to change. |
+| `property` | `string` | The property name, like `"Position"` or `"Color"`. |
+| `value` | `any` | The new value. Use the type that property expects. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+setrenderproperty(drawing: DrawingObject, property: string, value: any): ()
+```
+
+```luau Example 2
+local text = Drawing.new("Text")
+setrenderproperty(text, "Text", "Hello, World!")
+setrenderproperty(text, "Size", 24)
+setrenderproperty(text, "Position", Vector2.new(100, 100))
+setrenderproperty(text, "Visible", true)
+```
+
+</CodeGroup>
+
+<Tip>
+  Setting properties dynamically is useful for real-time overlay drawing.
+</Tip>

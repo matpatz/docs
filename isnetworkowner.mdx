@@ -1,0 +1,72 @@
+---
+title: "isnetworkowner"
+---
+
+```luau
+isnetworkowner(part: BasePart): boolean
+```
+
+Network ownership decides who simulates a part's physics. If the local client owns `part{:luau}`, your writes to its `Velocity{:luau}` or `CFrame{:luau}` stick and replicate. If the server or another client owns it, the engine overwrites them on the next physics step.
+
+Ownership is automatic. The server gives an unanchored part to the closest player within that player's simulation radius, and anchored parts stay server-owned. `setsimulationradius{:luau}` widens that range, so you can take parts farther from your character.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `part` | `BasePart` | The part to check ownership of. |
+
+## Returns
+
+`boolean` - `true{:luau}` if the local client currently owns `part{:luau}`'s physics, `false{:luau}` if the server or another client does.
+
+## Example
+
+Expand the simulation radius to claim a far-away unanchored part, then confirm ownership before flinging it.
+```
+
+Checks whether you (the client) own a part's physics simulation.
+
+```luau
+isnetworkowner(part: BasePart): boolean
+```
+
+Network ownership decides who simulates a part's physics. If the local client owns `part`, your writes to its `Velocity` or `CFrame` stick and replicate. If the server or another client owns it, the engine overwrites them on the next physics step.
+
+Ownership is automatic. The server gives an unanchored part to the closest player within that player's simulation radius, and anchored parts stay server-owned. `setsimulationradius` widens that range, so you can take parts farther from your character.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `part` | `BasePart` | The part to check ownership of. |
+
+## Returns
+
+`boolean` - `true` if the local client currently owns `part`'s physics, `false` if the server or another client does.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+isnetworkowner(part: BasePart): boolean
+```
+
+```luau Example 2
+local part = workspace:WaitForChild("Crate")
+
+setsimulationradius(10000)
+
+if isnetworkowner(part) then
+    part.AssemblyLinearVelocity = Vector3.new(0, 200, 0)
+else
+    warn("server still owns this part - move closer or raise the radius")
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  Only unanchored parts can have dynamic network ownership assigned to clients.
+</Tip>

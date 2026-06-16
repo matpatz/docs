@@ -2,34 +2,83 @@
 title: "setstackhidden"
 ---
 
-Sets whether the call stack of the specified thread is hidden from anti-cheat stack walking detection.
-
 ```luau
-setstackhidden(thread: thread, value: boolean): ()
+setstackhidden(func: function, hidden: boolean?): ()
 ```
+
+Pass the function whose frame you want hidden. The optional `hidden{:luau}` flag picks the direction: `true{:luau}` keeps that call out of what `debug.traceback(){:luau}` returns, `false{:luau}` lets it back in.
+
+The code still runs. Nothing about how the function behaves changes, only whether a traceback dump lists it.
+
+Most commonly used to keep an executor function out of an anti-cheat's sight. Even after `newcclosure{:luau}` wraps a script function, its Luau name can still show up in `debug.traceback(){:luau}`. A game that scans the traceback for known names can then flag the user. Hiding the call makes the scan come up empty.
 
 ## Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
-| `thread` | `thread` | The thread whose call stack to hide or unhide. |
-| `value` | `boolean` | `true` to hide the stack, `false` to reveal it. |
+|-----------|------|-------------|
+| `func` | `function` | The function whose frame to hide. |
+| `hidden` | `boolean?` | Whether to hide that frame or show it. |
 
 ## Returns
 
-`void`
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+See whether your own executor leaks an injected closure's name into `debug.traceback(){:luau}`. Hide the frame so a traceback name-scan can't spot it.
+
+<details>
+<summary>Solution</summary>
+```
+
+Hides a function's frame from `debug.traceback()` output so a traceback name-scan can't find it.
+
+```luau
+setstackhidden(func: function, hidden: boolean?): ()
+```
+
+Pass the function whose frame you want hidden. The optional `hidden` flag picks the direction: `true` keeps that call out of what `debug.traceback()` returns, `false` lets it back in.
+
+The code still runs. Nothing about how the function behaves changes, only whether a traceback dump lists it.
+
+Most commonly used to keep an executor function out of an anti-cheat's sight. Even after `newcclosure` wraps a script function, its Luau name can still show up in `debug.traceback()`. A game that scans the traceback for known names can then flag the user. Hiding the call makes the scan come up empty.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `func` | `function` | The function whose frame to hide. |
+| `hidden` | `boolean?` | Whether to hide that frame or show it. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local thread = coroutine.create(function()
-    print("Running in thread")
-end)
+setstackhidden(func: function, hidden: boolean?): ()
+```
 
--- Hide the stack of the target thread
-setstackhidden(thread, true)
+```luau Example 2
+local function secretFn()
+    return debug.traceback()
+end
+
+local wrapped = newcclosure(secretFn)
+
+-- without this, "secretFn" still lands in the traceback
+-- even though newcclosure wrapped it - a name-scan would catch it
+setstackhidden(secretFn, true)
+
+local trace = wrapped()
+print(string.find(trace, "secretFn")) --> nil, the frame is hidden
 ```
 
 </CodeGroup>
+
+<Tip>
+  Useful anti-detection mechanism to hide executor calls from client scripts.
+</Tip>

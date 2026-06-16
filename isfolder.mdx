@@ -1,0 +1,39 @@
+---
+title: "isfolder"
+---
+
+Returns `true` if `path` is an existing folder inside Seliware's workspace folder, `false` otherwise.
+
+```luau
+isfolder(path: string): boolean
+```
+
+`path` is workspace-relative. Non-existent paths and file paths both return `false` without raising an error.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `path` | `string` | Location to check. |
+
+## Returns
+
+`boolean` - `true` only if `path` resolves to a folder. Returns `false` for files, malformed paths, and anything that doesn't exist.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+isfolder(path: string): boolean
+```
+
+```luau Example 2
+print(isfolder("data"))
+```
+
+</CodeGroup>
+
+<Tip>
+  Use this check to verify directory structures before writing files.
+</Tip>

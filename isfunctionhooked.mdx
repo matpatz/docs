@@ -2,37 +2,75 @@
 title: "isfunctionhooked"
 ---
 
-Checks whether the specified function has been hooked or detoured by a script.
+```luau
+isfunctionhooked(func: function): boolean
+```
+
+`hookfunction{:luau}` hooks a function and `restorefunction{:luau}` puts it back. `isfunctionhooked{:luau}` only reports the current state - it never hooks or restores anything itself.
+
+## Parameters
+
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `func`    | `function` | The function to check. |
+
+## Returns
+
+`true{:luau}` if `func{:luau}` is currently under a `hookfunction{:luau}` hook, `false{:luau}` if it never was or has since been restored with `restorefunction{:luau}`.
+
+## Example
+
+The common use is a guard: check `isfunctionhooked{:luau}` before `hookfunction{:luau}` so you never double-hook the same function. This run also shows the flag flipping back after `restorefunction{:luau}`:
+```
+
+Tells you whether a function is currently hooked.
 
 ```luau
 isfunctionhooked(func: function): boolean
 ```
 
+`hookfunction` hooks a function and `restorefunction` puts it back. `isfunctionhooked` only reports the current state - it never hooks or restores anything itself.
+
 ## Parameters
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `func` | `function` | The function to inspect. |
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `func`    | `function` | The function to check. |
 
 ## Returns
 
-`boolean` - `true` if the function has been hooked, `false` otherwise.
+`true` if `func` is currently under a `hookfunction` hook, `false` if it never was or has since been restored with `restorefunction`.
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local function test()
-    return true
+isfunctionhooked(func: function): boolean
+```
+
+```luau Example 2
+local function greet()
+    print("hello")
 end
 
--- Hook the function
-hookfunction(test, function()
-    return false
-end)
+print(isfunctionhooked(greet)) -- false, nothing has hooked it yet
 
-assert(isfunctionhooked(test) == true, "The function should be identified as hooked")
+if not isfunctionhooked(greet) then
+    local original = hookfunction(greet, function(...)
+        print("hooked")
+        return original(...)
+    end)
+end
+
+print(isfunctionhooked(greet)) -- true
+
+restorefunction(greet)
+print(isfunctionhooked(greet)) -- false again, back to the original body
 ```
 
 </CodeGroup>
+
+<Tip>
+  Checks internal executor state to see if a hook is active on the function.
+</Tip>

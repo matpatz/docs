@@ -1,0 +1,71 @@
+---
+title: "getsignalarguments"
+---
+
+```luau
+getsignalarguments(connection: RBXScriptConnection): {any}
+```
+
+Takes a `RBXScriptConnection{:luau}`, not the signal itself. `connection` object can be obtained from `signal:Connect(fn){:luau}` or `getconnections(signal)[i]{:luau}`.
+
+Most commonly used as a cheaper alternative to `hookmetamethod{:luau}` - inspect what args a listener received instead of intercepting every game method. <a href="/docs/contributors#lishbon" title="Contributed by lishbon"><img src={pfpLishbon.src} alt="lishbon" style="width:1.25rem;height:1.25rem;border-radius:9999px;display:inline-block;vertical-align:middle;object-fit:cover;margin-left:0.25rem;" /></a>
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `connection` | `RBXScriptConnection` | The connection to inspect. |
+
+## Returns
+
+`{any}` - a table of args that were last passed through `connection{:luau}` when its signal fired.
+
+## Example
+
+In Doors, the server fires `<RemoteEvent> RoomEvent{:luau}` whenever the player enters a new room. Grab the game's own listener with `getconnections{:luau}` and read what the server sent the next time it fires.
+```
+
+import pfpLishbon from '../../../assets/f34325c420ee4b735ce883c193628496.webp';
+
+Returns the arguments passed to a connection the last time its signal fired.
+
+```luau
+getsignalarguments(connection: RBXScriptConnection): {any}
+```
+
+Takes a `RBXScriptConnection`, not the signal itself. `connection` object can be obtained from `signal:Connect(fn)` or `getconnections(signal)[i]`.
+
+Most commonly used as a cheaper alternative to `hookmetamethod` - inspect what args a listener received instead of intercepting every game method. <a href="/docs/contributors#lishbon" title="Contributed by lishbon"><img src={pfpLishbon.src} alt="lishbon" style="width:1.25rem;height:1.25rem;border-radius:9999px;display:inline-block;vertical-align:middle;object-fit:cover;margin-left:0.25rem;" /></a>
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `connection` | `RBXScriptConnection` | The connection to inspect. |
+
+## Returns
+
+`{any}` - a table of args that were last passed through `connection` when its signal fired.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+getsignalarguments(connection: RBXScriptConnection): {any}
+```
+
+```luau Example 2
+local remote = game.ReplicatedStorage:WaitForChild("RoomEvent")
+local conn = getconnections(remote.OnClientEvent)[1]
+
+remote.OnClientEvent:Wait()
+local args = getsignalarguments(conn)
+print(`server room update: {args[1]}`)
+```
+
+</CodeGroup>
+
+<Tip>
+  Always check parameters and return values when working with this library function.
+</Tip>

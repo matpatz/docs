@@ -1,0 +1,67 @@
+---
+title: "appendfile"
+---
+
+```luau
+appendfile(path: string, data: string): ()
+```
+
+`path{:luau}` is relative to Seliware's workspace folder. 
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `path` | `string` | File to append to. |
+| `data` | `string` | Content to append. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+Keep a rolling log without overwriting earlier lines:
+```
+
+Appends `data` to the end of the file at `path`. If the file doesn't exist, it gets created on the spot - the same way `writefile` would.
+
+```luau
+appendfile(path: string, data: string): ()
+```
+
+`path` is relative to Seliware's workspace folder.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `path` | `string` | File to append to. |
+| `data` | `string` | Content to append. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+appendfile(path: string, data: string): ()
+```
+
+```luau Example 2
+local function log(message)
+    appendfile("logs/run.log", `[{os.date("%H:%M:%S")}] {message}\n`)
+end
+
+log("script started")
+log("finished setup")
+```
+
+</CodeGroup>
+
+<Tip>
+  Creates the file if it does not already exist.
+</Tip>

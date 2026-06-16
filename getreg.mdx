@@ -1,0 +1,33 @@
+---
+title: "getreg"
+---
+
+Returns the Lua registry table.
+
+```luau
+getreg(): table
+```
+
+## Returns
+
+`table` - The Lua registry table.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local reg = getreg()
+print("Registry elements: ", #reg)
+```
+
+```luau Example 2
+local reg = getreg()
+print(reg[1])
+```
+
+</CodeGroup>
+
+<Tip>
+  This function is an alias of `debug.getregistry`.
+</Tip>

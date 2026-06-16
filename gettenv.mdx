@@ -1,0 +1,70 @@
+---
+title: "gettenv"
+---
+
+```luau
+gettenv(t: thread): table
+```
+
+When `t{:luau}` belongs to a `LocalScript{:luau}`, `gettenv(t){:luau}` returns the same table as `getsenv(script){:luau}` (`rawequal{:luau}` true). `gettenv(t).script{:luau}` is the owning script, the same Instance `getscriptfromthread(t){:luau}` returns.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `t` | `thread` | The Lua thread whose environment to fetch. |
+
+## Returns
+
+`table{:luau}` - the thread's global environment. For a `LocalScript{:luau}` thread it is identical (`rawequal{:luau}`) to `getsenv(thatScript){:luau}`: direct keys are the script's own globals, Roblox globals (`game{:luau}`, `print{:luau}`, `task{:luau}`) resolve through the metatable. Carries a `.script{:luau}` field pointing at the owning script.
+
+## Example
+
+In a Roblox game, confirm a thread's environment is the same table as its script's environment.
+```
+
+Returns the global environment table of a Lua thread - for a `LocalScript` thread, the exact same table `getsenv(script)` returns.
+
+```luau
+gettenv(t: thread): table
+```
+
+When `t` belongs to a `LocalScript`, `gettenv(t)` returns the same table as `getsenv(script)` (`rawequal` true). `gettenv(t).script` is the owning script, the same Instance `getscriptfromthread(t)` returns.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `t` | `thread` | The Lua thread whose environment to fetch. |
+
+## Returns
+
+`table` - the thread's global environment. For a `LocalScript` thread it is identical (`rawequal`) to `getsenv(thatScript)`: direct keys are the script's own globals, Roblox globals (`game`, `print`, `task`) resolve through the metatable. Carries a `.script` field pointing at the owning script.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+gettenv(t: thread): table
+```
+
+```luau Example 2
+-- walk the registry, match each script thread back to its env
+for _, thread in ipairs(getreg()) do
+    if type(thread) == "thread" then
+        local env = gettenv(thread)
+        local owner = env.script
+
+        if owner then
+            print(`{owner:GetFullName()} -> {rawequal(env, getsenv(owner))}`)
+        end
+    end
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  Already holding the thread's env table from `gettenv(t)`? Its `.script` field is the owning script - the same Instance `getscriptfromthread(t)` returns, without the extra call.
+</Tip>

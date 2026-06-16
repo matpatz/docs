@@ -2,27 +2,46 @@
 title: "getthreadidentity"
 ---
 
+Returns the currently active identity level.
+
 ```luau
-function getthreadidentity(): number
+getthreadidentity(): number
 ```
 
-<Tip>
-  Aliases: `getidentity` `getthreadcontext` `get_thread_identity` `getthreadcaps`
-</Tip>
+Every thread on Roblox carries an identity number that decides what the running script is allowed to touch.
 
-Returns the current thread's identity.
+## Returns
 
-**Example:** Prints the current thread's identity to the console.
+`number` - the identity the current thread is running at.<br />By default, in Seliware, all scripts you run will have the identity of `8`.
+
+Community-established identity values:
+
+| Level | What runs there |
+|-------|-----------------|
+|  `2`  | Regular `LocalScript` and `ModuleScript` |
+|  `3`  | Roblox-authored CoreScripts running inside live games (CoreGui, settings UI, etc.) |
+|  `4`  | Roblox Studio command bar |
+|  `5`  | Studio plugins |
+|  `6`  | Roblox's built-in plugins |
+|  `7`  | `DataModelLoader` context (`COM`) |
+|  `8`  | `RCCService` context |
+
+Note: Roblox does not publish an official identity table. The breakdown above is mapped from the output of `printidentity`, and reverse-engineering of the engine.
+
+## Example
 
 <CodeGroup>
 
 ```luau Example 1
-print(getthreadidentity()) --> 8 (without previous changes)
+getthreadidentity(): number
 ```
 
 ```luau Example 2
-local identity = getthreadidentity()
-print("Thread identity: " .. identity)
+print(getthreadidentity()) --> 8 (without previous changes)
 ```
 
 </CodeGroup>
+
+<Tip>
+  Aliases: `getidentity` `getthreadcontext` `get_thread_identity` `getthreadcaps`
+</Tip>

@@ -1,0 +1,68 @@
+---
+title: "setfflag"
+---
+
+```luau
+setfflag(name: string, value: string): ()
+```
+
+Pass the flag's literal name, without a prefix (e.g. `"EnablePreloading"{:luau}`, not `"DFFlagEnablePreloading"{:luau}`).
+
+Flag names follow one of six type prefixes: `FFlag{:luau}` / `DFFlag{:luau}` (booleans), `FInt{:luau}` / `DFInt{:luau}` (integers), `FString{:luau}` / `DFString{:luau}` (strings). The leading `D` marks dynamic flags, which refresh at runtime; the rest lock at session start.
+
+`value{:luau}` is always passed as a string, regardless of the flag's declared type.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `name` | `string` | Flag name. |
+| `value` | `string` | E.g. `"60"{:luau}` for an FInt, `"true"{:luau}` for an FFlag.|
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+```
+
+Writes a new value to a Roblox Fast Flag.
+
+```luau
+setfflag(name: string, value: string): ()
+```
+
+Pass the flag's literal name, without a prefix (e.g. `"EnablePreloading"`, not `"DFFlagEnablePreloading"`).
+
+Flag names follow one of six type prefixes: `FFlag` / `DFFlag` (booleans), `FInt` / `DFInt` (integers), `FString` / `DFString` (strings). The leading `D` marks dynamic flags, which refresh at runtime; the rest lock at session start.
+
+`value` is always passed as a string, regardless of the flag's declared type.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `name` | `string` | Flag name. |
+| `value` | `string` | E.g. `"60"` for an FInt, `"true"` for an FFlag.|
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+setfflag(name: string, value: string): ()
+```
+
+```luau Example 2
+setfflag("EnablePreloading", "false") -- disables Roblox's asset preloading
+```
+
+</CodeGroup>
+
+<Tip>
+  FFlags modify core client behaviors and graphics engine properties.
+</Tip>

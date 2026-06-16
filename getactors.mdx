@@ -3,48 +3,52 @@ title: "getactors"
 ---
 
 ```luau
-function getactors(): {Actor}
+getactors(): {Actor}
 ```
 
-<Tip>
-  Alias: get\_actors
-</Tip>
+The table is a plain array, so `getactors()[1]{:luau}` is the first actor. Hand one of them to `run_on_actor{:luau}` to run code on that thread.
 
-**Example:**
+## Returns
+
+`{Actor}{:luau}` - an array of every [`Actor`](https://create.roblox.com/docs/reference/engine/classes/Actor) instance currently in the game. The array is empty when the game has no actors.
+
+## Example
+
+Grab the first actor in the game and run a script on it.
+```
+
+Shows you all [`Actor`](https://create.roblox.com/docs/reference/engine/classes/Actor)s a game has, so it can run code on one.
+
+```luau
+getactors(): {Actor}
+```
+
+The table is a plain array, so `getactors()[1]` is the first actor. Hand one of them to `run_on_actor` to run code on that thread.
+
+## Returns
+
+`{Actor}` - an array of every [`Actor`](https://create.roblox.com/docs/reference/engine/classes/Actor) instance currently in the game. The array is empty when the game has no actors.
+
+## Example
 
 <CodeGroup>
 
-```luau Example 1 highlight={1}
+```luau Example 1
+getactors(): {Actor}
+```
+
+```luau Example 2
 local actors = getactors()
-table.foreachi(actors, function(i, actor)
-    print(i, actor.Name)
-end)
-```
 
-```luau Example 2 highlight={1}
-local actor = getactors()[1]
-run_on_actor(actor, [[
-	print(`Hello from {actor}`)
-]])
-```
-
-```luau Example 3
-print(table.find(getactors(), "Client"))
+if actors[1] then -- its not nil[1] its {}[1] -> nil. pls know the difference
+    run_on_actor(actors[1], [[
+        print("I'm running on an actor! is_parallel: ".. is_parallel())
+    ]])
+end
 ```
 
 </CodeGroup>
 
-<Check>
-  This function can be implemented in Lua.
-</Check>
-
-```luau highlight={7}
-task.spawn(function()
-    local start1 = os.clock()
-    local actors1 = game:QueryDescendants("Actor")
-    print("QueryDescendants:", os.clock() - start1)
-    local start2 = os.clock()
-    local actors2 = getactors()
-    print("getactors:", os.clock() - start2) -- Should be faster
-end)
-```
+<Tip>
+  Not every Roblox game has actors. Many developers rarely create an [`Actor`](https://create.roblox.com/docs/reference/engine/classes/Actor), so `getactors` returns an empty table - check it has an entry before indexing.
+</Tip>

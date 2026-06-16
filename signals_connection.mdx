@@ -1,0 +1,38 @@
+---
+title: "Connection"
+---
+
+```luau
+Connection:Defer(...: any): ()
+```
+
+Schedules the handler to fire after the current resumption finishes, with the supplied arguments.
+
+---
+```
+
+A wrapper around a native `RBXScriptConnection` that exposes fields and methods the engine doesn't surface natively.
+
+`Connection` objects are produced by [`getconnections`](/docs/signals/getconnections) when it walks a signal's connection list. Whether the original `:Connect` call lived in your script, in a game LocalScript, or in a CoreScript, the executor wraps it the same way.
+
+## Returns
+
+`void`
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+Connection:Defer(...: any): ()
+```
+
+```luau Example 2
+Connection:Disconnect(): ()
+```
+
+</CodeGroup>
+
+<Tip>
+  Always check parameters and return values when working with this library function.
+</Tip>

@@ -1,0 +1,38 @@
+---
+title: "oth.unhook"
+---
+
+Restores a hooked function back to its original state, removing any Oth hooks.
+
+```luau
+oth.unhook(target: function): ()
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `target` | `function` | The hooked function to restore. |
+
+## Returns
+
+`void`
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+oth.unhook(print)
+print("Print restored!")
+```
+
+```luau Example 2
+oth.unhook(workspace.Destroy)
+```
+
+</CodeGroup>
+
+<Tip>
+  Cleans up all resources associated with the hook.
+</Tip>

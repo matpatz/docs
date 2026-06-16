@@ -2,42 +2,87 @@
 title: "restorefunction"
 ---
 
-Restores a hooked function back to its original behavior, removing any detours or hook wrappers.
+```luau
+restorefunction(func: function): ()
+```
+
+Pass the function you hooked and it stops running the hook. If the same function was hooked more than once, one `restorefunction{:luau}` call still reverts it to the very first original. After it runs, `isfunctionhooked{:luau}` reports `false{:luau}` for that function.
+
+Throws an error if the function you passed was never hooked.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `func` | `function` | The hooked function to restore. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Aliases
+
+- `restorefunc{:luau}`
+
+## Example
+
+Hook a function only while you need it, then put it back so the rest of the game keeps seeing the real one.
+
+<details>
+<summary>Solution</summary>
+```
+
+Reverses `hookfunction` - the target goes back to running its original body.
 
 ```luau
 restorefunction(func: function): ()
 ```
 
+Pass the function you hooked and it stops running the hook. If the same function was hooked more than once, one `restorefunction` call still reverts it to the very first original. After it runs, `isfunctionhooked` reports `false` for that function.
+
+Throws an error if the function you passed was never hooked.
+
 ## Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
+|-----------|------|-------------|
 | `func` | `function` | The hooked function to restore. |
 
 ## Returns
 
-`void`
+<code title="the function does not return a value.">void</code>
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local function test()
-    return "original"
+restorefunction(func: function): ()
+```
+
+```luau Example 2
+local function greet(name)
+    return `hello {name}`
 end
 
--- Hook the function
-hookfunction(test, function()
-    return "hooked"
+local original = hookfunction(greet, function(name)
+    return `hooked {name}`
 end)
 
-assert(test() == "hooked", "Function should return hooked")
+print(greet("world"))                  --> hooked world
+print(isfunctionhooked(greet))         --> true
 
--- Restore the function
-restorefunction(test)
+restorefunction(greet)
 
-assert(test() == "original", "Function should be restored to its original behavior")
+print(greet("world"))                  --> hello world
+print(isfunctionhooked(greet))         --> false
+
+-- `original` still points at the pre-hook body if you kept it
+print(original("world"))               --> hello world
 ```
 
 </CodeGroup>
+
+<Tip>
+  Cleans up memory hook state and resets the function pointers.
+</Tip>

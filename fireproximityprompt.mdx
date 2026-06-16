@@ -1,0 +1,65 @@
+---
+title: "fireproximityprompt"
+---
+
+```luau
+fireproximityprompt(prompt: ProximityPrompt): ()
+```
+
+The prompt's `.Triggered{:luau}` event fires with the local player, as if they had held the prompt to completion.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `prompt` | `ProximityPrompt` | The prompt to trigger. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+In Doors, skip holding E on every door. Fire each prompt the moment it appears.
+```
+
+Triggers a `ProximityPrompt`, bypassing its `HoldDuration` and activation distance.
+
+```luau
+fireproximityprompt(prompt: ProximityPrompt): ()
+```
+
+The prompt's `.Triggered` event fires with the local player, as if they had held the prompt to completion.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `prompt` | `ProximityPrompt` | The prompt to trigger. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+fireproximityprompt(prompt: ProximityPrompt): ()
+```
+
+```luau Example 2
+local ProximityPromptService = cloneref(game:GetService('ProximityPromptService'))
+
+-- PromptShown fires once you're in range, so every prompt here is valid to trigger
+ProximityPromptService.PromptShown:Connect(function(prompt)
+    fireproximityprompt(prompt)
+end)
+```
+
+</CodeGroup>
+
+<Tip>
+  Bypasses standard client hold times and distances, triggering the prompt instantly.
+</Tip>

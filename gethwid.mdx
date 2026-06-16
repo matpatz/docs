@@ -1,0 +1,54 @@
+---
+title: "gethwid"
+---
+
+```luau
+gethwid(): string
+```
+
+Most commonly used to gate script hubs behind an HWID whitelist.
+
+## Returns
+
+`string` - a 64-character hash.
+
+## Example
+
+Block unauthorised users at script load by checking the HWID against a whitelist.
+```
+
+Returns the user's Hardware ID.
+
+```luau
+gethwid(): string
+```
+
+Most commonly used to gate script hubs behind an HWID whitelist.
+
+## Returns
+
+`string` - a 64-character hash.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+gethwid(): string
+```
+
+```luau Example 2
+local allowed = {
+    ["a1b2c3..."] = true, -- your HWIDs go here
+}
+
+if not allowed[gethwid()] then
+    error(`not whitelisted`)
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  Often used for script key systems and authorization checks.
+</Tip>

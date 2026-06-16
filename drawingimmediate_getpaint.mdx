@@ -1,0 +1,42 @@
+---
+title: "DrawingImmediate.GetPaint"
+---
+
+Returns a rendering event signal that fires every frame at the specified Z-index, allowing immediate drawing operations.
+
+```luau
+DrawingImmediate.GetPaint(zindex: number): RBXScriptSignal
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `zindex` | `number` | The rendering order Z-index. Lower values are painted first. |
+
+## Returns
+
+`RBXScriptSignal` - The paint render event signal.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local paint = DrawingImmediate.GetPaint(1)
+paint:Connect(function()
+    -- Draw immediate lines/text here
+end)
+```
+
+```luau Example 2
+DrawingImmediate.GetPaint(10):Connect(function()
+    -- Top-level HUD drawing
+end)
+```
+
+</CodeGroup>
+
+<Tip>
+  Immediate-mode drawing functions must be called inside the connected callback.
+</Tip>

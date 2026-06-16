@@ -1,0 +1,80 @@
+---
+title: "setnamecallmethod"
+---
+
+```luau
+setnamecallmethod(method: string): ()
+```
+
+Takes a string and replaces the method name on the active namecall, so dispatch routes to the new method instead of the one the caller originally asked for. Only meaningful inside a `__namecall{:luau}` metamethod.
+
+Most commonly used inside a `hookmetamethod(game, "__namecall", ...){:luau}` hook to swap the called method for any other one you want.
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `method` | `string` | Method name to dispatch in place of the original. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example <a href="/docs/contributors#blastbrean" title="Contributed by blastbrean"><img src={pfpBlastbrean.src} alt="blastbrean" style="width:1.75rem;height:1.75rem;border-radius:9999px;display:inline-block;vertical-align:middle;object-fit:cover;margin-left:0.5rem;" /></a>
+
+Find an RPG game with loot mechanics, where a client ModuleScript loops through items on the ground and calls `:PickUp(){:luau}` on each one. Filter the call so only rare items go through; common ones get redirected to a method that destroys them.
+
+<details>
+<summary>Solution</summary>
+```
+
+import pfpBlastbrean from '../../../assets/a_ca6fd9c8127a18fc2d9fe21fd0436d97.gif';
+
+Rewrites the method name dispatched by the active `__namecall` metamethod.
+
+```luau
+setnamecallmethod(method: string): ()
+```
+
+Takes a string and replaces the method name on the active namecall, so dispatch routes to the new method instead of the one the caller originally asked for. Only meaningful inside a `__namecall` metamethod.
+
+Most commonly used inside a `hookmetamethod(game, "__namecall", ...)` hook to swap the called method for any other one you want.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `method` | `string` | Method name to dispatch in place of the original. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+setnamecallmethod(method: string): ()
+```
+
+```luau Example 2
+local mt = getrawmetatable(game)
+setreadonly(mt, false)
+
+local oldNamecall
+oldNamecall = hookmetamethod(game, "__namecall", function(self, ...)
+    if getnamecallmethod() == "PickUp" and rawget(self, "Rarity") == "Common" then
+        setnamecallmethod("Destroy") -- Destroy takes no args
+
+        return oldNamecall(self)
+    end
+
+    return oldNamecall(self, ...)
+end)
+```
+
+</CodeGroup>
+
+<Tip>
+  Useful for redirecting call flows in custom `__namecall` hooks.
+</Tip>

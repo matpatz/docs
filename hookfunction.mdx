@@ -2,43 +2,96 @@
 title: "hookfunction"
 ---
 
-Redirects (hooks) the execution of a target function to a hook function. It returns a backup of the original function's original behavior, allowing you to call the original logic if needed.
+```luau
+hookfunction(target: function, hook: function): function
+```
+
+Once hooked, every call to `target{:luau}` runs `hook{:luau}` instead.
+
+Most commonly used to intercept a function (i.e. `print{:luau}`), or wrap its calls without losing access to the original.
+
+Closure types may differ between `target{:luau}` and `hook{:luau}` - Luau-to-Luau, C-to-C, or any cross-direction.
+
+`newcclosure{:luau}`-wrapped targets work, and the hook can carry a different upvalue count from the target.
+
+## Parameters
+
+Both arguments are required, otherwise - errors.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `target`  | `function` | The function to replace. Lclosure, cclosure, or `newcclosure{:luau}`-wrapped - all accepted. |
+| `hook`    | `function` | The function that runs in `target{:luau}`'s place. |
+
+## Returns
+
+`function` - original `target{:luau}` function, **before** the hook was applied. Use it from inside `hook{:luau}` to trigger pre-hook behavior - `return original(...){:luau}`.
+
+Handles don't go stale on re-hook. Hook `target{:luau}` a second time and the earlier handle still calls the body that was live when you first got it back.
+
+## Aliases
+
+- `hookfunc{:luau}`
+- `replaceclosure{:luau}`
+
+## Example <a href="/docs/contributors#lishbon" title="Contributed by lishbon"><img src={pfpLishbon.src} alt="lishbon" style="width:1.75rem;height:1.75rem;border-radius:9999px;display:inline-block;vertical-align:middle;object-fit:cover;margin-left:0.5rem;" /></a>
+
+You want to mirror every call to a game function into your own pipeline - logs, counters, side-channel events. Hook the function so your code fires first, then defer to the original.
+
+<details>
+<summary>Solution</summary>
+```
+
+import pfpLishbon from '../../../assets/f34325c420ee4b735ce883c193628496.webp';
+
+Replaces `target` with `hook` and returns the original `target` function, so the original behavior is still callable.
 
 ```luau
 hookfunction(target: function, hook: function): function
 ```
 
+Once hooked, every call to `target` runs `hook` instead.
+
+Most commonly used to intercept a function (i.e. `print`), or wrap its calls without losing access to the original.
+
+Closure types may differ between `target` and `hook` - Luau-to-Luau, C-to-C, or any cross-direction.
+
+`newcclosure`-wrapped targets work, and the hook can carry a different upvalue count from the target.
+
 ## Parameters
 
+Both arguments are required, otherwise - errors.
+
 | Parameter | Type | Description |
-| --- | --- | --- |
-| `target` | `function` | The original function to hook. |
-| `hook` | `function` | The new function that will execute in place of the target function. |
+|-----------|------|-------------|
+| `target`  | `function` | The function to replace. Lclosure, cclosure, or `newcclosure`-wrapped - all accepted. |
+| `hook`    | `function` | The function that runs in `target`'s place. |
 
 ## Returns
 
-`function` - A backup function that executes the target's original behavior.
+`function` - original `target` function, **before** the hook was applied. Use it from inside `hook` to trigger pre-hook behavior - `return original(...)`.
+
+Handles don't go stale on re-hook. Hook `target` a second time and the earlier handle still calls the body that was live when you first got it back.
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local function test()
-    return true
-end
+hookfunction(target: function, hook: function): function
+```
 
--- Hook the test function to return false
-local originalBackup = hookfunction(test, function()
-    return false
+```luau Example 2
+local Old
+Old = hookfunction(StockUpdated, function(tbl, x, ...)
+    Events.StockUpdate(tbl)
+
+    return Old(tbl, x, ...)
 end)
-
-assert(test() == false, "Function should now return false")
-assert(originalBackup() == true, "Original backup should return the original value (true)")
 ```
 
 </CodeGroup>
 
 <Tip>
-  `hookfunction` is one of the most powerful utilities for scripting, commonly used to intercept namecalls, RemoteEvents, or service methods.
+  Always call the **returned handle** from inside your hook, not the target's original name. Calling `StockUpdated(...)` inside the hook re-enters the hook and recurses until the script crashes. `Old(...)` skips the hook and calls the pre-hook body.
 </Tip>

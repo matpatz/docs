@@ -1,0 +1,39 @@
+---
+title: "isfile"
+---
+
+Returns `true` if `path` is an existing file inside Seliware's workspace folder, `false` otherwise.
+
+```luau
+isfile(path: string): boolean
+```
+
+`path` is workspace-relative. The check is safe on any string - non-existent paths and folder paths both return `false` rather than raising an error.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `path` | `string` | Location to check. |
+
+## Returns
+
+`boolean` - `true` only if `path` resolves to a file. Returns `false` for folders, broken paths, and anything that doesn't exist.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+isfile(path: string): boolean
+```
+
+```luau Example 2
+print(isfile("config.json"))
+```
+
+</CodeGroup>
+
+<Tip>
+  Paths are relative to the executor's dedicated sandbox workspace directory.
+</Tip>

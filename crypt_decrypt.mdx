@@ -2,34 +2,82 @@
 title: "crypt.decrypt"
 ---
 
-Decrypts an encrypted cipher string back to its original plain text using a key, initialization vector (IV), and specified cipher mode.
-
 ```luau
-crypt.decrypt(data: string, key: string, iv: string, cipher: string): string
+crypt.decrypt(data: string, key: string, iv: string, mode: string?): string
 ```
+
+`key{:luau}` and `iv{:luau}` must match the values used during encryption - implying same 32-byte base64 key, same 16-byte base64 IV.
+
+`mode{:luau}` defaults to `"CBC"{:luau}` if omitted. <br /> Accepts the same set as `crypt.encrypt(){:luau}`: `"CBC"{:luau}`, `"ECB"{:luau}`, `"CTR"{:luau}`, `"CFB"{:luau}`, `"OFB"{:luau}`, `"GCM"{:luau}`. <br /> [Learn more here](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation).
+
+Most commonly used to recover payloads sent via `crypt.encrypt(){:luau}`.
 
 ## Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
-| `data` | `string` | The encrypted cipher string (Base64-encoded or raw bytes depending on executor, typically Base64). |
-| `key` | `string` | The decryption key (Base64-encoded or raw). |
-| `iv` | `string` | The initialization vector used when encrypting. |
-| `cipher` | `string` | The cipher mode (e.g. `"CBC"`, `"ECB"`, etc.). |
+|-----------|------|-------------|
+| `data` | `string` | The base64-encoded ciphertext to decrypt. |
+| `key` | `string` | Base64-encoded 32-byte AES key. Must match the key used to encrypt. |
+| `iv` | `string` | Base64-encoded 16-byte IV. Must match the IV used to encrypt. |
+| `mode` | `string?` | One of `"CBC"`, `"ECB"`, `"CTR"`, `"CFB"`, `"OFB"`, `"GCM"`. Defaults to `"CBC"`. |
 
 ## Returns
 
-`string` - The decrypted plain text.
+`string` - the recovered plaintext.
+
+## Example
+
+Read a token cached to disk by `crypt.encrypt{:luau}` and recover the plaintext.
+
+<details>
+<summary>Solution</summary>
+```
+
+Decrypts an AES-encrypted string using the matching key, IV, and mode.
+
+```luau
+crypt.decrypt(data: string, key: string, iv: string, mode: string?): string
+```
+
+`key` and `iv` must match the values used during encryption - implying same 32-byte base64 key, same 16-byte base64 IV.
+
+`mode` defaults to `"CBC"` if omitted. <br /> Accepts the same set as `crypt.encrypt()`: `"CBC"`, `"ECB"`, `"CTR"`, `"CFB"`, `"OFB"`, `"GCM"`. <br /> [Learn more here](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation).
+
+Most commonly used to recover payloads sent via `crypt.encrypt()`.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `data` | `string` | The base64-encoded ciphertext to decrypt. |
+| `key` | `string` | Base64-encoded 32-byte AES key. Must match the key used to encrypt. |
+| `iv` | `string` | Base64-encoded 16-byte IV. Must match the IV used to encrypt. |
+| `mode` | `string?` | One of `"CBC"`, `"ECB"`, `"CTR"`, `"CFB"`, `"OFB"`, `"GCM"`. Defaults to `"CBC"`. |
+
+## Returns
+
+`string` - the recovered plaintext.
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local key = crypt.generatekey()
-local encrypted, iv = crypt.encrypt("test", key, nil, "CBC")
-local decrypted = crypt.decrypt(encrypted, key, iv, "CBC")
-assert(decrypted == "test", "Failed to decrypt data")
+crypt.decrypt(data: string, key: string, iv: string, mode: string?): string
+```
+
+```luau Example 2
+local KEY = "your-base64-key" -- same key used to encrypt
+
+local blob = readfile("sensitive-data.cache")
+local cipher, iv = blob:match("(.-)|(.+)")
+
+local token = crypt.decrypt(cipher, KEY, iv)
+print(token) --> "LIC-A1B2C3D4-EXP-2026"
 ```
 
 </CodeGroup>
+
+<Tip>
+  Ensure the key and IV lengths match the expectations of the selected cipher mode.
+</Tip>

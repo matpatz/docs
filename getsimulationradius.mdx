@@ -1,0 +1,34 @@
+---
+title: "getsimulationradius"
+---
+
+Returns the local player's current simulation radius.
+
+```luau
+getsimulationradius(): number
+```
+
+The simulation radius is how far out from your character this client still simulates and owns physics.
+
+## Returns
+
+`number` - the local player's current simulation radius.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+getsimulationradius(): number
+```
+
+```luau Example 2
+local radius = getsimulationradius()
+print("Simulation radius: ", radius)
+```
+
+</CodeGroup>
+
+<Tip>
+  Simulation radius controls the distance within which client physics are simulated.
+</Tip>

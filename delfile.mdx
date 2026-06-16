@@ -1,0 +1,39 @@
+---
+title: "delfile"
+---
+
+Removes the file at `path` from Seliware's workspace folder.
+
+```luau
+delfile(path: string): ()
+```
+
+`path` is workspace-relative - no `"workspace/"` prefix, no `"../"` traversal. The deletion is final; there's no recycle bin.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `path` | `string` | File to delete. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+delfile(path: string): ()
+```
+
+```luau Example 2
+delfile("temp_cache.txt")
+```
+
+</CodeGroup>
+
+<Tip>
+  Throws an error if the file does not exist.
+</Tip>

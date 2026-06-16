@@ -1,0 +1,81 @@
+---
+title: "keyrelease"
+---
+
+```luau
+keyrelease(keycode: number): ()
+```
+
+The keycode is a Win32 Virtual Key Code, not a Roblox `Enum.KeyCode{:luau}` value. For letters, pass the uppercase ASCII byte (`string.byte("A"){:luau}` returns `65{:luau}`, which is `VK_A`). [Learn more here.](https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes)
+
+The Roblox window must be focused for the call to register. See `iswindowactive(){:luau}`.
+
+Pair this with the `keypress(keycode){:luau}` call that started the hold.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `keycode` | `number` | Win32 Virtual Key Code |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Aliases
+
+- `KeyRelease{:luau}`
+
+## Example
+
+In a chase or sprint sequence, hold W while the round's Sprint Sound is playing under workspace and release the moment it ends.
+
+<details>
+<summary>Solution</summary>
+```
+
+Releases a key previously held by `keypress`.
+
+```luau
+keyrelease(keycode: number): ()
+```
+
+The keycode is a Win32 Virtual Key Code, not a Roblox `Enum.KeyCode` value. For letters, pass the uppercase ASCII byte (`string.byte("A")` returns `65`, which is `VK_A`). [Learn more here.](https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes)
+
+The Roblox window must be focused for the call to register. See `iswindowactive()`.
+
+Pair this with the `keypress(keycode)` call that started the hold.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `keycode` | `number` | Win32 Virtual Key Code |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+keyrelease(keycode: number): ()
+```
+
+```luau Example 2
+workspace.ChildAdded:Connect(function(child)
+    if child:IsA("Sound") and child.Name == "Sprint" and iswindowactive() then
+        keypress(0x57) -- VK_W
+        child.Ended:Wait()
+        keyrelease(0x57)
+    end
+end)
+```
+
+</CodeGroup>
+
+<Tip>
+  Must follow a `keypress` call to complete the keystroke action.
+</Tip>

@@ -1,0 +1,41 @@
+---
+title: "oth.hook"
+---
+
+Creates a stable detour hook for a function, running hooked execution in a separate thread context.
+
+```luau
+oth.hook(target: function, hook: function): function
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `target` | `function` | The target function to hook. |
+| `hook` | `function` | The hook callback to redirect execution to. |
+
+## Returns
+
+`function` - A backup function executing the original behavior.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local oldPrint = oth.hook(print, function(...) end)
+-- Print is now hooked and suppressed
+```
+
+```luau Example 2
+local oldDestroy = oth.hook(workspace.Destroy, function(self)
+    print("Prevented destruction of: ", self)
+end)
+```
+
+</CodeGroup>
+
+<Tip>
+  More stable and harder to detect than standard `hookfunction` detours.
+</Tip>

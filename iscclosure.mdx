@@ -2,29 +2,69 @@
 title: "iscclosure"
 ---
 
-Checks whether the specified function is a C closure (a function written in C/C++ and exposed to the Luau VM, such as native Roblox functions).
+```luau
+iscclosure(func: function): boolean
+```
+
+Most commonly used to tell a real Roblox Instance apart from a Luau table pretending to be one - real Instance methods like `Destroy{:luau}` are always C closures, so a Luau result means the object is a fake.
+```
+
+Tells you whether a function was written in C or in Luau.
 
 ```luau
 iscclosure(func: function): boolean
 ```
 
+Most commonly used to tell a real Roblox Instance apart from a Luau table pretending to be one - real Instance methods like `Destroy` are always C closures, so a Luau result means the object is a fake.
+
+```luau
+local function analyzeObject(obj)
+    if type(obj.Destroy) == "function" then
+        if iscclosure(obj.Destroy) then
+            print("this is a raw roblox instance")
+            -- interacting directly with the engine
+        else
+            print("this is a lua proxy/wrapper table")
+            -- the game is intercepting this call
+        end
+    end
+end
+```
+
 ## Parameters
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| `func` | `function` | The function to inspect. |
+| Parameter | Type       | Description |
+|-----------|------------|-------------|
+| `func`    | `function` | The function to check. |
 
 ## Returns
 
-`boolean` - `true` if the function is a C closure, `false` otherwise.
+`true` if `func` is a C closure, `false` if it's a Luau closure.
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-assert(iscclosure(print) == true, "print is a native C function")
-assert(iscclosure(function() end) == false, "Lua function is not a C closure")
+iscclosure(func: function): boolean
+```
+
+```luau Example 2
+local function analyzeObject(obj)
+    if type(obj.Destroy) == "function" then
+        if iscclosure(obj.Destroy) then
+            print("this is a raw roblox instance")
+            -- interacting directly with the engine
+        else
+            print("this is a lua proxy/wrapper table")
+            -- the game is intercepting this call
+        end
+    end
+end
 ```
 
 </CodeGroup>
+
+<Tip>
+  C closures represent built-in engine functions or wrapped native code.
+</Tip>

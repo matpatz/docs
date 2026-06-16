@@ -1,0 +1,38 @@
+---
+title: "getobjects"
+---
+
+Fetches Roblox asset objects using a content URL.
+
+```luau
+getobjects(assetUrl: string): {Instance}
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `assetUrl` | `string` | The rbxassetid URL of the model/asset. |
+
+## Returns
+
+`{Instance}` - An array of loaded instances.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local instances = getobjects("rbxassetid://12345678")
+instances[1].Parent = workspace
+```
+
+```luau Example 2
+local loaded = getobjects("rbxassetid://56789")[1]
+```
+
+</CodeGroup>
+
+<Tip>
+  Bypasses standard client restrictions on loading assets.
+</Tip>

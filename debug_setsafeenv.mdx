@@ -1,0 +1,40 @@
+---
+title: "debug.setsafeenv"
+---
+
+Sets the safe environment table of the specified function.
+
+```luau
+debug.setsafeenv(func: function, env: table): ()
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `func` | `function` | The target function to modify. |
+| `env` | `table` | The environment table to set. |
+
+## Returns
+
+`void`
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local function test() end
+debug.setsafeenv(test, { myGlobal = 123 })
+-- Function environment is now locked to this table
+```
+
+```luau Example 2
+debug.setsafeenv(test, getgenv())
+```
+
+</CodeGroup>
+
+<Tip>
+  Commonly used to lock down or sandbox a function's environment.
+</Tip>

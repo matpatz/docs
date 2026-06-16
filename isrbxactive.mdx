@@ -1,0 +1,37 @@
+---
+title: "iswindowactive"
+---
+
+Returns `true` when the Roblox window has OS focus, `false` otherwise.
+
+```luau
+iswindowactive(): boolean
+```
+
+The window is "active" when Roblox holds your operating system's focus.
+
+Input functions like `mouse1click` and `keypress` require this to return `true` to fire.
+
+## Returns
+
+| Type | Description |
+|------|-------------|
+| `boolean` | `true` if the Roblox window is in focus, `false` otherwise. |
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+iswindowactive(): boolean
+```
+
+```luau Example 2
+print("Game active: ", isrbxactive())
+```
+
+</CodeGroup>
+
+<Tip>
+  Use this check to avoid sending keystrokes or mouse clicks when the game window is minimized.
+</Tip>

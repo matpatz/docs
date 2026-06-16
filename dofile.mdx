@@ -1,0 +1,65 @@
+---
+title: "dofile"
+---
+
+```luau
+dofile(path: string): ()
+```
+
+`path{:luau}` is workspace-relative. The file must contain valid Luau source (not bytecode). Use `loadfile{:luau}` when you want to inspect the chunk or call it more than once - `dofile{:luau}` always runs it exactly once and throws the return values away.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `path` | `string` | Luau source file to execute. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code> - anything the file returns is discarded.
+
+## Example
+
+Save a script to a file, then run it:
+```
+
+Reads the file at `path` and runs it as Luau code. Whatever the file sets - locals, globals, even `_G` - stays in the file.
+
+```luau
+dofile(path: string): ()
+```
+
+`path` is workspace-relative. The file must contain valid Luau source (not bytecode). Use `loadfile` when you want to inspect the chunk or call it more than once - `dofile` always runs it exactly once and throws the return values away.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `path` | `string` | Luau source file to execute. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code> - anything the file returns is discarded.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+dofile(path: string): ()
+```
+
+```luau Example 2
+writefile("scripts/setup.luau", [[
+    print("setup ran")
+    return "ok"
+]])
+
+dofile("scripts/setup.luau")
+```
+
+</CodeGroup>
+
+<Tip>
+  Variables declared inside the file don't leak into the calling environment. If you need to share state, write to a known table (e.g. `getgenv().myVariable = ...`) inside the file and read it back from the caller.
+</Tip>

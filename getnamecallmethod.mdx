@@ -1,0 +1,67 @@
+---
+title: "getnamecallmethod"
+---
+
+```luau
+getnamecallmethod(): string?
+```
+
+Most commonly paired with `hookmetamethod{:luau}` to read the method name and decide whether to block, log, or redirect that specific call.
+
+## Returns
+
+`string?{:luau}` - the method name as a string when called from inside a `__namecall{:luau}` metamethod, otherwise `nil{:luau}`.
+
+## Example
+
+
+Pick any Roblox game, where a LocalScript (or a ModuleScript) triggers a `:Kick(){:luau}` on the `LocalPlayer{:luau}` - detect the `Kick{:luau}` namecall, and silence it before it executes.
+
+<details>
+<summary>Solution</summary>
+```
+
+Returns the name of the method being called: for `player:Kick()`, that is `"Kick"`. <br /> Only `__namecall` produces this; no other metamethod does.
+
+```luau
+getnamecallmethod(): string?
+```
+
+Most commonly paired with `hookmetamethod` to read the method name and decide whether to block, log, or redirect that specific call.
+
+## Returns
+
+`string?` - the method name as a string when called from inside a `__namecall` metamethod, otherwise `nil`.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+getnamecallmethod(): string?
+```
+
+```luau Example 2
+local player = game:GetService("Players").LocalPlayer
+local mt = getrawmetatable(game)
+setreadonly(mt, false)
+
+local oldNamecall
+oldNamecall = hookmetamethod(game, "__namecall", function(self, ...)
+    if getnamecallmethod() == "Kick" and self == player then
+        warn(`Client tried to kick!`)
+        return
+    end
+    
+    return oldNamecall(self, ...)
+end)
+
+-- Note: this will not work if the server tries to kick you.
+-- Only applies to a client-sided :Kick().
+```
+
+</CodeGroup>
+
+<Tip>
+  Only valid when called inside a custom `__namecall` metamethod callback.
+</Tip>

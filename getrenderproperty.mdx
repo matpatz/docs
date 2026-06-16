@@ -1,0 +1,63 @@
+---
+title: "getrenderproperty"
+---
+
+```luau
+getrenderproperty(drawing: DrawingObject, property: string): any
+```
+
+This is the function form of just indexing the property (`drawing.Radius{:luau}`). Use whichever reads cleaner in your code.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `drawing` | `DrawingObject` | The drawing to read from. |
+| `property` | `string` | The property name. |
+
+## Returns
+
+`any{:luau}` - the property's current value. The type depends on the property (a `Vector2{:luau}` for `Position{:luau}`, a number for `Radius{:luau}`, and so on).
+
+## Example
+```
+
+Reads the current value of a property on a drawing object.
+
+```luau
+getrenderproperty(drawing: DrawingObject, property: string): any
+```
+
+This is the function form of just indexing the property (`drawing.Radius`). Use whichever reads cleaner in your code.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `drawing` | `DrawingObject` | The drawing to read from. |
+| `property` | `string` | The property name. |
+
+## Returns
+
+`any` - the property's current value. The type depends on the property (a `Vector2` for `Position`, a number for `Radius`, and so on).
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+getrenderproperty(drawing: DrawingObject, property: string): any
+```
+
+```luau Example 2
+local circle = Drawing.new("Circle")
+circle.Radius = 100
+
+print(getrenderproperty(circle, "Radius")) --> 100
+```
+
+</CodeGroup>
+
+<Tip>
+  Standard properties include `Color`, `Visible`, `Transparency`, `Position`.
+</Tip>

@@ -1,0 +1,69 @@
+---
+title: "makewritable"
+---
+
+```luau
+makewritable(t: table): ()
+```
+
+Acts as a shortcut for `setreadonly(t, false){:luau}`. 
+
+Most commonly used to lift a frozen table you can't otherwise write to.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `t` | `table` | The table to unlock. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+
+## Example
+```
+
+Unlocks a read-only table so its contents can be changed again.
+
+```luau
+makewritable(t: table): ()
+```
+
+Acts as a shortcut for `setreadonly(t, false)`. 
+
+Most commonly used to lift a frozen table you can't otherwise write to.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `t` | `table` | The table to unlock. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+makewritable(t: table): ()
+```
+
+```luau Example 2
+local cfg = table.freeze({speed = 16})
+
+cfg.speed = 100 --> errors: attempt to modify a readonly table
+
+makewritable(cfg)
+cfg.speed = 100 --> works
+print(cfg.speed) --> 100
+```
+
+</CodeGroup>
+
+<Tip>
+  Necessary step before attempting to add or hook properties in a metatable.
+</Tip>

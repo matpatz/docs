@@ -3,11 +3,48 @@ title: "getscriptfromclosure"
 ---
 
 ```luau
-getscriptfromclosure(function: function): LuaSourceContainer?
+getscriptfromclosure(func: function): LuaSourceContainer?
 ```
 
-reg
+Returns the script instance that defined the given Lua closure function.
 
-<Warning>
-  get\_comm\_channels is not implemented in any Executor.
-</Warning>
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `func` | `function` | The closure function to check. |
+
+## Returns
+
+`LuaSourceContainer?` - The LocalScript or ModuleScript that created the closure, or `nil` if the closure is a C function or has no associated script.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+-- Get the script that created a local function
+local function test() end
+local script = getscriptfromclosure(test)
+if script then
+    print("Closure belongs to script: " .. script:GetFullName())
+end
+```
+
+```luau Example 2
+-- Determine if a function belongs to a game script
+local function check_closure(func)
+    local s = getscriptfromclosure(func)
+    if s then
+        print("Function defined in: " .. s.Name)
+    else
+        print("Native or untracked function")
+    end
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  Handy when hooking functions to identify which game script is invoking specific handlers.
+</Tip>

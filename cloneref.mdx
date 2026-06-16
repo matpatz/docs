@@ -2,40 +2,68 @@
 title: "cloneref"
 ---
 
-Creates a new, unique reference wrapper pointing to the specified Roblox instance. This reference is not equal to standard references in Lua comparisons (`==`), but points to the same underlying game object.
+```luau
+cloneref(instance: Instance): Instance
+```
+
+Commonly written wrapping a service - `cloneref(game:GetService("CoreGui")){:luau}`. Considered industry-standard for all scripts written in a Roblox Executor context. [See more here](https://www.youtube.com/watch?v=Ny28cEovcu0).
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `instance` | `Instance` | The Instance to clone. |
+
+## Returns
+
+[`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance)
+
+## Aliases
+
+- `clonereference{:luau}`
+
+## Example <a href="/docs/contributors#blastbrean" title="Contributed by blastbrean"><img src={pfpBlastbrean.src} alt="blastbrean" style="width:1.75rem;height:1.75rem;border-radius:9999px;display:inline-block;vertical-align:middle;object-fit:cover;margin-left:0.5rem;" /></a>
+```
+
+import pfpBlastbrean from '../../../assets/a_ca6fd9c8127a18fc2d9fe21fd0436d97.gif';
+import pfpMainstreamed from '../../../assets/ceb191165ff263870095e4901d1eeee7.webp';
+
+Returns a separate Lua reference to `instance` - Roblox treats both as the same Instance.
 
 ```luau
 cloneref(instance: Instance): Instance
 ```
 
+Commonly written wrapping a service - `cloneref(game:GetService("CoreGui"))`. Considered industry-standard for all scripts written in a Roblox Executor context. [See more here](https://www.youtube.com/watch?v=Ny28cEovcu0).
+
 ## Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
-| `instance` | [`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance) | The Roblox instance to create a new reference wrapper for. |
+|-----------|------|-------------|
+| `instance` | `Instance` | The Instance to clone. |
 
 ## Returns
 
-`Instance` - A new, unique reference pointing to the same instance.
+[`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance)
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local part = Instance.new("Part")
-local clone = cloneref(part)
+cloneref(instance: Instance): Instance
+```
 
--- The wrappers themselves are not equal
-assert(part ~= clone, "Clone should not be equal to the original reference wrapper")
+```luau Example 2
+local rs = cloneref(game:GetService("CoreGui"))
 
--- But they modify the same underlying object
-clone.Name = "Test"
-assert(part.Name == "Test", "Clone should have updated the original instance's properties")
+for _, child in rs:GetChildren() do
+    print(child.Name)
+end
 ```
 
 </CodeGroup>
 
 <Tip>
-  `cloneref` is commonly used to bypass anti-cheat scripts that scan game directories for unrecognized or hook-modified references to important service objects.
+  Use `compareinstances(a, b)` to check whether two values are the same Instance - regular `==` returns `false` the moment one side has been through `cloneref`. The `cloneref` copy and the original point at the same Instance, so changes through either (setting properties, adding children, calling `:Destroy()`) show up on both.
 </Tip>

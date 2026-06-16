@@ -2,30 +2,91 @@
 title: "crypt.hash"
 ---
 
-Hashes the input string using the specified cryptographic hashing algorithm.
+```luau
+crypt.hash(data: string, algorithm: string): string
+```
+
+Accepted algorithms:
+
+- `"md5"{:luau}` - 32-character digest
+- `"sha1"{:luau}` - 40-character digest
+- `"sha256"{:luau}` - 64-character digest
+- `"sha384"{:luau}` - 96-character digest
+- `"sha512"{:luau}` - 128-character digest
+- `"sha3-256"{:luau}` - 64-character digest
+- `"sha3-512"{:luau}` - 128-character digest
+
+Most commonly used to compare two large strings fastly - hash both and compare them, instead of running a byte-by-byte equality.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `data` | `string` | The content to hash. |
+| `algorithm` | `string` | One of the algorithm names listed above. Case-sensitive.|
+
+## Returns
+
+`string` - the hex digest. Length depends on the algorithm (see list above).
+
+## Example
+
+Detect whether an <abbr title="The original source you downloaded the file from.">upstream</abbr> file has changed since you last cached it.
+
+<details>
+<summary>Solution</summary>
+```
+
+Hashes a string with the named algorithm and returns the digest as a hex string.
 
 ```luau
 crypt.hash(data: string, algorithm: string): string
 ```
 
+Accepted algorithms:
+
+- `"md5"` - 32-character digest
+- `"sha1"` - 40-character digest
+- `"sha256"` - 64-character digest
+- `"sha384"` - 96-character digest
+- `"sha512"` - 128-character digest
+- `"sha3-256"` - 64-character digest
+- `"sha3-512"` - 128-character digest
+
+Most commonly used to compare two large strings fastly - hash both and compare them, instead of running a byte-by-byte equality.
+
 ## Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
-| `data` | `string` | The plain text data to hash. |
-| `algorithm` | `string` | The hashing algorithm to use (e.g. `'md5'`, `'sha1'`, `'sha256'`, `'sha512'`, `'sha3-256'`, etc.). |
+|-----------|------|-------------|
+| `data` | `string` | The content to hash. |
+| `algorithm` | `string` | One of the algorithm names listed above. Case-sensitive.|
 
 ## Returns
 
-`string` - The hexadecimal hash string representing the input data.
+`string` - the hex digest. Length depends on the algorithm (see list above).
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local hash = crypt.hash("test", "sha256")
-print("SHA256: " .. hash)
+crypt.hash(data: string, algorithm: string): string
+```
+
+```luau Example 2
+local cachedHash = crypt.hash(readfile("cache/payload.bin"), "sha256")
+local freshHash  = crypt.hash(game:HttpGet("https://example.com/payload.bin"), "sha256")
+
+if cachedHash == freshHash then
+    print("didn't change - keep the cache")
+else
+    print("changed - refresh the cache")
+end
 ```
 
 </CodeGroup>
+
+<Tip>
+  Commonly supported algorithms include `'sha1'`, `'sha256'`, `'sha512'`, `'md5'`.
+</Tip>

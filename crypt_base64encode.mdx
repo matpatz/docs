@@ -2,29 +2,77 @@
 title: "crypt.base64encode"
 ---
 
-Encodes a plain text string into a Base64-encoded representation.
+```luau
+crypt.base64encode(data: string): string
+```
+
+Base64 turns any data - even bytes that aren't normal text - into plain text characters. That lets it go through JSON, a remote, or a file without breaking. The result is about a third bigger than the input.
+
+Most commonly used to make a binary payload safe to send over `request{:luau}` or store with `writefile{:luau}`.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `data` | `string` | The bytes to encode.  |
+
+## Returns
+
+`string` - the Base64-encoded text.
+
+## Aliases
+
+- `base64.encode{:luau}`
+- `base64_encode{:luau}`
+- `base64encode{:luau}`
+- `crypt.base64.encode{:luau}`
+- `crypt.base64_encode{:luau}`
+
+## Example
+
+Encode a value with Base64, then cache it to disk with `writefile{:luau}`.
+
+<details>
+<summary>Solution</summary>
+```
+
+Encodes `data` into a Base64 string.
 
 ```luau
 crypt.base64encode(data: string): string
 ```
 
+Base64 turns any data - even bytes that aren't normal text - into plain text characters. That lets it go through JSON, a remote, or a file without breaking. The result is about a third bigger than the input.
+
+Most commonly used to make a binary payload safe to send over `request` or store with `writefile`.
+
 ## Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
-| `data` | `string` | The plain text string to encode. |
+|-----------|------|-------------|
+| `data` | `string` | The bytes to encode.  |
 
 ## Returns
 
-`string` - The Base64-encoded string.
+`string` - the Base64-encoded text.
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local encoded = crypt.base64encode("test")
-assert(encoded == "dGVzdA==", "Base64 encoding failed")
+crypt.base64encode(data: string): string
+```
+
+```luau Example 2
+local blob = crypt.base64encode("Hello, world!")
+print(blob) --> "SGVsbG8sIHdvcmxkIQ=="
+
+writefile("config.cache", blob)
 ```
 
 </CodeGroup>
+
+<Tip>
+  Useful for encoding binary payloads before saving or transmission.
+</Tip>

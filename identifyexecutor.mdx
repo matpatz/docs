@@ -1,0 +1,67 @@
+---
+title: "identifyexecutor"
+---
+
+```luau
+identifyexecutor(): string, string
+```
+
+## Returns
+
+Two strings as a tuple:
+
+| Position | Type | Example |
+|----------|------|---------|
+| 1 | `string` | `"Seliware"` |
+| 2 | `string` | `"2.0"` |
+
+## Aliases
+
+- `getexecutorname{:luau}`
+
+## Example
+
+In a Roblox game, add a check in your script, to see if the user is on Seliware before proceeding.
+
+<details>
+<summary>Solution</summary>
+```
+
+Returns two strings - the executor name first, then its version.
+
+```luau
+identifyexecutor(): string, string
+```
+
+## Returns
+
+Two strings as a tuple:
+
+| Position | Type | Example |
+|----------|------|---------|
+| 1 | `string` | `"Seliware"` |
+| 2 | `string` | `"2.0"` |
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+identifyexecutor(): string, string
+```
+
+```luau Example 2
+local name, ver = identifyexecutor()
+
+if name ~= "Seliware" then
+    error(`This script only runs on Seliware, but you're on {name, ver}!`)
+end
+
+print(`Seliware {ver} detected, script is loading...`)
+```
+
+</CodeGroup>
+
+<Tip>
+  Print the executor name and version as the first line your script writes to the console - makes bug reports from users on different executors faster to debug.
+</Tip>

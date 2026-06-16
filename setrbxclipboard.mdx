@@ -1,0 +1,59 @@
+---
+title: "setrbxclipboard"
+---
+
+```luau
+setrbxclipboard(text: string): ()
+```
+
+A paste after calling it produces only a single carriage return byte (`\r{:luau}`), regardless of the input string.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `text` | `string` | Accepted but discarded. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+```
+
+Does nothing observable.
+
+```luau
+setrbxclipboard(text: string): ()
+```
+
+A paste after calling it produces only a single carriage return byte (`\r`), regardless of the input string.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `text` | `string` | Accepted but discarded. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+setrbxclipboard(text: string): ()
+```
+
+```luau Example 2
+setrbxclipboard("hello")
+-- paste anywhere; clipboard contains "\r" only.
+```
+
+</CodeGroup>
+
+<Tip>
+  For actual clipboard writes, use `setclipboard`.
+</Tip>

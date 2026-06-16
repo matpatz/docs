@@ -1,0 +1,74 @@
+---
+title: "queueonteleport"
+---
+
+```luau
+queueonteleport(code: string): ()
+```
+
+The queued code runs once the new place finishes loading. Two things people use this for the most:
+
+- Logging the environment of an obfuscated script you want to look inside, so you catch it the moment the new place starts.<br /><span class="subtext">Side-note: most obfuscators hook the executor's own functions at startup as an anti-tamper measure. A common trick is `newHookFunction = clonefunction(hookfunction){:luau}`, then calling `newHookFunction{:luau}` on `replaceclosure{:luau}` and `restorefunction{:luau}` so those run the obfuscator's own code instead of yours. Getting in before that runs is why the timing matters.</span>
+- Carrying a hub feature across the teleport. Lots of autofarm hubs do this - for a game like Tower Defense Simulator, the hub queues its autofarm so it starts itself the instant you land in the main game.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `code` | `string` | The Luau source to run after the teleport. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Aliases
+
+- `queue_on_teleport{:luau}`
+
+## Example
+
+A Tower Defense Simulator hub queues its autofarm before the lobby sends the player into the main game.
+```
+
+Queues Luau code to run right after the player teleports to another place.
+
+```luau
+queueonteleport(code: string): ()
+```
+
+The queued code runs once the new place finishes loading. Two things people use this for the most:
+
+- Logging the environment of an obfuscated script you want to look inside, so you catch it the moment the new place starts.<br /><span class="subtext">Side-note: most obfuscators hook the executor's own functions at startup as an anti-tamper measure. A common trick is `newHookFunction = clonefunction(hookfunction)`, then calling `newHookFunction` on `replaceclosure` and `restorefunction` so those run the obfuscator's own code instead of yours. Getting in before that runs is why the timing matters.</span>
+- Carrying a hub feature across the teleport. Lots of autofarm hubs do this - for a game like Tower Defense Simulator, the hub queues its autofarm so it starts itself the instant you land in the main game.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `code` | `string` | The Luau source to run after the teleport. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+queueonteleport(code: string): ()
+```
+
+```luau Example 2
+local autofarm = game:HttpGet("https://example.com/tds-autofarm.lua")
+queueonteleport(autofarm)
+
+-- when the lobby teleports the player in, the autofarm runs itself
+game:GetService("TeleportService"):Teleport(placeId)
+```
+
+</CodeGroup>
+
+<Tip>
+  Queued teleport code runs **earlier** than anything in the `autoexec` folder once you land in the new place.
+</Tip>

@@ -1,0 +1,58 @@
+---
+title: "WebSocket.connect"
+---
+
+Opens a WebSocket connection to a server and gives back a socket you can send and receive on.
+
+```luau
+WebSocket.connect(url: string): WebSocket
+```
+
+<Warning>
+  This is a WebSocket client only - you can't host a server with it.
+</Warning>
+
+Most commonly used to do things the Seliware sandbox can't do on its own. Your script can't open a browser window or touch the rest of the computer, but a small program running on the same machine can. The script talks to that program over a WebSocket and lets it do the work - for example, connect to a local server and send it a message every time the player picks up an item, so the local program opens a browser window.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `url` | `string` | The server URL. Starts with `ws://` or `wss://`. |
+
+## Returns
+
+A `WebSocket` socket object with this surface:
+
+| Member | Kind | Description |
+|--------|------|-------------|
+| `Send(message: string, is_binary: boolean?)` | method | Sends data to the server. `is_binary` is optional and defaults to `false`. |
+| `Close()` | method | Closes the connection. |
+| `OnMessage` | event | Fires when the server sends a message. The handler gets the message string. |
+| `OnClose` | event | Fires when the connection closes. |
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local ws = WebSocket.connect("wss://echo.websocket.events")
+ws.OnMessage:Connect(function(message)
+      print(message)
+end)
+ws:Send("Hello") -- Output: Hello
+```
+
+```luau Example 2
+local ws = WebSocket.connect("wss://echo.websocket.events")
+ws.OnClose:Connect(function()
+      print("Closed")
+end)
+ws:Close() -- Output: Closed
+```
+
+</CodeGroup>
+
+<Tip>
+  This is a WebSocket client only - you can't host a server with it.
+</Tip>

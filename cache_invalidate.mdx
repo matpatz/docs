@@ -2,39 +2,74 @@
 title: "cache.invalidate"
 ---
 
-Removes the specified Roblox instance from the executor's internal instance cache. This forces the executor to generate a brand new reference wrapper next time the object is accessed.
+```luau
+cache.invalidate(instance: Instance): ()
+```
+
+The executor caches the Lua value handed back for each engine Instance, so repeated access to the same object returns the same value. `cache.invalidate{:luau}` removes `instance{:luau}` from that cache; the game object is not modified. The next time the engine hands that object to Lua, the access produces a new value instead of the one held before.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `instance` | [`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance) | The Instance to drop from the executor's cache. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+A game script caches a service reference and later checks whatever it is handed against that saved value. Keep your own working handle with `cloneref{:luau}`, then `cache.invalidate{:luau}` the service so the script's next fetch is a different Lua value than the one it stored.
+
+<details>
+<summary>Solution</summary>
+```
+
+Removes an Instance from the executor's instance cache so the next access to it returns a new value.
 
 ```luau
 cache.invalidate(instance: Instance): ()
 ```
 
+The executor caches the Lua value handed back for each engine Instance, so repeated access to the same object returns the same value. `cache.invalidate` removes `instance` from that cache; the game object is not modified. The next time the engine hands that object to Lua, the access produces a new value instead of the one held before.
+
 ## Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
-| `instance` | [`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance) | The Roblox instance to remove from the reference cache. |
+|-----------|------|-------------|
+| `instance` | [`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance) | The Instance to drop from the executor's cache. |
 
 ## Returns
 
-`void`
+<code title="the function does not return a value.">void</code>
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local container = Instance.new("Folder")
-local part = Instance.new("Part", container)
+cache.invalidate(instance: Instance): ()
+```
 
--- Invalidate the cached reference
-cache.invalidate(container:FindFirstChild("Part"))
+```luau Example 2
+local Lighting = game:GetService("Lighting")
 
--- Comparing the original reference to a newly queried one returns false
-assert(part ~= container:FindFirstChild("Part"), "Reference was not invalidated")
+-- an independent handle that still drives the real service
+local myHandle = cloneref(Lighting)
+cache.invalidate(Lighting)
+
+-- the next fetch is a new value, so it no longer matches the old one
+print(Lighting == game:GetService("Lighting")) -- false
+print(cache.iscached(Lighting))                -- false: dropped from the cache
+
+-- the clone is a separate value but still the same Instance
+print(myHandle == Lighting)                    -- false
+print(compareinstances(myHandle, Lighting))    -- true
 ```
 
 </CodeGroup>
 
 <Tip>
-  Invalidating a cache reference is useful for testing dynamic instance recreation or ensuring a clean slate when comparing references.
+  Useful when testing object deletion, recreation, or bypassing anti-cheat wrapper caching.
 </Tip>

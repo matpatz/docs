@@ -1,0 +1,47 @@
+---
+title: "run_on_thread"
+---
+
+```luau
+run_on_thread(thread: thread, script: string, ...): ()
+```
+
+Executes Luau code on the context of the specified thread.
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `thread` | `thread` | The thread whose context should be used for execution. |
+| `script` | `string` | The Luau code string to run. |
+| `...` | `any` | Arguments to pass to the running code. |
+
+## Returns
+
+`void`
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+-- Execute a print statement on the first actor thread
+local threads = getactorthreads()
+if #threads > 0 then
+    run_on_thread(threads[1], "print('Hello from actor thread context')")
+end
+```
+
+```luau Example 2
+-- Pass arguments and run code on a thread
+local threads = getactorthreads()
+if #threads > 0 then
+    run_on_thread(threads[1], "local arg1 = ...; print('Received argument:', arg1)", "data_test")
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  Allows interacting with running threads or parallel actor contexts directly by executing code inside them.
+</Tip>

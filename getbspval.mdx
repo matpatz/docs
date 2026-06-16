@@ -1,0 +1,40 @@
+---
+title: "getbspval"
+---
+
+Reads a BinaryString property value from a Roblox instance.
+
+```luau
+getbspval(instance: Instance, property: string, base64: boolean): string
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `instance` | `Instance` | The target Instance. |
+| `property` | `string` | The BinaryString property name (e.g. `'SmoothGrid'`). |
+| `base64` | `boolean` | Whether the returned data string should be Base64-encoded. |
+
+## Returns
+
+`string` - The BinaryString value data.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local val = getbspval(workspace.Terrain, "SmoothGrid", true)
+print("SmoothGrid data: ", val)
+```
+
+```luau Example 2
+local physics = getbspval(partOperation, "PhysicsData", false)
+```
+
+</CodeGroup>
+
+<Tip>
+  Used for reading unreadable BinaryString properties like Terrain.SmoothGrid.
+</Tip>

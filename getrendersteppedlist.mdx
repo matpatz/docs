@@ -1,0 +1,48 @@
+---
+title: "getrendersteppedlist"
+---
+
+```luau
+getrendersteppedlist(): {any}
+```
+
+Most commonly used to find per-frame render hooks - things like an ESP or aimbot loop that a script attached to `RenderStepped{:luau}`.
+
+## Returns
+
+`{any}{:luau}` - a table of the callbacks and connections wired to `RenderStepped{:luau}` at the moment of the call.
+
+## Example
+```
+
+Returns a table of the functions and connections currently bound to `RunService.RenderStepped`.
+
+```luau
+getrendersteppedlist(): {any}
+```
+
+Most commonly used to find per-frame render hooks - things like an ESP or aimbot loop that a script attached to `RenderStepped`.
+
+## Returns
+
+`{any}` - a table of the callbacks and connections wired to `RenderStepped` at the moment of the call.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+getrendersteppedlist(): {any}
+```
+
+```luau Example 2
+for _, entry in ipairs(getrendersteppedlist()) do
+    print(entry)
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  Introspects the rendering pipeline connections.
+</Tip>

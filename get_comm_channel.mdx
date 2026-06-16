@@ -3,51 +3,66 @@ title: "get_comm_channel"
 ---
 
 ```luau
-function get_comm_channel(id: number): BindableEvent
+get_comm_channel(id: number): BindableEvent?
 ```
 
-Returns the `BindableEvent` associated with the given communication channel `id`, allowing actors to send and receive messages across VMs.
+`id{:luau}` is the number that `create_comm_channel{:luau}` gave you back when the channel was opened. Used on the receiving side of an actor split: a <span title="A script running on its own Roblox Actor (e.g. started via run_on_actor), with an isolated environment separate from the main thread." style="text-decoration:underline dotted;text-underline-offset:0.2em;cursor:help;">worker thread</span> should call `get_comm_channel(id){:luau}` to reach the same one. The result is a Roblox [`BindableEvent`](https://create.roblox.com/docs/reference/engine/classes/BindableEvent), so use `:Fire(...){:luau}` to send messages and `.Event:Connect(...){:luau}` to receive them, or `.Event:Wait(){:luau}` to yield until the next one arrives.
 
-**Example:**
+## Parameters
 
-```luau highlight={8}
-local id, channel = create_comm_channel()
-channel.Event:Connect(function(data)
-    print(data) -- Hello, World!
-end)
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `id` | `number` | The channel id from `create_comm_channel{:luau}`. |
 
-run_on_actor(getactors()[1], [[
-    local id = ...
-    local channel = get_comm_channel(id)
-    channel:Fire("Hello, World!")
-]], id)
+## Returns
+
+[`BindableEvent`](https://create.roblox.com/docs/reference/engine/classes/BindableEvent)? - the event for that channel, or `nil{:luau}` if no channel was ever opened with that id.
+
+## Example
+
+The main thread opens a channel and starts a `run_on_actor{:luau}` worker thread with the id. The worker thread resolves the same channel with `get_comm_channel{:luau}` and fires a message back to the main thread.
 ```
 
-<Check>
-  This function can be implemented in Lua.
-</Check>
+Returns the event for an already-opened channel (by its id).
 
 ```luau
-local channels = {}
-
-local function create_comm_channel(): (number, BindableEvent)
-	local Id = #channels + 1
-	local Event = Instance.new("BindableEvent", gethui())
-
-	channels[Id] = {
-		Id = Id,
-		Event = Event
-	}
-
-	return Id, Event
-end
-
-local function get_comm_channel(Id: number): BindableEvent?
-	local Channel = channels[Id]
-	return Channel and Channel.Event
-end
-
-local function get_comm_channels()
-	return channels
-end
+get_comm_channel(id: number): BindableEvent?
 ```
+
+`id` is the number that `create_comm_channel` gave you back when the channel was opened. Used on the receiving side of an actor split: a <span title="A script running on its own Roblox Actor (e.g. started via run_on_actor), with an isolated environment separate from the main thread." style="text-decoration:underline dotted;text-underline-offset:0.2em;cursor:help;">worker thread</span> should call `get_comm_channel(id)` to reach the same one. The result is a Roblox [`BindableEvent`](https://create.roblox.com/docs/reference/engine/classes/BindableEvent), so use `:Fire(...)` to send messages and `.Event:Connect(...)` to receive them, or `.Event:Wait()` to yield until the next one arrives.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `id` | `number` | The channel id from `create_comm_channel`. |
+
+## Returns
+
+[`BindableEvent`](https://create.roblox.com/docs/reference/engine/classes/BindableEvent)? - the event for that channel, or `nil` if no channel was ever opened with that id.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+get_comm_channel(id: number): BindableEvent?
+```
+
+```luau Example 2
+-- main thread
+local id, channel = create_comm_channel()
+
+channel.Event:Connect(function(payload)
+    print(`worker said: {payload}`)
+end)
+
+-- hand the id to the worker, e.g. as a run_on_actor argument
+run_on_actor(actor, workerScript, id)
+```
+
+</CodeGroup>
+
+<Tip>
+  Always check parameters and return values when working with this library function.
+</Tip>

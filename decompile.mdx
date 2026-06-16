@@ -1,0 +1,46 @@
+---
+title: "decompile"
+---
+
+Reads a `LocalScript` or `ModuleScript` and gives back its source as readable Luau.
+
+```luau
+decompile(script: LuaSourceContainer): string
+```
+
+Seliware uses the [Medal decompiler](https://github.com/Stefanuk12/medal-decompiler).
+
+This call yields - the script that called `decompile` pauses until the source is ready, but the Roblox client keeps running and does not freeze. Most commonly paired with `writefile` or `appendfile` to reverse-engineer the game's logic.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `script` | [`LuaSourceContainer`](https://create.roblox.com/docs/reference/engine/classes/LuaSourceContainer) | The script to decompile. |
+
+## Returns
+
+`string` - the script's decompiled Luau source.
+
+<Note>
+  Decompiled source is rebuilt from bytecode, so it won't match the original file byte for byte. Dead code (like `if false then`) is gone, numbers and joined strings are folded into single constants, and local variable names are lost - they come back as `v1`, `v2`, and so on.
+</Note>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+decompile(script: LuaSourceContainer): string
+```
+
+```luau Example 2
+local sourceCode = decompile(game.Players.LocalPlayer.Character.Animate)
+print(sourceCode)
+```
+
+</CodeGroup>
+
+<Tip>
+  Decompiled source is rebuilt from bytecode, so it won't match the original file byte for byte. Dead code (like `if false then`) is gone, numbers and joined strings are folded into single constants, and local variable names are lost - they come back as `v1`, `v2`, and so on.
+</Tip>

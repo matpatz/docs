@@ -1,0 +1,39 @@
+---
+title: "getpcd"
+---
+
+Reads physical collision data (PCD) representing the physics mesh of a Roblox instance.
+
+```luau
+getpcd(instance: Instance, property: string): string
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `instance` | `Instance` | The target Instance. |
+| `property` | `string` | The collision property name. |
+
+## Returns
+
+`string` - The collision data string.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local collData = getpcd(workspace.UnionPart, "PhysicsData")
+print(#collData)
+```
+
+```luau Example 2
+local meshData = getpcd(meshPart, "CollisionData")
+```
+
+</CodeGroup>
+
+<Tip>
+  Useful for generating custom geometry calculations.
+</Tip>

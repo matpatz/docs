@@ -2,34 +2,83 @@
 title: "crypt.lz4compress"
 ---
 
-Compresses a plain text string using the LZ4 compression algorithm.
-
 ```luau
-crypt.lz4compress(data: string): string
+crypt.lz4compress(plaintext: string): string
 ```
 
-<Tip>
-  Alias: `lz4compress`
-</Tip>
+There is no header, no checksum, and no trailing size marker, so you have to remember (or store separately) the original byte length to decompress later.
+
+Most commonly used to shrink a large JSON dump or serialized table before writing it to disk with `writefile{:luau}` or sending it over `request{:luau}` + `base64encode{:luau}`.
 
 ## Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
-| `data` | `string` | The plain text string to compress. |
+|-----------|------|-------------|
+| `plaintext` | `string` | The data to compress. |
+
+Note: any byte value is allowed, including embedded zeros.
 
 ## Returns
 
-`string` - The compressed binary/hex string.
+`string` - the compressed payload.
+
+## Aliases
+
+- `lz4compress{:luau}`
+
+## Example
+
+In a chat-event-based Roblox game, stream Bad Apple as ASCII video over a remote at 30fps. <br /> Reason: storing >1800 frames and parsing them would be a lot more easier if you compress the data beforehand.
+
+<details>
+<summary>Solution</summary>
+```
+
+Compresses `plaintext` into the LZ4 Block format and returns the compressed bytes as a string.
+
+```luau
+crypt.lz4compress(plaintext: string): string
+```
+
+There is no header, no checksum, and no trailing size marker, so you have to remember (or store separately) the original byte length to decompress later.
+
+Most commonly used to shrink a large JSON dump or serialized table before writing it to disk with `writefile` or sending it over `request` + `base64encode`.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `plaintext` | `string` | The data to compress. |
+
+Note: any byte value is allowed, including embedded zeros.
+
+## Returns
+
+`string` - the compressed payload.
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local raw = "Hello, world!"
-local compressed = crypt.lz4compress(raw)
-assert(type(compressed) == "string", "Compression should return a string")
+crypt.lz4compress(plaintext: string): string
+```
+
+```luau Example 2
+-- Example script; will not do anything
+
+local headerParts, blobs = {}, {}
+for _, frame in ipairs(asciiFrames) do
+    local packed = crypt.lz4compress(frame)
+    table.insert(headerParts, `{#packed}:{#frame}`)
+    table.insert(blobs, packed)
+end
+
+writefile("bad_apple/chunk_0001.txt", `{table.concat(headerParts, ",")}\n{table.concat(blobs)}`)
 ```
 
 </CodeGroup>
+
+<Tip>
+  Useful when saving large configs or sending massive data payloads.
+</Tip>

@@ -2,29 +2,62 @@
 title: "crypt.random"
 ---
 
-Generates a cryptographically secure random string of the specified size.
+```luau
+crypt.random(size: number): string
+```
+
+Each call returns a different result. For random bytes already Base64-encoded use `crypt.generatebytes{:luau}`; for an AES key use `crypt.generatekey{:luau}`.
+
+Most commonly used as a raw-randomness source for tokens, salts, and nonces.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `size` | `number` | Number of random bytes to return. |
+
+## Returns
+
+`string` - `size{:luau}` random bytes.
+
+## Example
+```
+
+Returns a string of `size` random bytes.
 
 ```luau
 crypt.random(size: number): string
 ```
 
+Each call returns a different result. For random bytes already Base64-encoded use `crypt.generatebytes`; for an AES key use `crypt.generatekey`.
+
+Most commonly used as a raw-randomness source for tokens, salts, and nonces.
+
 ## Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
-| `size` | `number` | The length of the random string to generate (in bytes). |
+|-----------|------|-------------|
+| `size` | `number` | Number of random bytes to return. |
 
 ## Returns
 
-`string` - A random string of the specified size.
+`string` - `size` random bytes.
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local randomStr = crypt.random(16)
-assert(#randomStr == 16, "Generated string size should match the requested size")
+crypt.random(size: number): string
+```
+
+```luau Example 2
+local token = crypt.random(16)
+print(#token) --> 16
 ```
 
 </CodeGroup>
+
+<Tip>
+  Unlike standard math.random, this uses a secure entropy source.
+</Tip>

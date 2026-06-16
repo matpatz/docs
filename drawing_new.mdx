@@ -1,0 +1,68 @@
+---
+title: "Drawing.new"
+---
+
+```luau
+Drawing.new(type: string): DrawingObject
+```
+
+The drawing is not part of the Roblox UI, so game scripts can't see it. Set its properties (like `Position{:luau}`, `Color{:luau}`, `Visible{:luau}`) to control how it looks, and call `:Remove(){:luau}` when you're done with it.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `type` | `string` | The kind of drawing to make. [See complete list here.](/docs/drawing/types/). |
+
+## Returns
+
+`DrawingObject{:luau}` - the new drawing. Every type shares the base properties (`Visible{:luau}`, `ZIndex{:luau}`, `Transparency{:luau}`, `Color{:luau}`) plus the ones specific to its type.
+
+## Example
+
+A red circle in the middle of common screen space, then cleaned up.
+```
+
+Creates a new drawing object that renders on top of all UIs, including those that are parented under CoreGui.
+
+```luau
+Drawing.new(type: string): DrawingObject
+```
+
+The drawing is not part of the Roblox UI, so game scripts can't see it. Set its properties (like `Position`, `Color`, `Visible`) to control how it looks, and call `:Remove()` when you're done with it.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `type` | `string` | The kind of drawing to make. [See complete list here.](/docs/drawing/types/). |
+
+## Returns
+
+`DrawingObject` - the new drawing. Every type shares the base properties (`Visible`, `ZIndex`, `Transparency`, `Color`) plus the ones specific to its type.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+Drawing.new(type: string): DrawingObject
+```
+
+```luau Example 2
+local circle = Drawing.new("Circle")
+circle.Radius = 50
+circle.Color = Color3.fromRGB(255, 0, 0)
+circle.Filled = true
+circle.Position = Vector2.new(300, 300)
+circle.Visible = true
+
+task.wait(1)
+circle:Remove()
+```
+
+</CodeGroup>
+
+<Tip>
+  Drawing objects render outside Roblox's standard UI layer and must be manually destroyed with `:Destroy()`.
+</Tip>

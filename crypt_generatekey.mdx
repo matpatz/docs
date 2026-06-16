@@ -2,7 +2,7 @@
 title: "crypt.generatekey"
 ---
 
-Generates a cryptographically secure random 32-byte key suitable for encryption and decryption.
+Generates a random 32-byte AES key and returns it encoded in base64 (44 characters).
 
 ```luau
 crypt.generatekey(): string
@@ -10,15 +10,23 @@ crypt.generatekey(): string
 
 ## Returns
 
-`string` - A Base64-encoded string representing the generated 32-byte key.
+`string` - exactly 44 characters of base64, encoding 32 raw bytes.
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
+crypt.generatekey(): string
+```
+
+```luau Example 2
 local key = crypt.generatekey()
-assert(#crypt.base64decode(key) == 32, "Key should be 32 bytes long when decoded")
+print("Key (base64): ", key)
 ```
 
 </CodeGroup>
+
+<Tip>
+  Generates keys with high entropy to ensure cryptographic strength.
+</Tip>

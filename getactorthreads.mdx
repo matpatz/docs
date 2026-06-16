@@ -3,52 +3,39 @@ title: "getactorthreads"
 ---
 
 ```luau
-function getactorthreads(): {thread}
+getactorthreads(): {thread}
 ```
 
-<Tip>
-  Alias: get\_actor\_threads
-</Tip>
+Returns a table of all active coroutine threads running inside parallel actor environments.
 
-**Example:** Indexes every actor thread and outputs it to the console.
+## Returns
+
+`{thread}` - An array of threads currently executing under actors.
+
+## Example
 
 <CodeGroup>
 
 ```luau Example 1
-table.foreach(getactorthreads(), print)
+-- Print all actor threads
+for _, t in ipairs(getactorthreads()) do
+    print(t)
+end
 ```
 
 ```luau Example 2
-local threads = getactorthreads()
-table.foreach(threads, function(i, thread)
-	run_on_thread(thread, [[
-		print(thread)
-	]])
-end)
-```
-
-```luau Example 3
--- Count how many actor threads are running
-print("Active actor threads: " .. #getactorthreads())
+-- Find if any actor threads are currently suspended
+local suspended = 0
+for _, t in ipairs(getactorthreads()) do
+    if coroutine.status(t) == "suspended" then
+        suspended = suspended + 1
+    end
+end
+print(`Found {suspended} suspended actor threads`)
 ```
 
 </CodeGroup>
 
-<Check>
-  This function can be implemented in Lua.
-</Check>
-
-```luau highlight={5}
-task.spawn(function()
-    local start1 = os.clock()
-    local t1 = game:QueryDescendants("Actor")
-    print("QueryDescendants:", os.clock() - start1)
-    local start2 = os.clock()
-    local t2 = getactorthreads()
-    print("getactorthreads:", os.clock() - start2) -- Should be faster
-end)
-```
-
-> Threads come from Roblox's parallel Luau model — when a `Script` is parented inside an `Actor`, a dedicated thread is created for it, isolated from the main thread and all other actors.
->
-> Parallel meaning at the same time.
+<Tip>
+  Roblox parallel Luau scripts run on dedicated actor threads. Use this function to inspect their execution state.
+</Tip>

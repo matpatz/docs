@@ -1,0 +1,258 @@
+---
+title: "Types"
+---
+
+Every type `Drawing.new` can make. Pick a type from the bar - scroll it sideways for the rest. Each one builds on the base `DrawingObject` and adds the properties below.
+
+<Tabs>
+<TabItem label="DrawingObject">
+
+The base every drawing shares - `Drawing.new` returns one of these.
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `Visible` | `boolean` | `false` | Whether the drawing renders. |
+| `ZIndex` | `number` | `1` | Render order - higher draws on top. |
+| `Transparency` | `number` | `1` | `0` is fully opaque, `1` is invisible. |
+| `Color` | `Color3` | `Color3.new(0, 0, 0)` | The drawing's color. |
+
+```luau
+DrawingObject:Remove(): ()
+```
+
+Removes the drawing. `DrawingObject:Destroy()` does the same thing. Returns <code title="the function does not return a value.">void</code>.
+
+**Example** - every base property, then removed.
+
+```luau
+local obj = Drawing.new("Circle")
+obj.Color = Color3.fromRGB(255, 255, 255)
+obj.Transparency = 0.5
+obj.ZIndex = 2
+obj.Visible = true
+
+task.wait(1)
+obj:Remove()
+```
+
+</TabItem>
+<TabItem label="Line">
+
+A straight line between two screen points.
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `From` | `Vector2` | `Vector2.zero` | Start point, in screen pixels. |
+| `To` | `Vector2` | `Vector2.zero` | End point, in screen pixels. |
+| `Thickness` | `number` | `1` | Line thickness in pixels. |
+
+**Example** - every Line property plus the base ones.
+
+```luau
+local line = Drawing.new("Line")
+line.From = Vector2.new(0, 0)
+line.To = Vector2.new(200, 120)
+line.Thickness = 3
+line.Color = Color3.fromRGB(255, 0, 0)
+line.Transparency = 1
+line.ZIndex = 1
+line.Visible = true
+```
+
+</TabItem>
+<TabItem label="Text">
+
+A text label drawn straight onto the screen.
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `Text` | `string` | `""` | The text to show. |
+| `Size` | `number` | `18` | Text size. |
+| `Position` | `Vector2` | `Vector2.zero` | Top-left corner, in screen pixels. |
+| `Center` | `boolean` | `false` | Center the text on `Position`. |
+| `Outline` | `boolean` | `false` | Draw an outline behind the text. |
+| `OutlineColor` | `Color3` | `Color3.new(0, 0, 0)` | Outline color. |
+| `Font` | `number` | `0` | Font id - see `Drawing.Fonts`. |
+| `TextBounds` | `Vector2` | read only | Pixel size the text takes up. |
+
+**Example** - every writable Text property, then reading `TextBounds`.
+
+```luau
+local label = Drawing.new("Text")
+label.Text = "Hello, World!"
+label.Size = 24
+label.Position = Vector2.new(100, 100)
+label.Center = true
+label.Outline = true
+label.OutlineColor = Color3.fromRGB(0, 0, 0)
+label.Font = Drawing.Fonts.Monospace
+label.Color = Color3.fromRGB(255, 255, 255)
+label.Transparency = 1
+label.ZIndex = 5
+label.Visible = true
+
+print(label.TextBounds) -- read only: pixel size of the text
+```
+
+</TabItem>
+<TabItem label="Image">
+
+An image drawn straight onto the screen.
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `Data` | `string` | `""` | The raw image data. |
+| `Size` | `Vector2` | `Vector2.new(0, 0)` | Drawn size in pixels. |
+| `Position` | `Vector2` | `Vector2.new(0, 0)` | Top-left corner, in screen pixels. |
+| `Rounding` | `number` | `0` | Corner rounding in pixels. |
+
+**Example** - every Image property plus the base ones.
+
+```luau
+local image = Drawing.new("Image")
+image.Data = readfile("logo.png")
+image.Size = Vector2.new(128, 128)
+image.Position = Vector2.new(20, 20)
+image.Rounding = 8
+image.Color = Color3.fromRGB(255, 255, 255)
+image.Transparency = 1
+image.ZIndex = 1
+image.Visible = true
+```
+
+</TabItem>
+<TabItem label="Circle">
+
+A circle, set by a center and a radius.
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `Position` | `Vector2` | `Vector2.zero` | Center point, in screen pixels. |
+| `Radius` | `number` | `0` | Circle radius in pixels. |
+| `Thickness` | `number` | `1` | Outline thickness, when not filled. |
+| `Filled` | `boolean` | `false` | Fill the circle instead of outlining it. |
+| `NumSides` | `number` | `250` | How many sides approximate the circle. |
+
+**Example** - every Circle property plus the base ones.
+
+```luau
+local circle = Drawing.new("Circle")
+circle.Position = Vector2.new(300, 300)
+circle.Radius = 50
+circle.Thickness = 2
+circle.Filled = true
+circle.NumSides = 64
+circle.Color = Color3.fromRGB(255, 0, 0)
+circle.Transparency = 1
+circle.ZIndex = 1
+circle.Visible = true
+```
+
+</TabItem>
+<TabItem label="Square">
+
+A rectangle.
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `Position` | `Vector2` | `Vector2.zero` | Top-left corner, in screen pixels. |
+| `Size` | `Vector2` | `Vector2.zero` | Width and height in pixels. |
+| `Thickness` | `number` | `1` | Outline thickness, when not filled. |
+| `Filled` | `boolean` | `false` | Fill the square instead of outlining it. |
+
+**Example** - every Square property plus the base ones.
+
+```luau
+local box = Drawing.new("Square")
+box.Position = Vector2.new(200, 200)
+box.Size = Vector2.new(120, 80)
+box.Thickness = 2
+box.Filled = true
+box.Color = Color3.fromRGB(0, 255, 0)
+box.Transparency = 1
+box.ZIndex = 1
+box.Visible = true
+```
+
+</TabItem>
+<TabItem label="Triangle">
+
+A triangle, set by its three corners.
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `PointA` | `Vector2` | `Vector2.zero` | First corner, in screen pixels. |
+| `PointB` | `Vector2` | `Vector2.zero` | Second corner, in screen pixels. |
+| `PointC` | `Vector2` | `Vector2.zero` | Third corner, in screen pixels. |
+| `Thickness` | `number` | `1` | Outline thickness, when not filled. |
+| `Filled` | `boolean` | `false` | Fill the triangle instead of outlining it. |
+
+**Example** - every Triangle property plus the base ones.
+
+```luau
+local tri = Drawing.new("Triangle")
+tri.PointA = Vector2.new(100, 100)
+tri.PointB = Vector2.new(200, 100)
+tri.PointC = Vector2.new(150, 50)
+tri.Thickness = 2
+tri.Filled = true
+tri.Color = Color3.fromRGB(0, 170, 255)
+tri.Transparency = 1
+tri.ZIndex = 1
+tri.Visible = true
+```
+
+</TabItem>
+<TabItem label="Quad">
+
+A four-cornered shape, <span title="Quadrilateral." style="text-decoration:underline dotted;text-underline-offset:0.2em;cursor:help;">corners placed anywhere</span>.
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `PointA` | `Vector2` | `Vector2.zero` | First corner, in screen pixels. |
+| `PointB` | `Vector2` | `Vector2.zero` | Second corner, in screen pixels. |
+| `PointC` | `Vector2` | `Vector2.zero` | Third corner, in screen pixels. |
+| `PointD` | `Vector2` | `Vector2.zero` | Fourth corner, in screen pixels. |
+| `Thickness` | `number` | `1` | Outline thickness, when not filled. |
+| `Filled` | `boolean` | `false` | Fill the quad instead of outlining it. |
+
+**Example** - every Quad property plus the base ones.
+
+```luau
+local quad = Drawing.new("Quad")
+quad.PointA = Vector2.new(100, 100)
+quad.PointB = Vector2.new(200, 100)
+quad.PointC = Vector2.new(200, 200)
+quad.PointD = Vector2.new(100, 200)
+quad.Thickness = 2
+quad.Filled = true
+quad.Color = Color3.fromRGB(0, 170, 255)
+quad.Transparency = 1
+quad.ZIndex = 1
+quad.Visible = true
+```
+
+</TabItem>
+<TabItem label="Font">
+
+A custom font built from font data, usable by a `Text` drawing.
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `Data` | `string` | `""` | The raw font data to load. |
+
+**Example** - load font data, then use it on a `Text` drawing.
+
+```luau
+local font = Drawing.new("Font")
+font.Data = readfile("myfont.ttf")
+
+local label = Drawing.new("Text")
+label.Text = "custom font"
+label.Font = font
+label.Visible = true
+```
+
+</TabItem>
+
+</Tabs>

@@ -1,0 +1,53 @@
+---
+title: "mouse1release"
+---
+
+```luau
+mouse1release(): ()
+```
+
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Aliases
+
+- `Mouse1Release{:luau}`
+
+## Example
+
+Hold the left mouse button down for a fixed duration, then release it after a short while.
+```
+
+Simulates releasing the left mouse button.
+
+luau
+mouse1press()
+task.wait(0.5)
+mouse1release()
+```
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+mouse1release(): ()
+```
+
+```luau Example 2
+mouse1press()
+task.wait(0.5)
+mouse1release()
+```
+
+</CodeGroup>
+
+<Tip>
+  Releases a left click held down by `mouse1press`.
+</Tip>

@@ -1,0 +1,40 @@
+---
+title: "debug.setinfo"
+---
+
+Modifies metadata fields for the specified function or stack level.
+
+```luau
+debug.setinfo(func: function | number, infoTable: table): ()
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `func` | `function | number` | The target function or stack level to modify. |
+| `infoTable` | `table` | A table containing fields to overwrite (like `name`). |
+
+## Returns
+
+`void`
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local function test() end
+debug.setinfo(test, { name = "custom_name" })
+print(debug.getinfo(test).name) -- custom_name
+```
+
+```luau Example 2
+debug.setinfo(1, { name = "fake_frame" })
+```
+
+</CodeGroup>
+
+<Tip>
+  Commonly used to spoof traceback output for debugging or stealth.
+</Tip>

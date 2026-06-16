@@ -2,45 +2,79 @@
 title: "loadstring"
 ---
 
-Compiles the given Luau source code string into an executable Lua closure.
-
 ```luau
-loadstring(chunk: string, chunkname: string?): (function?, string?)
+loadstring(source: string, chunkname: string?): function?, string?
 ```
+
+Most commonly used to run a script hub fetched over HTTP in one line: `loadstring(game:HttpGet(url))(){:luau}`.
 
 ## Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
-| `chunk` | `string` | The Luau source code string to compile. |
-| `chunkname` | `string` | *(Optional)* The name of the chunk to use for error reporting and debugging. |
+|-----------|------|-------------|
+| `source` | `string` | The Luau source code to compile. |
+| `chunkname` | `string?` | Optional label that appears in stack traces and error messages. Defaults to a generated string. |
 
 ## Returns
 
-1. `function?` - The compiled function, or `nil` if compilation failed.
-2. `string?` - The compilation error message if compilation failed.
+`(function, nil)` on success, `(nil, string)` on failure.
+
+| Outcome | First return | Second return |
+|---------|--------------|---------------|
+| Source compiled cleanly | callable function | `nil{:luau}` |
+| Syntax / compile error | `nil{:luau}` | error message |
+
+## Example
+
+Fetch a script hub over HTTP and run it through `loadstring(){:luau}`, guarding the compile so a syntax error in the fetched source warns you instead of failing silently:
+```
+
+Takes a string of Luau source code, compiles it, and returns the compiled chunk as a function. Compiling doesn't run the code - call the returned function to do that.
+
+```luau
+loadstring(source: string, chunkname: string?): function?, string?
+```
+
+Most commonly used to run a script hub fetched over HTTP in one line: `loadstring(game:HttpGet(url))()`.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `source` | `string` | The Luau source code to compile. |
+| `chunkname` | `string?` | Optional label that appears in stack traces and error messages. Defaults to a generated string. |
+
+## Returns
+
+`(function, nil)` on success, `(nil, string)` on failure.
+
+| Outcome | First return | Second return |
+|---------|--------------|---------------|
+| Source compiled cleanly | callable function | `nil` |
+| Syntax / compile error | `nil` | error message |
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local func, err = loadstring("return ... + 1")
-if func then
-    print(func(5)) -- Outputs: 6
-else
-    warn("Failed to compile: " .. err)
-end
+loadstring(source: string, chunkname: string?): function?, string?
 ```
 
 ```luau Example 2
-local func, err = loadstring("syntax error!")
-assert(func == nil, "Should fail to compile")
-assert(type(err) == "string", "Should return error message")
+local source = game:HttpGet("https://example.com/hub.lua")
+
+local chunk, err = loadstring(source, "hub")
+if not chunk then
+    warn(`something went wrong w/ the script hub: {err}`)
+    return
+end
+
+chunk()
 ```
 
 </CodeGroup>
 
 <Tip>
-  `loadstring` compiles standard Luau source code. Attempting to pass raw Luau bytecode will result in a compilation error.
+  Does not execute bytecode; pass plain text Luau code.
 </Tip>

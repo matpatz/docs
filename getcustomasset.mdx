@@ -1,0 +1,64 @@
+---
+title: "getcustomasset"
+---
+
+```luau
+getcustomasset(path: string): string
+```
+
+`path{:luau}` is workspace-relative. In return, you get a string that works anywhere Roblox takes a content id - `ImageLabel.Image{:luau}`, `Decal.Texture{:luau}`, `Sound.SoundId{:luau}`, `MeshPart` textures, and so on. Most commonly used to pull your own images and audio into a game, like a custom UI skin or a custom sound.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `path` | `string` | Workspace-relative file to register. |
+
+## Returns
+
+`string` - an `rbxasset://...{:luau}` content id pointing at the file. 
+
+## Example
+
+Save an image to the workspace, then show it in your own GUI.
+```
+
+Turns a file in your workspace folder into a Roblox content id you can use in-game.
+
+```luau
+getcustomasset(path: string): string
+```
+
+`path` is workspace-relative. In return, you get a string that works anywhere Roblox takes a content id - `ImageLabel.Image`, `Decal.Texture`, `Sound.SoundId`, `MeshPart` textures, and so on. Most commonly used to pull your own images and audio into a game, like a custom UI skin or a custom sound.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `path` | `string` | Workspace-relative file to register. |
+
+## Returns
+
+`string` - an `rbxasset://...` content id pointing at the file.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+getcustomasset(path: string): string
+```
+
+```luau Example 2
+writefile("skins/logo.png", game:HttpGet("https://example.com/logo.png"))
+
+local gui = Instance.new("ScreenGui", gethui()) -- lebron spotted using 2nd arg of Instance.new 🤯
+local logo = Instance.new("ImageLabel", gui)
+logo.Image = getcustomasset("skins/logo.png")
+```
+
+</CodeGroup>
+
+<Tip>
+  Supports standard image and audio file formats (.png, .jpg, .mp3, .ogg).
+</Tip>

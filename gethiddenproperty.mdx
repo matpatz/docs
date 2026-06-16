@@ -1,0 +1,40 @@
+---
+title: "gethiddenproperty"
+---
+
+Reads the value of a hidden property on a Roblox instance.
+
+```luau
+gethiddenproperty(instance: Instance, property: string): (any, boolean)
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `instance` | `Instance` | The target Instance. |
+| `property` | `string` | The hidden property name. |
+
+## Returns
+
+1. `any` - The value of the property.
+2. `boolean` - `true` if the property is hidden, `false` otherwise.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local val, isHidden = gethiddenproperty(fireInstance, "size_xml")
+print("XML size: ", val)
+```
+
+```luau Example 2
+local lat = gethiddenproperty(game:GetService("Lighting"), "GeographicLatitude")
+```
+
+</CodeGroup>
+
+<Tip>
+  Useful when getting values that are locked from command scripts.
+</Tip>

@@ -2,37 +2,71 @@
 title: "cache.iscached"
 ---
 
-Returns a boolean indicating whether the specified Roblox instance is currently cached by the executor's internal reference system.
+```luau
+cache.iscached(instance: Instance): boolean
+```
+
+Seliware keeps an internal cache of game Instances; an Instance you reach through the game tree is normally tracked there, so `cache.iscached{:luau}` returns `true{:luau}` for it. Once `cache.invalidate{:luau}` removes an Instance from that cache, `cache.iscached{:luau}` returns `false{:luau}` for it.
+
+Most commonly used to confirm a reference was actually detached after an invalidate call.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `instance` | [`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance) | The Instance to look up in the cache. |
+
+## Returns
+
+`true{:luau}` if `instance{:luau}` is tracked in the instance cache, `false{:luau}` if it is not.
+
+## Example
+
+In a Roblox game, confirm that a RemoteEvent was actually detached before you rely on a `cache.invalidate{:luau}` to dodge its anti-cheat:
+```
+
+Tells you whether an Instance is still in Seliware's internal instance cache.
 
 ```luau
 cache.iscached(instance: Instance): boolean
 ```
 
+Seliware keeps an internal cache of game Instances; an Instance you reach through the game tree is normally tracked there, so `cache.iscached` returns `true` for it. Once `cache.invalidate` removes an Instance from that cache, `cache.iscached` returns `false` for it.
+
+Most commonly used to confirm a reference was actually detached after an invalidate call.
+
 ## Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
-| `instance` | [`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance) | The Roblox instance to check in the cache. |
+|-----------|------|-------------|
+| `instance` | [`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance) | The Instance to look up in the cache. |
 
 ## Returns
 
-`boolean` - `true` if the instance is cached, `false` otherwise.
+`true` if `instance` is tracked in the instance cache, `false` if it is not.
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local part = Instance.new("Part")
+cache.iscached(instance: Instance): boolean
+```
 
--- A new instance is automatically cached
-assert(cache.iscached(part), "Part should be cached")
+```luau Example 2
+local remote = game:GetService("ReplicatedStorage"):FindFirstChild("RemoteEvent")
 
--- Invalidate the instance
-cache.invalidate(part)
+print(cache.iscached(remote)) -- expected true: reached through the game tree
 
--- Now it is no longer cached
-assert(not cache.iscached(part), "Part should not be cached after invalidation")
+cache.invalidate(remote)
+
+if not cache.iscached(remote) then
+    print("dropped from the cache - the next fetch is a new value")
+end
 ```
 
 </CodeGroup>
+
+<Tip>
+  Checking cache status is helpful before performing low-level memory operations.
+</Tip>

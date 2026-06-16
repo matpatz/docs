@@ -1,0 +1,36 @@
+---
+title: "cleardrawcache"
+---
+
+Clears Seliware's internal drawing cache.
+
+```luau
+cleardrawcache(): ()
+```
+
+The name is misleading. `cleardrawcache` clears an internal cache - it does **not** remove the `Drawing` objects you made with `Drawing.new`. After a call, those objects are still alive: you can still read and write their properties and toggle `Visible`.
+
+To actually remove every drawing your script made, use `Drawing.clear` instead. The two are different functions, not aliases.
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+cleardrawcache(): ()
+```
+
+```luau Example 2
+cleardrawcache()
+print("All drawing objects cleared")
+```
+
+</CodeGroup>
+
+<Tip>
+  Useful when recreating the UI or unloading scripts.
+</Tip>

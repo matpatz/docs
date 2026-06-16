@@ -1,0 +1,39 @@
+---
+title: "debug.getsafeenv"
+---
+
+Returns the safe environment table of the specified function.
+
+```luau
+debug.getsafeenv(func: function): table
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `func` | `function` | The target function to inspect. |
+
+## Returns
+
+`table` - The safe environment table.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local env = debug.getsafeenv(print)
+print("Safe env type: ", type(env))
+```
+
+```luau Example 2
+local env = debug.getsafeenv(function() end)
+assert(env == getgenv(), "Local functions should share executor environment by default")
+```
+
+</CodeGroup>
+
+<Tip>
+  Safe environments isolate script contexts to prevent access violations.
+</Tip>

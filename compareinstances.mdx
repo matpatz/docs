@@ -2,36 +2,71 @@
 title: "compareinstances"
 ---
 
-Compares two reference wrappers to determine if they point to the same underlying Roblox instance, even if the references themselves are not equal in Lua.
-
 ```luau
-compareinstances(instance1: Instance, instance2: Instance): boolean
+compareinstances(a: Instance, b: Instance): boolean
 ```
+
+Calling `cloneref{:luau}` on an Instance gives you a separate Lua reference. Roblox treats both as the same Instance, but using the `=={:luau}` operator compares the objects themselves - so `original == cloneref(original){:luau}` will return `false{:luau}`. `compareinstances{:luau}` checks the Roblox Instances behind them instead.
+
+Most commonly used after `cloneref{:luau}` to confirm a clone and its original are the same Roblox Instance.
 
 ## Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
-| `instance1` | [`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance) | The first instance reference. |
-| `instance2` | [`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance) | The second instance reference. |
+|-----------|------|-------------|
+| `a` | `Instance` | The first instance to compare. |
+| `b` | `Instance` | The second instance to compare. |
 
 ## Returns
 
-`boolean` - `true` if both references point to the same underlying instance, `false` otherwise.
+`boolean` - `true{:luau}` when both arguments are the same Roblox Instance; otherwise `false{:luau}`.
+
+## Aliases
+
+- `checkinst{:luau}`
+
+## Example
+```
+
+Checks whether `a` and `b` are the same Roblox Instance.
+
+```luau
+compareinstances(a: Instance, b: Instance): boolean
+```
+
+Calling `cloneref` on an Instance gives you a separate Lua reference. Roblox treats both as the same Instance, but using the `==` operator compares the objects themselves - so `original == cloneref(original)` will return `false`. `compareinstances` checks the Roblox Instances behind them instead.
+
+Most commonly used after `cloneref` to confirm a clone and its original are the same Roblox Instance.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `a` | `Instance` | The first instance to compare. |
+| `b` | `Instance` | The second instance to compare. |
+
+## Returns
+
+`boolean` - `true` when both arguments are the same Roblox Instance; otherwise `false`.
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local part = Instance.new("Part")
-local clone = cloneref(part)
+compareinstances(a: Instance, b: Instance): boolean
+```
 
--- The wrappers are different
-assert(part ~= clone, "Clone should not be equal to original")
+```luau Example 2
+local players = game:GetService("Players")
+local cleanPlayers = cloneref(players)
 
--- But they point to the same underlying object
-assert(compareinstances(part, clone), "Clone should be equal to original when using compareinstances")
+print(players == cleanPlayers)                  --> false
+print(compareinstances(players, cleanPlayers))  --> true
 ```
 
 </CodeGroup>
+
+<Tip>
+  Bypasses standard Lua `==` reference inequality for cloned references.
+</Tip>

@@ -1,0 +1,75 @@
+---
+title: "debug.getprotos"
+---
+
+```luau
+debug.getprotos(func: function | level: number): {function}
+```
+
+`debug.getprotos{:luau}` hands back every proto a Luau function holds at once. [Learn more here.](/docs/notes#protos)
+
+The argument is the parent function, or a number. A number is read as a stack level instead of a direct function, the same way `debug.getinfo{:luau}` takes a level. Pair an index from this list with `debug.getproto{:luau}` to pull a single nested function out.
+
+Most commonly used to find an inner function the game never stores anywhere you can reference, so you can read it or hook it.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `func` | <span style="white-space: nowrap;">`function \| number`</span> | The parent function, or a stack level pointing at the running closure to read protos from. |
+
+## Returns
+
+A table that holds every proto function defined inside the target (or inside the closure at the given stack level).
+
+## Aliases
+
+- `getprotos`
+
+## Example
+```
+
+Returns a list of every inner function defined inside a Luau function.
+
+```luau
+debug.getprotos(func: function | level: number): {function}
+```
+
+`debug.getprotos` hands back every proto a Luau function holds at once. [Learn more here.](/docs/notes#protos)
+
+The argument is the parent function, or a number. A number is read as a stack level instead of a direct function, the same way `debug.getinfo` takes a level. Pair an index from this list with `debug.getproto` to pull a single nested function out.
+
+Most commonly used to find an inner function the game never stores anywhere you can reference, so you can read it or hook it.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `func` | <span style="white-space: nowrap;">`function \| number`</span> | The parent function, or a stack level pointing at the running closure to read protos from. |
+
+## Returns
+
+A table that holds every proto function defined inside the target (or inside the closure at the given stack level).
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+debug.getprotos(func: function | level: number): {function}
+```
+
+```luau Example 2
+local mainfn = getscriptclosure(targetScript)
+local protos = debug.getprotos(mainfn)
+for i = 1, #protos do
+    local inner = debug.getproto(mainfn, i, true)[1]
+    print(`proto {i}: {tostring(inner)}`)
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  This lists all nested child functions defined in the parent function body.
+</Tip>

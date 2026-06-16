@@ -1,0 +1,62 @@
+---
+title: "Websocket"
+---
+
+<Warning>
+  This is a WebSocket client only, meaning you won't be able to create a server with this library.
+</Warning>
+
+The WebSocket class provides a lightweight interface for establishing and working with WebSocket connections. It allows scripts to send and receive messages over a persistent connection to a WebSocket server.
+
+
+
+## Constructor
+
+```lua
+function WebSocket.connect(url: string): WebSocket
+```
+
+## Parameters
+| Parameter   | Description                |
+|-------------|----------------------------|
+| `url`       | A websocket url            |
+
+## Events
+Signals that allow you handle events that occur during the WebSocket's lifetime, such as opening, receiving messages, or closing.
+
+| Event   | Description                |
+|-------------|----------------------------|
+|```lua
+OnMessage(message: string): ()
+```       | Triggered when a message is received over the WebSocket connection.
+            |
+|```lua
+OnClose(): ()
+```       | Triggered when the WebSocket connection closes.            |
+
+## Examples
+
+<Tabs>
+  <TabItem label="OnMessage event and Send method">
+
+  ```luau Responding to incoming messages
+local ws = WebSocket.connect("wss://echo.websocket.events") 
+ws.OnMessage:Connect(function(message) 
+      print(message) 
+end) 
+ws:Send("Hello") -- Output: Hello
+```
+
+  </TabItem>
+  <TabItem label="OnClose event and Close method">
+  
+  ```luau Receive a closing message and catch it via OnClose
+local ws = WebSocket.connect("wss://echo.websocket.events") 
+ws.OnClose:Connect(function() 
+      print("Closed")
+end) 
+ws:Close() -- Output: Closed
+```
+
+  </TabItem>
+</Tabs>

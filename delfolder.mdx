@@ -1,0 +1,39 @@
+---
+title: "delfolder"
+---
+
+Removes the folder at `path` from Seliware's workspace folder, along with every file and subfolder inside it.
+
+```luau
+delfolder(path: string): ()
+```
+
+`path` is workspace-relative. The folder is wiped recursively - there's no "empty folder only" mode and no recycle bin.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `path` | `string` | Folder to delete. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+delfolder(path: string): ()
+```
+
+```luau Example 2
+delfolder("logs")
+```
+
+</CodeGroup>
+
+<Tip>
+  Folders must usually be empty before deletion depending on the executor.
+</Tip>

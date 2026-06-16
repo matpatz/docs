@@ -1,0 +1,66 @@
+---
+title: "readfile"
+---
+
+```luau
+readfile(path: string): string
+```
+
+`path{:luau}` is workspace-relative. There's no encoding step - you get the exact bytes that are on disk, so binary files read fine too.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `path` | `string` | File to read. |
+
+## Returns
+
+`string` - raw contents of the file. The string can contain any byte value, including embedded `"\0"{:luau}` and binary data.
+
+## Example
+
+Load a saved config back into a Lua table:
+```
+
+Returns the full contents of the file at `path` as a single string.
+
+```luau
+readfile(path: string): string
+```
+
+`path` is workspace-relative. There's no encoding step - you get the exact bytes that are on disk, so binary files read fine too.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `path` | `string` | File to read. |
+
+## Returns
+
+`string` - raw contents of the file. The string can contain any byte value, including embedded `"\0"` and binary data.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+readfile(path: string): string
+```
+
+```luau Example 2
+local HttpService = game:GetService("HttpService")
+
+local raw = readfile("autofarm/config.json")
+local config = HttpService:JSONDecode(raw)
+
+-- assuming you came from writefile doc page
+print(config.option3) --> 3735928559
+```
+
+</CodeGroup>
+
+<Tip>
+  Always check `isfile()` before reading to avoid runtime errors.
+</Tip>

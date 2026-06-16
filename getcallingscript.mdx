@@ -1,0 +1,57 @@
+---
+title: "getcallingscript"
+---
+
+```luau
+getcallingscript(): LuaSourceContainer?
+```
+
+Used inside `hookfunction(){:luau}` or signal callbacks to find which script triggered the call. If you only need to know whether the caller was your script or a Roblox-side one, use `checkcaller(){:luau}` instead.
+
+## Returns
+
+[`LuaSourceContainer`](https://create.roblox.com/docs/reference/engine/classes/LuaSourceContainer)? - the Roblox script that called the function.<br />`nil{:luau}` when called directly from the executor's main thread.
+
+## Example
+```
+
+Returns the script that called the current function, or `nil` when called directly from the executor's main thread.
+
+```luau
+getcallingscript(): LuaSourceContainer?
+```
+
+Used inside `hookfunction()` or signal callbacks to find which script triggered the call. If you only need to know whether the caller was your script or a Roblox-side one, use `checkcaller()` instead.
+
+## Returns
+
+[`LuaSourceContainer`](https://create.roblox.com/docs/reference/engine/classes/LuaSourceContainer)? - the Roblox script that called the function.<br />`nil` when called directly from the executor's main thread.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+getcallingscript(): LuaSourceContainer?
+```
+
+```luau Example 2
+local mt = getrawmetatable(game)
+setreadonly(mt, false)
+
+local orig
+orig = hookmetamethod(game, "__namecall", function(self, ...)
+    if getnamecallmethod() == "PromptPurchase" then
+        local caller = getcallingscript()
+        print(`PromptPurchase called from: {caller and caller:GetFullName() or "executor"}`)
+    end
+
+    return orig(self, ...)
+end)
+```
+
+</CodeGroup>
+
+<Tip>
+  Always check parameters and return values when working with this library function.
+</Tip>

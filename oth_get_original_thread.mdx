@@ -1,0 +1,34 @@
+---
+title: "oth.get_original_thread"
+---
+
+Gets the original execution thread context associated with an Oth hook.
+
+```luau
+oth.get_original_thread(): thread?
+```
+
+## Returns
+
+`thread?` - The original execution thread.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local t = oth.get_original_thread()
+print("Original thread: ", t)
+```
+
+```luau Example 2
+if oth.get_original_thread() then
+    print("Currently running inside a hooked thread context")
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  Allows accessing variables scoped to the original thread execution.
+</Tip>

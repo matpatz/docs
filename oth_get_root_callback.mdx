@@ -1,0 +1,39 @@
+---
+title: "oth.get_root_callback"
+---
+
+Retrieves the original root callback function for a hooked function.
+
+```luau
+oth.get_root_callback(target: function): function
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `target` | `function` | The hooked function. |
+
+## Returns
+
+`function` - The original unhooked function.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local root = oth.get_root_callback(print)
+print("Original root: ", root)
+```
+
+```luau Example 2
+local root = oth.get_root_callback(workspace.Destroy)
+assert(root == game.Destroy, "Root callback should represent the unmodified method")
+```
+
+</CodeGroup>
+
+<Tip>
+  Allows bypassing intermediate hooks to execute the root implementation.
+</Tip>

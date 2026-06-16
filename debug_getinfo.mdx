@@ -1,0 +1,112 @@
+---
+title: "debug.getinfo"
+---
+
+```luau
+debug.getinfo(target: function | number): table
+```
+
+`debug.getinfo{:luau}` accepts either a function or a number. Hand it a function and the returned table describes that function. Hand it a number and it is read as a stack level - `0{:luau}` is the call you are in right now, `1{:luau}` is the caller above it, and so on - and the returned table describes whichever frame is running at that level.
+
+Most commonly used while reversing a game script: you find an unknown closure with `getgc{:luau}` and call `debug.getinfo{:luau}` on it to learn what it is, where it came from, and how many arguments it takes before you decide what to do with it.
+
+## Parameters
+
+### Form A - function
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `func` | `function` | The function to inspect. |
+
+### Form B - stack level
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `level` | `number` | The stack level to inspect. `0{:luau}` is the current frame. |
+
+## Returns
+
+`table` - a single table with the same fields for both forms:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `source` | `string` | Name of the chunk that created the function. |
+| `short_src` | `string` | Short, printable version of `source{:luau}`. |
+| `func` | `function` | The function itself. |
+| `what` | `string` | `"Lua"{:luau}` for a Luau function, `"[C]"{:luau}` for a C function. |
+| `currentline` | `number` | The line currently running. `-1{:luau}` when no line information is available. |
+| `name` | `string` | The function's name. A blank string when no name can be found. |
+| `nups` | `number` | Number of upvalues the function captured. |
+| `numparams` | `number` | Number of declared parameters. Always `0{:luau}` for C functions. |
+| `is_vararg` | `number` | `1{:luau}` if the function takes a <abbr title="A function that takes any number of extra arguments - defined as `...` in Luau.">variadic argument</abbr>, `0{:luau}` if it does not. |
+
+## Aliases
+
+- `getinfo{:luau}`
+
+## Example
+
+While reversing a script in a Roblox game, sweep `getgc{:luau}` for an unknown 2-arg Luau closure and identify it before you decide to hook or read it.
+
+<details>
+<summary>Solution</summary>
+```
+
+Returns a table describing a function or a running stack frame.
+
+```luau
+debug.getinfo(target: function | number): table
+```
+
+`debug.getinfo` accepts either a function or a number. Hand it a function and the returned table describes that function. Hand it a number and it is read as a stack level - `0` is the call you are in right now, `1` is the caller above it, and so on - and the returned table describes whichever frame is running at that level.
+
+Most commonly used while reversing a game script: you find an unknown closure with `getgc` and call `debug.getinfo` on it to learn what it is, where it came from, and how many arguments it takes before you decide what to do with it.
+
+## Parameters
+
+### Form A - function
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `func` | `function` | The function to inspect. |
+
+## Returns
+
+`table` - a single table with the same fields for both forms:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `source` | `string` | Name of the chunk that created the function. |
+| `short_src` | `string` | Short, printable version of `source`. |
+| `func` | `function` | The function itself. |
+| `what` | `string` | `"Lua"` for a Luau function, `"[C]"` for a C function. |
+| `currentline` | `number` | The line currently running. `-1` when no line information is available. |
+| `name` | `string` | The function's name. A blank string when no name can be found. |
+| `nups` | `number` | Number of upvalues the function captured. |
+| `numparams` | `number` | Number of declared parameters. Always `0` for C functions. |
+| `is_vararg` | `number` | `1` if the function takes a <abbr title="A function that takes any number of extra arguments - defined as `...` in Luau.">variadic argument</abbr>, `0` if it does not. |
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+debug.getinfo(target: function | number): table
+```
+
+```luau Example 2
+for _, fn in ipairs(getgc()) do
+    if type(fn) == "function" then
+        local info = debug.getinfo(fn)
+        if info.what == "Lua" and info.numparams == 2 then
+            print(`candidate: {info.name} from {info.short_src} (line {info.currentline})`)
+        end
+    end
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  Standard fields match Lua's debug library specifications.
+</Tip>

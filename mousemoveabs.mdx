@@ -1,0 +1,42 @@
+---
+title: "mousemoveabs"
+---
+
+Moves the mouse cursor to a pixel position relative to the top-left corner of the Roblox window.
+
+```luau
+mousemoveabs(x: number, y: number): ()
+```
+
+The reference frame is the Roblox window itself, not the OS desktop.
+
+Most commonly used to build aim assist - move the cursor onto a target's screen position, then call `mouse1click()`.
+
+## Parameters
+
+| Parameter | Type     | Description                   |
+|-----------|----------|-------------------------------|
+| `x`       | `number` | Target x position, in pixels. |
+| `y`       | `number` | Target y position, in pixels. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+mousemoveabs(x: number, y: number): ()
+```
+
+```luau Example 2
+mousemoveabs(100, 100) -- Moves cursor to top-left
+```
+
+</CodeGroup>
+
+<Tip>
+  Operates relative to the screen dimensions (usually pixels).
+</Tip>

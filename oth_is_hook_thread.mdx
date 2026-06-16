@@ -1,0 +1,39 @@
+---
+title: "oth.is_hook_thread"
+---
+
+Checks if the specified thread is executing inside an Oth hook callback.
+
+```luau
+oth.is_hook_thread(thread: thread?): boolean
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `thread` | `thread` | *(Optional)* The thread to check. Defaults to the current thread. |
+
+## Returns
+
+`boolean` - `true` if it is a hook thread, `false` otherwise.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+print("Is current thread hook thread? ", oth.is_hook_thread())
+```
+
+```luau Example 2
+oth.hook(print, function(...)
+    assert(oth.is_hook_thread() == true)
+end)
+```
+
+</CodeGroup>
+
+<Tip>
+  Allows identifying when execution has detoured.
+</Tip>

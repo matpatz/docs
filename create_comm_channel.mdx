@@ -1,0 +1,74 @@
+---
+title: "create_comm_channel"
+---
+
+```luau
+create_comm_channel(): number?, BindableEvent?
+```
+
+Scripts running on different actor threads (e.g. through `run_on_actor{:luau}`) don't share `_G{:luau}` or `shared{:luau}`, so they <span title="While untested with getgenv(), it's still not recommended." style="text-decoration:underline dotted;text-underline-offset:0.2em;cursor:help;">can't pass data the normal way</span>. Used to open the bridge for that case: call `create_comm_channel(){:luau}` on one side, send the returned id to the other side, and both sides talk over the same event.
+
+The second return value is a Roblox [`BindableEvent`](https://create.roblox.com/docs/reference/engine/classes/BindableEvent). Use `:Fire(...){:luau}` to send a message. Use `.Event:Connect(...){:luau}` to receive one, or `.Event:Wait(){:luau}` to yield until the next message arrives.
+
+## Returns
+
+A [tuple](https://create.roblox.com/docs/luau/tuples):
+
+| Position | Type | Description |
+|----------|------|-------------|
+| 1 | `number?` | The channel id. |
+| 2 | `BindableEvent?` | The channel's event. |
+
+Both values are `nil{:luau}` if the channel could not be opened.
+
+## Example
+
+The main thread opens a channel and starts a `run_on_actor{:luau}` <span title="A script running on its own Roblox Actor (e.g. started via run_on_actor), with an isolated environment separate from the main thread." style="text-decoration:underline dotted;text-underline-offset:0.2em;cursor:help;">worker thread</span> with the id. The worker thread fires a message back, and the main thread catches it on `.Event:Connect{:luau}`.
+```
+
+Opens a new communication channel, then hands back its id and event.
+
+```luau
+create_comm_channel(): number?, BindableEvent?
+```
+
+Scripts running on different actor threads (e.g. through `run_on_actor`) don't share `_G` or `shared`, so they <span title="While untested with getgenv(), it's still not recommended." style="text-decoration:underline dotted;text-underline-offset:0.2em;cursor:help;">can't pass data the normal way</span>. Used to open the bridge for that case: call `create_comm_channel()` on one side, send the returned id to the other side, and both sides talk over the same event.
+
+The second return value is a Roblox [`BindableEvent`](https://create.roblox.com/docs/reference/engine/classes/BindableEvent). Use `:Fire(...)` to send a message. Use `.Event:Connect(...)` to receive one, or `.Event:Wait()` to yield until the next message arrives.
+
+## Returns
+
+A [tuple](https://create.roblox.com/docs/luau/tuples):
+
+| Position | Type | Description |
+|----------|------|-------------|
+| 1 | `number?` | The channel id. |
+| 2 | `BindableEvent?` | The channel's event. |
+
+Both values are `nil` if the channel could not be opened.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+create_comm_channel(): number?, BindableEvent?
+```
+
+```luau Example 2
+-- main thread
+local id, channel = create_comm_channel()
+
+channel.Event:Connect(function(payload)
+    print(`worker said: {payload}`)
+end)
+
+-- hand the id to the worker, e.g. as a run_on_actor argument
+run_on_actor(actor, workerScript, id)
+```
+
+</CodeGroup>
+
+<Tip>
+  The id is just a number, so the other thread learns it by being handed it. The simplest way is to pass it as one of the `...` arguments of `run_on_actor(actor, script, ...)` when you start the worker thread.
+</Tip>

@@ -1,0 +1,38 @@
+---
+title: "getproximitypromptduration"
+---
+
+Returns the exact duration setting of the specified ProximityPrompt.
+
+```luau
+getproximitypromptduration(prompt: ProximityPrompt): number
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `prompt` | `ProximityPrompt` | The target ProximityPrompt. |
+
+## Returns
+
+`number` - The prompt duration in seconds.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local duration = getproximitypromptduration(workspace.Button.ProximityPrompt)
+print("Hold duration: ", duration)
+```
+
+```luau Example 2
+print(getproximitypromptduration(myPrompt))
+```
+
+</CodeGroup>
+
+<Tip>
+  Duration settings control how long a player must hold key inputs.
+</Tip>

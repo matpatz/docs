@@ -1,0 +1,58 @@
+---
+title: "isreadonly"
+---
+
+```luau
+isreadonly(t: table): boolean
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `t` | `table` | The table to check. |
+
+## Returns
+
+`true{:luau}` if `t{:luau}` is read-only, `false{:luau}` otherwise.
+
+## Example
+```
+
+Tells you whether a table is currently locked against writes.
+
+```luau
+isreadonly(t: table): boolean
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `t` | `table` | The table to check. |
+
+## Returns
+
+`true` if `t` is read-only, `false` otherwise.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+isreadonly(t: table): boolean
+```
+
+```luau Example 2
+local t = {hp = 100}
+print(isreadonly(t)) --> false
+
+setreadonly(t, true)
+print(isreadonly(t)) --> true
+```
+
+</CodeGroup>
+
+<Tip>
+  Most internal metatables are read-only by default and must be unlocked before modifying.
+</Tip>

@@ -1,0 +1,66 @@
+---
+title: "setsimulationradius"
+---
+
+```luau
+setsimulationradius(radius: number, max_radius: number?): ()
+```
+
+With one argument, this sets `SimulationRadius{:luau}` and also sets `MaximumSimulationRadius{:luau}` to the same value. Pass `max_radius{:luau}` to set the maximum to a different value.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `radius` | `number` | The new simulation radius. |
+| `max_radius` | `number?` | The maximum simulation radius. Defaults to `radius` when left out. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+The engine keeps resetting a high radius, so re-apply it every frame to hold network ownership over far-away parts.
+```
+
+Sets the local player's simulation radius.
+
+```luau
+setsimulationradius(radius: number, max_radius: number?): ()
+```
+
+With one argument, this sets `SimulationRadius` and also sets `MaximumSimulationRadius` to the same value. Pass `max_radius` to set the maximum to a different value.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `radius` | `number` | The new simulation radius. |
+| `max_radius` | `number?` | The maximum simulation radius. Defaults to `radius` when left out. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+setsimulationradius(radius: number, max_radius: number?): ()
+```
+
+```luau Example 2
+local RunService = game:GetService("RunService")
+
+RunService.RenderStepped:Connect(function()
+    setsimulationradius(10000)
+end)
+```
+
+</CodeGroup>
+
+<Tip>
+  Modifying this can allow physics ownership of unanchored parts at extreme distances.
+</Tip>

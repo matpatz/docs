@@ -1,0 +1,81 @@
+---
+title: "keypress"
+---
+
+```luau
+keypress(keycode: number): ()
+```
+
+The keycode is a Win32 Virtual Key Code, not a Roblox `Enum.KeyCode{:luau}` value. For letters, pass the uppercase ASCII byte (`string.byte("A"){:luau}` returns `65{:luau}`, which is `VK_A`). [Learn more here.](https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes)
+
+The Roblox window must be focused for the call to register. See `iswindowactive(){:luau}`.
+
+The pressed key stays held until you call `keyrelease(keycode){:luau}`.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `keycode` | `number` | Win32 Virtual Key Code |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Aliases
+
+- `KeyPress{:luau}`
+
+## Example
+
+In a chase or sprint sequence, hold W while the round's Sprint Sound is playing under workspace and release the moment it ends.
+
+<details>
+<summary>Solution</summary>
+```
+
+Simulates a key press, leaving the key held until you call `keyrelease`.
+
+```luau
+keypress(keycode: number): ()
+```
+
+The keycode is a Win32 Virtual Key Code, not a Roblox `Enum.KeyCode` value. For letters, pass the uppercase ASCII byte (`string.byte("A")` returns `65`, which is `VK_A`). [Learn more here.](https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes)
+
+The Roblox window must be focused for the call to register. See `iswindowactive()`.
+
+The pressed key stays held until you call `keyrelease(keycode)`.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `keycode` | `number` | Win32 Virtual Key Code |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+keypress(keycode: number): ()
+```
+
+```luau Example 2
+workspace.ChildAdded:Connect(function(child)
+    if child:IsA("Sound") and child.Name == "Sprint" and iswindowactive() then
+        keypress(0x57) -- VK_W
+        child.Ended:Wait()
+        keyrelease(0x57)
+    end
+end)
+```
+
+</CodeGroup>
+
+<Tip>
+  Remember to call `keyrelease` to prevent the key from being stuck down.
+</Tip>

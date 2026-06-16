@@ -1,0 +1,54 @@
+---
+title: "getinstances"
+---
+
+```luau
+getinstances(): {Instance}
+```
+
+The result mixes two groups in one table: Instances reachable through `game{:luau}` (`workspace{:luau}`, `Players{:luau}`, the rest of the visible hierarchy), and Instances that exist in memory but have their `Parent` set to `nil{:luau}`.
+
+Common usage: locate an Instance by name when you don't know its path in the hierarchy.
+
+## Returns
+
+`{Instance}{:luau}` - an array of every Instance the client is currently holding alive. Order is not guaranteed.
+
+## Example
+```
+
+Returns every Instance Roblox is keeping alive on the client, including ones with no parent in the game hierarchy.
+
+```luau
+getinstances(): {Instance}
+```
+
+The result mixes two groups in one table: Instances reachable through `game` (`workspace`, `Players`, the rest of the visible hierarchy), and Instances that exist in memory but have their `Parent` set to `nil`.
+
+Common usage: locate an Instance by name when you don't know its path in the hierarchy.
+
+## Returns
+
+`{Instance}` - an array of every Instance the client is currently holding alive. Order is not guaranteed.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+getinstances(): {Instance}
+```
+
+```luau Example 2
+for _, inst in ipairs(getinstances()) do
+    if inst.Name:find("your_marker") then
+        print(`{inst.ClassName}: {inst:GetFullName()}`)
+    end
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  Introspects the entire game engine, including nil-parented objects.
+</Tip>

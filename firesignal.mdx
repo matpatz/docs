@@ -1,0 +1,76 @@
+---
+title: "firesignal"
+---
+
+```luau
+firesignal(signal: RBXScriptSignal, ...: any): ()
+```
+
+Every callback registered with `signal:Connect(fn){:luau}` runs as if Roblox had raised the signal itself. Coroutines yielded on `signal:Wait(){:luau}` do not resume - only `:Connect{:luau}` callbacks fire.
+
+Most commonly used to fire a handler the game wouldn't trigger itself - automation, or bypassing checks the game gates behind a signal.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `signal` | `RBXScriptSignal` | The signal whose listeners should fire. |
+| `...` | `any` | Args passed as-is to each listener callback. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example <a href="/docs/contributors#lishbon" title="Contributed by lishbon"><img src={pfpLishbon.src} alt="lishbon" style="width:1.75rem;height:1.75rem;border-radius:9999px;display:inline-block;vertical-align:middle;object-fit:cover;margin-left:0.5rem;" /></a>
+
+You can fire any signal directly, even one the game's own code would never trigger. Connect a callback to a `BindableEvent{:luau}`, then raise its signal from your script.
+```
+
+import pfpLishbon from '../../../assets/f34325c420ee4b735ce883c193628496.webp';
+
+Fires every listener connected to a signal with the arguments you pass in.
+
+```luau
+firesignal(signal: RBXScriptSignal, ...: any): ()
+```
+
+Every callback registered with `signal:Connect(fn)` runs as if Roblox had raised the signal itself. Coroutines yielded on `signal:Wait()` do not resume - only `:Connect` callbacks fire.
+
+Most commonly used to fire a handler the game wouldn't trigger itself - automation, or bypassing checks the game gates behind a signal.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `signal` | `RBXScriptSignal` | The signal whose listeners should fire. |
+| `...` | `any` | Args passed as-is to each listener callback. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+firesignal(signal: RBXScriptSignal, ...: any): ()
+```
+
+```luau Example 2
+local BindableEvent = Instance.new("BindableEvent")
+
+BindableEvent.Event:Connect(function(a, ...)
+    if a == "owner" then
+        print("WHITELISTED USER", ...)
+    end
+end)
+
+firesignal(BindableEvent.Event, "owner", "hi")
+```
+
+</CodeGroup>
+
+<Tip>
+  Always check parameters and return values when working with this library function.
+</Tip>

@@ -1,0 +1,42 @@
+---
+title: "getfpscap"
+---
+
+```luau
+getfpscap(): number
+```
+
+## Returns
+
+`number` - the active FPS limit. <br /> On injection, mirrors Roblox's own setting (commonly set to `240{:luau}`, but reflects whatever the player has it set to).
+
+## Example
+```
+
+Returns the active frame rate cap.
+
+```luau
+getfpscap(): number
+```
+
+## Returns
+
+`number` - the active FPS limit. <br /> On injection, mirrors Roblox's own setting (commonly set to `240`, but reflects whatever the player has it set to).
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+getfpscap(): number
+```
+
+```luau Example 2
+print(`current cap: {getfpscap()}`)
+```
+
+</CodeGroup>
+
+<Tip>
+  Default frame rate limit is 60 FPS in Roblox without a cap injector.
+</Tip>

@@ -1,0 +1,86 @@
+---
+title: "keyclick"
+---
+
+```luau
+keyclick(keycode: number): ()
+```
+
+The keycode is a Win32 Virtual Key Code, not a Roblox `Enum.KeyCode{:luau}` value. For letters, pass the uppercase ASCII byte (`string.byte("A"){:luau}` returns `65{:luau}`, which is `VK_A`). [Learn more here.](https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes)
+
+The Roblox window must be focused for the call to register. See `iswindowactive(){:luau}`.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `keycode` | `number` | Win32 Virtual Key Code |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Aliases
+
+- `keytap{:luau}`
+
+## Example
+
+In a typing game, listen for the Sound the engine spawns under workspace each round and tap out its `Name{:luau}` letter by letter.
+
+<details>
+<summary>Solution</summary>
+```
+
+Simulates a complete press-and-release of the given key.
+
+```luau
+keyclick(keycode: number): ()
+```
+
+The keycode is a Win32 Virtual Key Code, not a Roblox `Enum.KeyCode` value. For letters, pass the uppercase ASCII byte (`string.byte("A")` returns `65`, which is `VK_A`). [Learn more here.](https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes)
+
+The Roblox window must be focused for the call to register. See `iswindowactive()`.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `keycode` | `number` | Win32 Virtual Key Code |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+keyclick(keycode: number): ()
+```
+
+```luau Example 2
+local function tapWord(word)
+    for i = 1, #word do
+        local keycode = string.byte(word:sub(i, i):upper())
+
+        if keycode >= 65 and keycode <= 90 then
+            keyclick(keycode)
+            task.wait(0.1)
+        end
+    end
+end
+
+workspace.ChildAdded:Connect(function(child)
+    if child:IsA("Sound") and iswindowactive() then
+        task.spawn(tapWord, child.Name)
+    end
+end)
+```
+
+</CodeGroup>
+
+<Tip>
+  Equivalent to calling `keypress` followed immediately by `keyrelease`.
+</Tip>

@@ -1,0 +1,79 @@
+---
+title: "getrenv"
+---
+
+```luau
+getrenv(): table
+```
+
+The returned table holds `_G{:luau}` and `shared{:luau}` directly. Pulls every other global (`print{:luau}`, `game{:luau}`, `task{:luau}`, `require{:luau}`) via using a metatable.
+
+Almost all globals are the same closure your script sees - `getrenv().print == print{:luau}` is `true{:luau}`. The exceptions are `require{:luau}`, `debug{:luau}`, and `loadstring{:luau}` - Seliware's copy and the game's copy are different functions for these three.
+
+Using `getrenv().require{:luau}` catches the game's calls and leaves yours alone.
+
+<Aside type="tip">
+When dealing with running ModuleScripts, avoid the global `require(){:luau}`, and instead use `getrenv().require(){:luau}` to avoid leaking the script's environment.
+
+Don't forget to `setidentity(2){:luau}` first!
+```
+
+Returns the global environment that the **Roblox** game uses - separate from `getgenv()`,<br />which shows executor-exclusive environment.
+
+
+```luau
+getrenv(): table
+```
+
+The returned table holds `_G` and `shared` directly. Pulls every other global (`print`, `game`, `task`, `require`) via using a metatable.
+
+Almost all globals are the same closure your script sees - `getrenv().print == print` is `true`. The exceptions are `require`, `debug`, and `loadstring` - Seliware's copy and the game's copy are different functions for these three.
+
+Using `getrenv().require` catches the game's calls and leaves yours alone.
+
+<Tip>
+  When dealing with running ModuleScripts, avoid the global `require()`, and instead use `getrenv().require()` to avoid leaking the script's environment.
+
+Don't forget to `setidentity(2)` first!
+
+```luau
+setidentity(2)
+local RobloxScript = getrenv().require(path.To.ModuleScript)
+setidentity(8)
+```
+</Tip>
+
+## Returns
+
+| Key | Type | Description |
+|----------|---------|-----------|
+|   `_G`   | `table` | Shared cross-script global table |
+| `shared` | `table` | Same role as `_G` with a separate namespace |
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+getrenv(): table
+```
+
+```luau Example 2
+setidentity(2)
+local RobloxScript = getrenv().require(path.To.ModuleScript)
+setidentity(8)
+```
+
+</CodeGroup>
+
+<Tip>
+  When dealing with running ModuleScripts, avoid the global `require()`, and instead use `getrenv().require()` to avoid leaking the script's environment.
+
+Don't forget to `setidentity(2)` first!
+
+```luau
+setidentity(2)
+local RobloxScript = getrenv().require(path.To.ModuleScript)
+setidentity(8)
+```
+</Tip>

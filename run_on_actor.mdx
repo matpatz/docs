@@ -1,0 +1,74 @@
+---
+title: "run_on_actor"
+---
+
+```luau
+run_on_actor(actor: Actor, script: string, ...: any): ()
+```
+
+An [Actor](https://create.roblox.com/docs/reference/engine/classes/Actor) is a Roblox object that can run code on its own, separate from your script. `run_on_actor{:luau}` takes that actor and a string of Luau code, and runs the code on the actor. The trailing `...{:luau}` values are passed in as arguments.
+
+Most commonly used to push work into an Actor's own Luau context, which is what multi-threaded scripts need when they can't share one state.
+
+The actor runs in a separate Lua state, so `shared{:luau}` and `_G{:luau}` <span title="While untested with getgenv(), it's still not recommended." style="text-decoration:underline dotted;text-underline-offset:0.2em;cursor:help;">don't cross between it and the calling script</span> - each side has its own. Pass any value the code needs through the `...{:luau}` varargs instead.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `actor` | [`Actor`](https://create.roblox.com/docs/reference/engine/classes/Actor) | The Actor to run the source on. |
+| `script` | `string` | Luau source run inside the actor's context. |
+| `...` | `any` | Values handed into the run as arguments. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+```
+
+Runs a string of Luau code inside the context of a given Actor.
+
+```luau
+run_on_actor(actor: Actor, script: string, ...: any): ()
+```
+
+An [Actor](https://create.roblox.com/docs/reference/engine/classes/Actor) is a Roblox object that can run code on its own, separate from your script. `run_on_actor` takes that actor and a string of Luau code, and runs the code on the actor. The trailing `...` values are passed in as arguments.
+
+Most commonly used to push work into an Actor's own Luau context, which is what multi-threaded scripts need when they can't share one state.
+
+The actor runs in a separate Lua state, so `shared` and `_G` <span title="While untested with getgenv(), it's still not recommended." style="text-decoration:underline dotted;text-underline-offset:0.2em;cursor:help;">don't cross between it and the calling script</span> - each side has its own. Pass any value the code needs through the `...` varargs instead.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `actor` | [`Actor`](https://create.roblox.com/docs/reference/engine/classes/Actor) | The Actor to run the source on. |
+| `script` | `string` | Luau source run inside the actor's context. |
+| `...` | `any` | Values handed into the run as arguments. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+run_on_actor(actor: Actor, script: string, ...: any): ()
+```
+
+```luau Example 2
+local actor = getactors()[1]
+if actor then
+    run_on_actor(actor, `print("ran on actor with arg", ...)`, 42, 'hello')
+    -- line above prints "ran on actor with arg 42 hello"
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  Always check parameters and return values when working with this library function.
+</Tip>

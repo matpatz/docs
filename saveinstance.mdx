@@ -1,0 +1,37 @@
+---
+title: "saveinstance"
+---
+
+Saves the current place or specific instances to the workspace as a file.
+
+```luau
+saveinstance(options: table?): ()
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `options` | `table` | *(Optional)* A table of configuration options (e.g. `{mode = "optimized", noscripts = false}`). |
+
+## Returns
+
+`void`
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+saveinstance() -- Saves the entire place
+```
+
+```luau Example 2
+saveinstance({ mode = "optimized", noscripts = true })
+```
+
+</CodeGroup>
+
+<Tip>
+  Generates a .rbxl file in the executor's workspace directory containing the game structure.
+</Tip>

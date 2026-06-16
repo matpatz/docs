@@ -1,0 +1,32 @@
+---
+title: "Drawing.Fonts"
+---
+
+A table of the font ids a `Text` drawing can use. Set one on the `Font` property.
+
+## Returns
+
+`void`
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local label = Drawing.new("Text")
+label.Text = "menu"
+label.Font = Drawing.Fonts.Monospace
+label.Size = 18
+label.Visible = true
+```
+
+```luau Example 2
+local monospaceId = Drawing.Fonts.Monospace
+print("Monospace ID: ", monospaceId)
+```
+
+</CodeGroup>
+
+<Tip>
+  Standard fonts are `UI` (0), `System` (1), `Plex` (2), and `Monospace` (3).
+</Tip>

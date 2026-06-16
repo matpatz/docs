@@ -1,0 +1,63 @@
+---
+title: "cansignalreplicate"
+---
+
+```luau
+cansignalreplicate(signal: RBXScriptSignal): boolean
+```
+
+That covers `RemoteEvent.OnServerEvent{:luau}`, `RemoteEvent.OnClientEvent{:luau}`, `BindableEvent.Event{:luau}`, `Folder.ChildAdded{:luau}`, and the rest.
+
+Most commonly used to confirm a value is a valid `RBXScriptSignal{:luau}` before passing it to `firesignal{:luau}` or other signal functions.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `signal` | `RBXScriptSignal` | The signal to check. |
+
+## Returns
+
+`boolean{:luau}`
+
+## Example
+```
+
+Returns `true` for any value that's a valid `RBXScriptSignal`.
+
+```luau
+cansignalreplicate(signal: RBXScriptSignal): boolean
+```
+
+That covers `RemoteEvent.OnServerEvent`, `RemoteEvent.OnClientEvent`, `BindableEvent.Event`, `Folder.ChildAdded`, and the rest.
+
+Most commonly used to confirm a value is a valid `RBXScriptSignal` before passing it to `firesignal` or other signal functions.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `signal` | `RBXScriptSignal` | The signal to check. |
+
+## Returns
+
+`boolean`
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+cansignalreplicate(signal: RBXScriptSignal): boolean
+```
+
+```luau Example 2
+local part = Instance.new("Part")
+print(cansignalreplicate(part.Touched))
+```
+
+</CodeGroup>
+
+<Tip>
+  Always check parameters and return values when working with this library function.
+</Tip>

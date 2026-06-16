@@ -1,0 +1,72 @@
+---
+title: "mousescroll"
+---
+
+```luau
+mousescroll(pixels: number): ()
+```
+
+Emits a virtual wheel event. Roblox normalises wheel deltas internally, so 1 unit may not equal 1 pixel of on-screen movement - treat the parameter as **wheel travel** rather than a strict pixel count.
+
+Most commonly used to drive third-person camera-zoom binds (scroll adjusts zoom in most Roblox games), or to feed an in-game scrolling UI from a script.
+
+## Parameters
+
+| Parameter | Type     | Description              |
+|-----------|----------|--------------------------|
+| `pixels`  | `number` | Magnitude of the scroll. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+```
+
+Simulates a mouse-wheel scroll by the specified number of pixels.
+
+```luau
+mousescroll(pixels: number): ()
+```
+
+Emits a virtual wheel event. Roblox normalises wheel deltas internally, so 1 unit may not equal 1 pixel of on-screen movement - treat the parameter as **wheel travel** rather than a strict pixel count.
+
+Most commonly used to drive third-person camera-zoom binds (scroll adjusts zoom in most Roblox games), or to feed an in-game scrolling UI from a script.
+
+## Parameters
+
+| Parameter | Type     | Description              |
+|-----------|----------|--------------------------|
+| `pixels`  | `number` | Magnitude of the scroll. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+mousescroll(pixels: number): ()
+```
+
+```luau Example 2
+-- Scroll up
+mousescroll(3)
+
+-- Scroll down
+mousescroll(-3)
+
+-- Smooth scroll
+for i = 1, 10 do
+    mousescroll(1)
+    task.wait(0.05)
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  Usually linked to zooming the camera or scrolling game UIs.
+</Tip>

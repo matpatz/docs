@@ -1,0 +1,50 @@
+---
+title: "getscripts"
+---
+
+```luau
+getscripts(): {LocalScript | ModuleScript}
+```
+
+Most commonly used to iterate every script in the place for a `decompile{:luau}` sweep, or to find a specific script by name without knowing its path.
+
+## Returns
+
+`{LocalScript | ModuleScript | Script}{:luau}` - an array of script Instances. CoreScripts are not included. Each call returns a fresh table - edits don't carry between calls.
+
+## Example
+```
+
+Returns every LocalScript and ModuleScript the executor is tracking in the current Roblox session.
+
+```luau
+getscripts(): {LocalScript | ModuleScript}
+```
+
+Most commonly used to iterate every script in the place for a `decompile` sweep, or to find a specific script by name without knowing its path.
+
+## Returns
+
+`{LocalScript | ModuleScript | Script}` - an array of script Instances. CoreScripts are not included. Each call returns a fresh table - edits don't carry between calls.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+getscripts(): {LocalScript | ModuleScript}
+```
+
+```luau Example 2
+for _, script in ipairs(getscripts()) do
+    if script:GetFullName():find("marker") then
+        print(`{script.ClassName}: {script:GetFullName()}`)
+    end
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  Always check parameters and return values when working with this library function.
+</Tip>

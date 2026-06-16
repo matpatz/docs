@@ -1,0 +1,58 @@
+---
+title: "clonefunction"
+---
+
+```luau
+clonefunction(func: function): function
+```
+
+Works on Lclosures/CClosures. The bytecode is identical, so `getfunctionhash(clone) == getfunctionhash(func){:luau}`.
+
+Mainly used to grab a clean copy of a function before some other script hooks it. <br /> The clone keeps the original behavior, so calls through it bypass the hook entirely:
+```
+
+Returns a copy of `func` that runs the same code, but is a separate function: `clone == func` is always `false`.
+
+```luau
+clonefunction(func: function): function
+```
+
+Works on Lclosures/CClosures. The bytecode is identical, so `getfunctionhash(clone) == getfunctionhash(func)`.
+
+Mainly used to grab a clean copy of a function before some other script hooks it. <br /> The clone keeps the original behavior, so calls through it bypass the hook entirely:
+
+```luau
+local cleanFunction = clonefunction(someFunction)
+-- another script may hookfunction(someFunction, ...) later,
+-- cleanFunction still calls the original.
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `func` | `function` | The function to clone. |
+
+## Returns
+
+`function` - same code as `func`, with its own memory address. <br /> Each call to `clonefunction` returns a new function - clone the same one 10 times, and you get 10 separate copies of it.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+clonefunction(func: function): function
+```
+
+```luau Example 2
+local cleanFunction = clonefunction(someFunction)
+-- another script may hookfunction(someFunction, ...) later,
+-- cleanFunction still calls the original.
+```
+
+</CodeGroup>
+
+<Tip>
+  Always check parameters and return values when working with this library function.
+</Tip>

@@ -2,36 +2,91 @@
 title: "crypt.lz4decompress"
 ---
 
-Decompresses an LZ4-compressed string back to its original plain text.
-
 ```luau
-crypt.lz4decompress(data: string, size: number): string
+crypt.lz4decompress(compressed: string, expectedSize: number): string
 ```
 
-<Tip>
-  Alias: `lz4decompress`
-</Tip>
+Input must be LZ4 Block format - see the page entry `crypt.lz4compress{:luau}` to learn more.<br />  `expectedSize{:luau}` is the length of the original plaintext in bytes, *not* the length of the compressed input - you have to track and pass it yourself.
+
+There is no integrity check - if the bytes are damaged or `expectedSize{:luau}` is wrong, <br />the function still returns a string of that length without raising an error.
 
 ## Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
-| `data` | `string` | The compressed data string to decompress. |
-| `size` | `number` | The expected size (length) of the decompressed output string. |
+|-----------|------|-------------|
+| `compressed` | `string` | An LZ4 Block-format payload. |
+| `expectedSize` | `number` | The desired output length in bytes (size of the original plaintext). |
 
 ## Returns
 
-`string` - The decompressed plain text string.
+`string` - the decompressed bytes, padded or truncated to exactly `expectedSize{:luau}` characters. <br />When `expectedSize{:luau}` matches the original length, the result is the full plaintext.
+
+## Aliases
+
+- `lz4decompress{:luau}`
+
+## Example
+
+In a chat-event-based Roblox game, stream Bad Apple as ASCII video over a remote at 30fps. <br /> Reason: storing >1800 frames and parsing them would be a lot more easier if you compress the data beforehand.
+
+<details>
+<summary>Solution</summary>
+```
+
+Decompresses `compressed` and returns exactly `expectedSize` bytes.
+
+```luau
+crypt.lz4decompress(compressed: string, expectedSize: number): string
+```
+
+Input must be LZ4 Block format - see the page entry `crypt.lz4compress` to learn more.<br />  `expectedSize` is the length of the original plaintext in bytes, *not* the length of the compressed input - you have to track and pass it yourself.
+
+There is no integrity check - if the bytes are damaged or `expectedSize` is wrong, <br />the function still returns a string of that length without raising an error.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `compressed` | `string` | An LZ4 Block-format payload. |
+| `expectedSize` | `number` | The desired output length in bytes (size of the original plaintext). |
+
+## Returns
+
+`string` - the decompressed bytes, padded or truncated to exactly `expectedSize` characters. <br />When `expectedSize` matches the original length, the result is the full plaintext.
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local raw = "Hello, world!"
-local compressed = crypt.lz4compress(raw)
-local decompressed = crypt.lz4decompress(compressed, #raw)
-assert(decompressed == raw, "Decompressed string should match original")
+crypt.lz4decompress(compressed: string, expectedSize: number): string
+```
+
+```luau Example 2
+-- Example script; will not do anything
+
+local content = readfile("bad_apple/chunk_0001.txt")
+local headerEnd = content:find("\n", 1, true)
+local header = content:sub(1, headerEnd - 1)
+local bin = content:sub(headerEnd + 1)
+local offset = 1
+
+for _, pair in ipairs(header:split(",")) do
+    local compLen, origLen = pair:match("^(%d+):(%d+)$")
+    compLen, origLen = tonumber(compLen), tonumber(origLen)
+
+    local compressed = bin:sub(offset, offset + compLen - 1)
+    local frame = crypt.lz4decompress(compressed, origLen)
+    offset += compLen
+
+    someRemoteEvent:FireServer(`{frame}\0`)
+    task.wait(1 / 30)
+end
 ```
 
 </CodeGroup>
+
+<Tip>
+  There is no built-in integrity check.
+ If the compressed string is malformed, or `expectedSize` is wrong, you get back a string that looks valid, but actually isn't. For any data, store a hash alongside the payload (`crypt.hash` works) and verify after decompressing.
+</Tip>

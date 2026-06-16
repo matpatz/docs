@@ -24,15 +24,15 @@
           {
             "group": "Actors",
             "pages": [
-              "actors",
+              "create_comm_channel",
               "get_comm_channel",
-              "get-comm-channels",
+              "get_comm_channels",
               "getactors",
               "getactorthreads",
               "getdeletedactors",
-              "is-parallel",
-              "run-on-actor",
-              "run-on-thread"
+              "is_parallel",
+              "run_on_actor",
+              "run_on_thread"
             ]
           },
           {
@@ -40,6 +40,7 @@
             "pages": [
               "cache_invalidate",
               "cache_iscached",
+              "cache_replace",
               "cloneref",
               "compareinstances"
             ]
@@ -47,6 +48,7 @@
           {
             "group": "Closures",
             "pages": [
+              "clonefunction",
               "getfunctionhash",
               "iscclosure",
               "isexecutorclosure",
@@ -64,7 +66,9 @@
           },
           {
             "group": "Console",
-            "pages": []
+            "pages": [
+              "console_note"
+            ]
           },
           {
             "group": "Crypt Library",
@@ -84,51 +88,179 @@
           },
           {
             "group": "Debug Library",
-            "pages": []
+            "pages": [
+              "debug_getcallstack",
+              "debug_getconstant",
+              "debug_getconstants",
+              "debug_getinfo",
+              "debug_getproto",
+              "debug_getprotos",
+              "debug_getregistry",
+              "debug_getsafeenv",
+              "debug_getstack",
+              "debug_getupvalue",
+              "debug_getupvalues",
+              "debug_isvalidlevel",
+              "debug_setconstant",
+              "debug_setinfo",
+              "debug_setname",
+              "debug_setsafeenv",
+              "debug_setstack",
+              "debug_setupvalue"
+            ]
           },
           {
             "group": "Drawing Library",
-            "pages": []
+            "pages": [
+              "drawing_clear",
+              "drawing_fonts",
+              "drawing_new",
+              "drawing_types",
+              "cleardrawcache",
+              "getrenderproperty",
+              "isrenderobj",
+              "setrenderproperty"
+            ]
           },
           {
             "group": "DrawingImmediate  Library",
-            "pages": []
+            "pages": [
+              "drawingimmediate_getpaint"
+            ]
           },
           {
             "group": "Environment",
-            "pages": []
+            "pages": [
+              "filtergc",
+              "getgc",
+              "getgenv",
+              "getreg",
+              "getrenv",
+              "getsenv",
+              "gettenv"
+            ]
           },
           {
             "group": "FileSystem",
-            "pages": []
+            "pages": [
+              "appendfile",
+              "delfile",
+              "delfolder",
+              "dofile",
+              "isfile",
+              "isfolder",
+              "listfiles",
+              "loadfile",
+              "makefolder",
+              "readfile",
+              "writefile"
+            ]
           },
           {
             "group": "Input",
-            "pages": []
+            "pages": [
+              "isrbxactive",
+              "keypress",
+              "keyrelease",
+              "keytap",
+              "mouse1click",
+              "mouse1press",
+              "mouse1release",
+              "mouse2click",
+              "mouse2press",
+              "mouse2release",
+              "mousemoveabs",
+              "mousemoverel",
+              "mousescroll"
+            ]
           },
           {
             "group": "Instance",
-            "pages": []
+            "pages": [
+              "fireclickdetector",
+              "fireproximityprompt",
+              "firetouchinterest",
+              "getcallbackvalue",
+              "getcustomasset",
+              "gethui",
+              "getinstances",
+              "getnilinstances",
+              "getrendersteppedlist"
+            ]
           },
           {
             "group": "Oth Library",
-            "pages": []
+            "pages": [
+              "oth_get_original_thread",
+              "oth_get_root_callback",
+              "oth_hook",
+              "oth_is_hook_thread",
+              "oth_unhook"
+            ]
           },
           {
             "group": "Metatable",
-            "pages": []
+            "pages": [
+              "getnamecallmethod",
+              "getrawmetatable",
+              "hookmetamethod",
+              "isreadonly",
+              "makereadonly",
+              "makewritable",
+              "setnamecallmethod",
+              "setrawmetatable",
+              "setreadonly"
+            ]
           },
           {
             "group": "Miscellaneous",
-            "pages": []
+            "pages": [
+              "clearteleportqueue",
+              "getfpscap",
+              "gethwid",
+              "getfflag",
+              "getfflagtype",
+              "getobjects",
+              "httpget",
+              "identifyexecutor",
+              "messagebox",
+              "queueonteleport",
+              "request",
+              "decompile",
+              "saveinstance",
+              "setclipboard",
+              "setfflag",
+              "setfpscap",
+              "setrbxclipboard",
+              "setthreadidentity",
+              "toclipboard"
+            ]
           },
           {
             "group": "RakNet Library",
-            "pages": []
+            "pages": [
+              "raknet_add_send_hook",
+              "raknet_remove_send_hook",
+              "raknet_send"
+            ]
           },
           {
             "group": "Reflection",
-            "pages": []
+            "pages": [
+              "getbspval",
+              "gethiddenproperties",
+              "gethiddenproperty",
+              "getpcd",
+              "getproperties",
+              "getproximitypromptduration",
+              "getsimulationradius",
+              "isnetworkowner",
+              "isscriptable",
+              "sethiddenproperty",
+              "setproximitypromptduration",
+              "setscriptable",
+              "setsimulationradius"
+            ]
           },
           {
             "group": "Script",
@@ -137,21 +269,34 @@
               "getdeletedmodules",
               "getthreadident",
               "getrunningscripts",
-              "etscriptbytecode",
+              "getscriptbytecode",
               "getscriptclosure",
               "getscriptfromclosure",
               "getscriptfromthread",
               "getscriptthread",
-              "getscripthash"
+              "getscripthash",
+              "disassemble",
+              "getcallingscript",
+              "getscripts"
             ]
           },
           {
             "group": "Signal",
-            "pages": []
+            "pages": [
+              "cansignalreplicate",
+              "signals_connection",
+              "firesignal",
+              "getconnections",
+              "getsignalarguments",
+              "replicatesignal"
+            ]
           },
           {
             "group": "WebSocket Library",
-            "pages": []
+            "pages": [
+              "websocket",
+              "websocket_connect"
+            ]
           }
         ]
       },

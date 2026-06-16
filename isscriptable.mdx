@@ -1,0 +1,38 @@
+---
+title: "isscriptable"
+---
+
+Checks if the specified property of a Roblox instance is scriptable.
+
+```luau
+isscriptable(instance: Instance, property: string): boolean
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `instance` | `Instance` | The target Instance. |
+| `property` | `string` | The name of the property to check. |
+
+## Returns
+
+`boolean` - `true` if scriptable, `false` otherwise.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+print("Is size_xml scriptable? ", isscriptable(fireInstance, "size_xml")) -- false
+```
+
+```luau Example 2
+print("Is Size scriptable? ", isscriptable(fireInstance, "Size")) -- true
+```
+
+</CodeGroup>
+
+<Tip>
+  Non-scriptable properties cannot be modified by standard scripts.
+</Tip>

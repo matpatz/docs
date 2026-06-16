@@ -1,0 +1,87 @@
+---
+title: "debug.isvalidlevel"
+---
+
+```luau
+debug.isvalidlevel(level: number): boolean
+```
+
+New to stack levels? [Learn more here](/docs/notes/#stack-levels).
+
+It tracks `debug.getinfo{:luau}` exactly: a level this returns `true{:luau}` for is one `debug.getinfo{:luau}` can read, and a level it returns `false{:luau}` for is one `debug.getinfo{:luau}` errors on.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `level` | `number` | Which stack frame to test. |
+
+## Returns
+
+`boolean` - `true{:luau}` for a level the calling thread currently has on its stack, `false{:luau}` for one it does not.
+
+## Aliases
+
+- `isvalidlevel{:luau}`
+- `validlevel{:luau}`
+
+## Example
+
+Measure how deep the current call stack is by counting levels until `debug.isvalidlevel{:luau}` runs off the top.
+
+<details>
+<summary>Solution</summary>
+```
+
+Checks whether a number is a valid stack level for the thread that calls it.
+
+```luau
+debug.isvalidlevel(level: number): boolean
+```
+
+New to stack levels? [Learn more here](/docs/notes/#stack-levels).
+
+It tracks `debug.getinfo` exactly: a level this returns `true` for is one `debug.getinfo` can read, and a level it returns `false` for is one `debug.getinfo` errors on.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `level` | `number` | Which stack frame to test. |
+
+## Returns
+
+`boolean` - `true` for a level the calling thread currently has on its stack, `false` for one it does not.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+debug.isvalidlevel(level: number): boolean
+```
+
+```luau Example 2
+local function stackDepth()
+    local level = 0
+    while debug.isvalidlevel(level) do
+        level += 1
+    end
+    return level
+end
+
+local function inner()
+    print(`inner: {stackDepth()} levels`)
+end
+
+print(`top level: {stackDepth()} levels`)
+inner()
+-- inner() prints the higher number: it runs one call deeper, so
+-- isvalidlevel stays true for more levels before it runs off the top
+```
+
+</CodeGroup>
+
+<Tip>
+  Useful for iterating up the stack without causing stack level out-of-range errors.
+</Tip>

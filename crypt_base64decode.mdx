@@ -2,29 +2,73 @@
 title: "crypt.base64decode"
 ---
 
-Decodes a Base64-encoded string back to its original plain text representation.
+```luau
+crypt.base64decode(data: string): string
+```
+
+Reverses `crypt.base64encode{:luau}`. Give it valid Base64 and you get back exactly the original data, byte for byte.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `data` | `string` | The Base64 text to decode. |
+
+## Returns
+
+`string` - the decoded bytes.
+
+## Aliases
+
+- `base64.decode{:luau}`
+- `base64_decode{:luau}`
+- `base64decode{:luau}`
+- `crypt.base64.decode{:luau}`
+- `crypt.base64_decode{:luau}`
+
+## Example
+
+Read the cached value written by `crypt.base64encode{:luau}` and decode it back.
+
+<details>
+<summary>Solution</summary>
+```
+
+Decodes a Base64 string back to the original bytes.
 
 ```luau
 crypt.base64decode(data: string): string
 ```
 
+Reverses `crypt.base64encode`. Give it valid Base64 and you get back exactly the original data, byte for byte.
+
 ## Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
-| `data` | `string` | The Base64 encoded string to decode. |
+|-----------|------|-------------|
+| `data` | `string` | The Base64 text to decode. |
 
 ## Returns
 
-`string` - The decoded plain text string.
+`string` - the decoded bytes.
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local decoded = crypt.base64decode("dGVzdA==")
-assert(decoded == "test", "Base64 decoding failed")
+crypt.base64decode(data: string): string
+```
+
+```luau Example 2
+local blob = readfile("config.cache")
+
+local data = crypt.base64decode(blob)
+print(data) --> "Hello, world!"
 ```
 
 </CodeGroup>
+
+<Tip>
+  Useful when exchanging configuration or network data.
+</Tip>

@@ -1,0 +1,40 @@
+---
+title: "sethiddenproperty"
+---
+
+Modifies the value of a hidden property on a Roblox instance.
+
+```luau
+sethiddenproperty(instance: Instance, property: string, value: any): boolean
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `instance` | `Instance` | The target Instance. |
+| `property` | `string` | The hidden property name. |
+| `value` | `any` | The value to set. |
+
+## Returns
+
+`boolean` - `true` if set successfully, `false` otherwise.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local success = sethiddenproperty(fireInstance, "size_xml", 10)
+assert(success)
+```
+
+```luau Example 2
+sethiddenproperty(workspace.Terrain, "PhysicsGrid", rawBytesData)
+```
+
+</CodeGroup>
+
+<Tip>
+  Modifying hidden properties allows changing physics states and internal structures.
+</Tip>

@@ -1,0 +1,72 @@
+---
+title: "setrawmetatable"
+---
+
+```luau
+setrawmetatable(object: any, metatable: table?): any
+```
+
+If `object{:luau}`'s current metatable has `__metatable{:luau}` set, `setmetatable{:luau}` errors out. <br /> `setrawmetatable{:luau}` skips that lock and writes the metatable directly. Pass `nil{:luau}` for `metatable{:luau}` to clear `object{:luau}`'s metatable instead.
+
+Most commonly used to replace the metatable of an Instance whose `__metatable{:luau}` field would otherwise block a normal `setmetatable{:luau}` call.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `object` | `any` | The value to attach the metatable to. |
+| `metatable` | `table?` | The metatable to write. |
+
+## Returns
+
+`any` - the same `object{:luau}` passed in, by reference. Useful for chaining: `local t = setrawmetatable({}, mt){:luau}`.
+
+## Example
+```
+
+Sets the raw metatable of `object`, even when `__metatable` is set to lock it.
+
+```luau
+setrawmetatable(object: any, metatable: table?): any
+```
+
+If `object`'s current metatable has `__metatable` set, `setmetatable` errors out. <br /> `setrawmetatable` skips that lock and writes the metatable directly. Pass `nil` for `metatable` to clear `object`'s metatable instead.
+
+Most commonly used to replace the metatable of an Instance whose `__metatable` field would otherwise block a normal `setmetatable` call.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `object` | `any` | The value to attach the metatable to. |
+| `metatable` | `table?` | The metatable to write. |
+
+## Returns
+
+`any` - the same `object` passed in, by reference. Useful for chaining: `local t = setrawmetatable({}, mt)`.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+setrawmetatable(object: any, metatable: table?): any
+```
+
+```luau Example 2
+local t = setmetatable({}, {
+  __index = function(self, index)
+      print(index)
+  end,
+  __metatable = "This table is locked."
+})
+
+print(pcall(setmetatable, t, {})) --> false, cannot change a protected metatable
+print(setrawmetatable(t, {})) --> table: 0x......
+```
+
+</CodeGroup>
+
+<Tip>
+  Bypasses standard Lua restriction checks.
+</Tip>

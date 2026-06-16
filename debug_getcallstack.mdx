@@ -1,0 +1,46 @@
+---
+title: "debug.getcallstack"
+---
+
+Returns a table representing the call stack frames of the specified thread.
+
+```luau
+debug.getcallstack(thread: thread?): {table}
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `thread` | `thread` | *(Optional)* The thread to inspect. Defaults to the current thread. |
+
+## Returns
+
+`{table}` - An array of tables representing each active frame in the thread's call stack.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+-- Get current thread call stack
+local stack = debug.getcallstack()
+print("Current call stack depth: ", #stack)
+```
+
+```luau Example 2
+-- Get call stack of another thread
+local thread = coroutine.create(function()
+    task.wait(1)
+end)
+task.spawn(thread)
+task.wait()
+local stack = debug.getcallstack(thread)
+print("Target thread stack depth: ", #stack)
+```
+
+</CodeGroup>
+
+<Tip>
+  Useful for debugging complex nested execution and tracebacks.
+</Tip>

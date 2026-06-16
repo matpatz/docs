@@ -1,0 +1,40 @@
+---
+title: "getproperties"
+---
+
+Returns a dictionary of all properties and values of a Roblox instance.
+
+```luau
+getproperties(instance: Instance): { [string]: any }
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `instance` | `Instance` | The target Instance. |
+
+## Returns
+
+`{ [string]: any }` - A dictionary mapping property names to values.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local props = getproperties(workspace.Part)
+print("Part color: ", props.Color)
+```
+
+```luau Example 2
+for name, value in pairs(getproperties(game:GetService("Lighting"))) do
+    print(name, " = ", value)
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  Bypasses standard API permission constraints to list all properties.
+</Tip>

@@ -1,0 +1,40 @@
+---
+title: "gethiddenproperties"
+---
+
+Returns a table containing all hidden property names of a Roblox instance.
+
+```luau
+gethiddenproperties(instance: Instance): {string}
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `instance` | `Instance` | The target Instance. |
+
+## Returns
+
+`{string}` - An array of hidden property name strings.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local hidden = gethiddenproperties(workspace.Terrain)
+for _, name in ipairs(hidden) do
+    print(name)
+end
+```
+
+```luau Example 2
+local props = gethiddenproperties(lightingInstance)
+```
+
+</CodeGroup>
+
+<Tip>
+  Hidden properties are not visible in standard Roblox Studio properties panel.
+</Tip>

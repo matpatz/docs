@@ -1,0 +1,91 @@
+---
+title: "debug.getconstants"
+---
+
+```luau
+debug.getconstants(func: function | number): {boolean | nil | number | string}
+```
+
+When <abbr title="Luau Virtual Machine - the part of Roblox that runs your compiled script bytecode.">Roblox's LVM</abbr> builds a function, it stores every literal that function uses - strings, numbers and booleans - plus the name of every global it calls, in a constant table attached to that function. `debug.getconstants{:luau}` returns that whole table.
+
+Hand it a function and you get that function's constants. Hand it a number instead and that number is read as a stack level. Level `0{:luau}` is the call you are in, `1{:luau}` is the one that called it, and the lookup runs on whichever function sits at that level.
+
+Its counterpart `debug.getconstant{:luau}` returns a single slot by index. Only Luau functions have a constant table, so check the target with `islclosure{:luau}` first - a C closure like `print{:luau}` has none and the call fails.
+
+Most commonly used while reversing a game - to see what a ModuleScript or a LocalScript closure holds inside its bytecode without decompiling it.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `func` | <span style="white-space: nowrap;">`function \| number`</span> | A Luau function, or a number read as a stack level. |
+
+## Returns
+
+`{boolean | nil | number | string}` - a table of the function's constants. Each one sits at a numbered slot from the <abbr title="The code Roblox turns your script into so it can actually run it.">compiled bytecode</abbr>.
+
+A constant table belongs to one function. If you passed a number instead of a function, it belongs to whichever function is running that many calls up from where you called this. The table can have gaps, so iterate over it with `pairs{:luau}` and not `ipairs{:luau}`. 
+## Aliases
+
+- `getconstants{:luau}`
+
+## Example
+```
+
+Returns the constant table of a Luau function - every <abbr title="A fixed value written directly in the code - a number, some text, or true/false.">literal</abbr> and global name the compiler stored in its bytecode.
+
+```luau
+debug.getconstants(func: function | number): {boolean | nil | number | string}
+```
+
+When <abbr title="Luau Virtual Machine - the part of Roblox that runs your compiled script bytecode.">Roblox's LVM</abbr> builds a function, it stores every literal that function uses - strings, numbers and booleans - plus the name of every global it calls, in a constant table attached to that function. `debug.getconstants` returns that whole table.
+
+Hand it a function and you get that function's constants. Hand it a number instead and that number is read as a stack level. Level `0` is the call you are in, `1` is the one that called it, and the lookup runs on whichever function sits at that level.
+
+Its counterpart `debug.getconstant` returns a single slot by index. Only Luau functions have a constant table, so check the target with `islclosure` first - a C closure like `print` has none and the call fails.
+
+Most commonly used while reversing a game - to see what a ModuleScript or a LocalScript closure holds inside its bytecode without decompiling it.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `func` | <span style="white-space: nowrap;">`function \| number`</span> | A Luau function, or a number read as a stack level. |
+
+## Returns
+
+`{boolean | nil | number | string}` - a table of the function's constants. Each one sits at a numbered slot from the <abbr title="The code Roblox turns your script into so it can actually run it.">compiled bytecode</abbr>.
+
+A constant table belongs to one function. If you passed a number instead of a function, it belongs to whichever function is running that many calls up from where you called this. The table can have gaps, so iterate over it with `pairs` and not `ipairs`.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+debug.getconstants(func: function | number): {boolean | nil | number | string}
+```
+
+```luau Example 2
+local function dummy_function()
+    local dummy_string = "foo bar"
+    string.split(dummy_string, " ")
+end
+
+local constants = debug.getconstants(dummy_function)
+for constant_index, constant in constants do
+    print(`[{constant_index}]: {constant}`)
+end
+
+-- Output:
+-- [1]: "string"
+-- [2]: "split"
+-- [4]: "foo bar"
+-- [5]: " "
+```
+
+</CodeGroup>
+
+<Tip>
+  This returns all literal values referenced inside the compiled function.
+</Tip>

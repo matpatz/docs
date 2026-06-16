@@ -2,37 +2,73 @@
 title: "getfunctionhash"
 ---
 
-Generates a cryptographic hash of the specified Luau function's bytecode. This is useful for identifying unique functions or checking if they have been modified.
+```luau
+getfunctionhash(func: function): string
+```
+
+The hash covers the function's compiled bytecode instructions together with its constants. Two functions that compile to the same body with the same constants produce the same hash; changing a single constant changes it.
+
+Most commonly used to fingerprint a function so a later hash mismatch reveals it was hooked or replaced, or to confirm a `clonefunction{:luau}` copy still matches the function it was cloned from.
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `func` | `function{:luau}` | The Luau function to hash. |
+
+## Returns
+
+`string` - a 96-character hexadecimal string (SHA-384 over the bytecode and constants). The same function hashes to the same string on every call, and the value stays stable across sessions while the function's code is unchanged.
+
+## Example
+
+In an RPG Roblox game, fingerprint a Luau function you located and re-check it later, so you notice if the game swapped it out from under your hook.
+
+<details>
+<summary>Solution</summary>
+```
+
+Returns a deterministic hash of a Luau function's compiled body as a hexadecimal string.
 
 ```luau
 getfunctionhash(func: function): string
 ```
 
+The hash covers the function's compiled bytecode instructions together with its constants. Two functions that compile to the same body with the same constants produce the same hash; changing a single constant changes it.
+
+Most commonly used to fingerprint a function so a later hash mismatch reveals it was hooked or replaced, or to confirm a `clonefunction` copy still matches the function it was cloned from.
+
 ## Parameters
 
 | Parameter | Type | Description |
-| --- | --- | --- |
-| `func` | `function` | The Luau function to generate a hash for. |
+|-----------|------|-------------|
+| `func` | `function` | The Luau function to hash. |
 
 ## Returns
 
-`string` - A hash representation (typically MD5 or SHA-256 hex string) of the function's bytecode.
+`string` - a 96-character hexadecimal string (SHA-384 over the bytecode and constants). The same function hashes to the same string on every call, and the value stays stable across sessions while the function's code is unchanged.
 
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-local function myTestFunction()
-    return "Hello, world!"
-end
+getfunctionhash(func: function): string
+```
 
-local hash = getfunctionhash(myTestFunction)
-print("Function hash: " .. hash)
+```luau Example 2
+local target = filtergc("function", {Name = "PurchaseFruit"}, true)
+local baseline = getfunctionhash(target)
+
+task.delay(30, function()
+    if getfunctionhash(target) ~= baseline then
+        warn("PurchaseFruit was replaced - re-apply your hook")
+    end
+end)
 ```
 
 </CodeGroup>
 
 <Tip>
-  Comparing the output of `getfunctionhash` on two functions is a highly reliable way to determine if their underlying bytecode is identical.
+  Comparing function hashes is a fast way to verify function integrity.
 </Tip>

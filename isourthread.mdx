@@ -2,7 +2,7 @@
 title: "isourthread"
 ---
 
-Checks whether the specified thread (or the current thread if none is provided) belongs to the executor's context rather than the game's internal thread pool.
+Checks whether the specified thread belongs to the executor's context.
 
 ```luau
 isourthread(thread: thread?): boolean
@@ -23,8 +23,16 @@ isourthread(thread: thread?): boolean
 <CodeGroup>
 
 ```luau Example 1
--- Check if the current thread belongs to the executor
-assert(isourthread() == true, "The script should be running in the executor's thread context")
+print(isourthread()) -- true
+```
+
+```luau Example 2
+local t = coroutine.create(function() end)
+print(isourthread(t)) -- true
 ```
 
 </CodeGroup>
+
+<Tip>
+  Helps distinguish executor-owned threads from native game engine threads.
+</Tip>

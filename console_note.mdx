@@ -1,0 +1,35 @@
+---
+title: "Note"
+---
+
+<Warning>
+  Seliware keeps the `rconsole.*` library disabled. <br /> None of the functions below are callable from the executor environment.
+</Warning>
+
+`rconsole.*` is a console-window library shipped by some executors. It opens a separate terminal window owned by the executor and exposes `print`, `input`, `clear`, and similar calls.
+
+Hyperion (Roblox's anticheat) detects it, and the implementation was unfinished - disabled *for now*. <br /> It'll come back in the future.
+
+<details>
+<summary>Disabled functions</summary>
+
+- `rconsoleclear`
+- `rconsolecreate`
+- `rconsoledestroy`
+- `rconsoleerr`
+- `rconsoleerror`
+- `rconsolehide`
+- `rconsoleinfo`
+- `rconsoleinput`
+- `rconsolename`
+- `rconsoleprint`
+- `rconsolesettitle`
+- `rconsoleshow`
+- `rconsolewarn`
+
+</details>
+
+For script output use Roblox's native `print` and `warn`, which write to the Roblox client output console.
+
+- [print](https://create.roblox.com/docs/reference/engine/globals/LuauGlobals#print) - Native Luau global - writes to the Roblox output console.
+- [warn](https://create.roblox.com/docs/reference/engine/globals/LuauGlobals#warn) - Native Luau global - same as print but marked as a warning.

@@ -1,0 +1,43 @@
+---
+title: "makefolder"
+---
+
+Creates a new folder at `path` inside Seliware's workspace folder.
+
+```luau
+makefolder(path: string): ()
+```
+
+`path` is relative to Seliware's workspace folder.
+
+<Tip>
+  If you're about to `writefile` into a new path, you usually don't need `makefolder` first - `writefile("configs/anotherFolder/01.json", ...)` will create `configs/` and `configs/anotherFolder/` automatically.
+</Tip>
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `path` | `string` | Folder to create. |
+
+## Returns
+
+<code title="the function does not return a value.">void</code>
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+makefolder(path: string): ()
+```
+
+```luau Example 2
+makefolder("configs")
+```
+
+</CodeGroup>
+
+<Tip>
+  If you're about to `writefile` into a new path, you usually don't need `makefolder` first - `writefile("configs/anotherFolder/01.json", ...)` will create `configs/` and `configs/anotherFolder/` automatically.
+</Tip>

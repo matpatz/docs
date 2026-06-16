@@ -1,0 +1,40 @@
+---
+title: "setscriptable"
+---
+
+Sets the scriptable state of a property on a Roblox instance.
+
+```luau
+setscriptable(instance: Instance, property: string, scriptable: boolean): boolean
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `instance` | `Instance` | The target Instance. |
+| `property` | `string` | The property name. |
+| `scriptable` | `boolean` | Whether to make it scriptable (`true`) or non-scriptable (`false`). |
+
+## Returns
+
+`boolean` - The previous scriptable state of the property.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local wasScriptable = setscriptable(fireInstance, "size_xml", true)
+assert(wasScriptable == false)
+```
+
+```luau Example 2
+setscriptable(game:GetService("Lighting"), "Technology", true)
+```
+
+</CodeGroup>
+
+<Tip>
+  Allows standard Lua code to index and write to properties that are normally hidden.
+</Tip>
