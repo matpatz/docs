@@ -1,0 +1,43 @@
+---
+title: "restorefunction"
+---
+
+Restores a hooked function back to its original behavior, removing any detours or hook wrappers.
+
+```luau
+restorefunction(func: function): ()
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `func` | `function` | The hooked function to restore. |
+
+## Returns
+
+`void`
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local function test()
+    return "original"
+end
+
+-- Hook the function
+hookfunction(test, function()
+    return "hooked"
+end)
+
+assert(test() == "hooked", "Function should return hooked")
+
+-- Restore the function
+restorefunction(test)
+
+assert(test() == "original", "Function should be restored to its original behavior")
+```
+
+</CodeGroup>

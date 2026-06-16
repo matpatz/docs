@@ -1,0 +1,38 @@
+---
+title: "cache.iscached"
+---
+
+Returns a boolean indicating whether the specified Roblox instance is currently cached by the executor's internal reference system.
+
+```luau
+cache.iscached(instance: Instance): boolean
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `instance` | [`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance) | The Roblox instance to check in the cache. |
+
+## Returns
+
+`boolean` - `true` if the instance is cached, `false` otherwise.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local part = Instance.new("Part")
+
+-- A new instance is automatically cached
+assert(cache.iscached(part), "Part should be cached")
+
+-- Invalidate the instance
+cache.invalidate(part)
+
+-- Now it is no longer cached
+assert(not cache.iscached(part), "Part should not be cached after invalidation")
+```
+
+</CodeGroup>

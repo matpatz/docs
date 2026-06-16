@@ -1,0 +1,35 @@
+---
+title: "setstackhidden"
+---
+
+Sets whether the call stack of the specified thread is hidden from anti-cheat stack walking detection.
+
+```luau
+setstackhidden(thread: thread, value: boolean): ()
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `thread` | `thread` | The thread whose call stack to hide or unhide. |
+| `value` | `boolean` | `true` to hide the stack, `false` to reveal it. |
+
+## Returns
+
+`void`
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local thread = coroutine.create(function()
+    print("Running in thread")
+end)
+
+-- Hide the stack of the target thread
+setstackhidden(thread, true)
+```
+
+</CodeGroup>

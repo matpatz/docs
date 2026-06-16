@@ -1,0 +1,30 @@
+---
+title: "iscclosure"
+---
+
+Checks whether the specified function is a C closure (a function written in C/C++ and exposed to the Luau VM, such as native Roblox functions).
+
+```luau
+iscclosure(func: function): boolean
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `func` | `function` | The function to inspect. |
+
+## Returns
+
+`boolean` - `true` if the function is a C closure, `false` otherwise.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+assert(iscclosure(print) == true, "print is a native C function")
+assert(iscclosure(function() end) == false, "Lua function is not a C closure")
+```
+
+</CodeGroup>

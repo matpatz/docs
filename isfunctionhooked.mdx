@@ -1,0 +1,38 @@
+---
+title: "isfunctionhooked"
+---
+
+Checks whether the specified function has been hooked or detoured by a script.
+
+```luau
+isfunctionhooked(func: function): boolean
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `func` | `function` | The function to inspect. |
+
+## Returns
+
+`boolean` - `true` if the function has been hooked, `false` otherwise.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local function test()
+    return true
+end
+
+-- Hook the function
+hookfunction(test, function()
+    return false
+end)
+
+assert(isfunctionhooked(test) == true, "The function should be identified as hooked")
+```
+
+</CodeGroup>

@@ -1,0 +1,37 @@
+---
+title: "crypt.lz4decompress"
+---
+
+Decompresses an LZ4-compressed string back to its original plain text.
+
+```luau
+crypt.lz4decompress(data: string, size: number): string
+```
+
+<Tip>
+  Alias: `lz4decompress`
+</Tip>
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `data` | `string` | The compressed data string to decompress. |
+| `size` | `number` | The expected size (length) of the decompressed output string. |
+
+## Returns
+
+`string` - The decompressed plain text string.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local raw = "Hello, world!"
+local compressed = crypt.lz4compress(raw)
+local decompressed = crypt.lz4decompress(compressed, #raw)
+assert(decompressed == raw, "Decompressed string should match original")
+```
+
+</CodeGroup>

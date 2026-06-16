@@ -1,0 +1,40 @@
+---
+title: "cache.invalidate"
+---
+
+Removes the specified Roblox instance from the executor's internal instance cache. This forces the executor to generate a brand new reference wrapper next time the object is accessed.
+
+```luau
+cache.invalidate(instance: Instance): ()
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `instance` | [`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance) | The Roblox instance to remove from the reference cache. |
+
+## Returns
+
+`void`
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local container = Instance.new("Folder")
+local part = Instance.new("Part", container)
+
+-- Invalidate the cached reference
+cache.invalidate(container:FindFirstChild("Part"))
+
+-- Comparing the original reference to a newly queried one returns false
+assert(part ~= container:FindFirstChild("Part"), "Reference was not invalidated")
+```
+
+</CodeGroup>
+
+<Tip>
+  Invalidating a cache reference is useful for testing dynamic instance recreation or ensuring a clean slate when comparing references.
+</Tip>

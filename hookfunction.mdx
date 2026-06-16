@@ -1,0 +1,44 @@
+---
+title: "hookfunction"
+---
+
+Redirects (hooks) the execution of a target function to a hook function. It returns a backup of the original function's original behavior, allowing you to call the original logic if needed.
+
+```luau
+hookfunction(target: function, hook: function): function
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `target` | `function` | The original function to hook. |
+| `hook` | `function` | The new function that will execute in place of the target function. |
+
+## Returns
+
+`function` - A backup function that executes the target's original behavior.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local function test()
+    return true
+end
+
+-- Hook the test function to return false
+local originalBackup = hookfunction(test, function()
+    return false
+end)
+
+assert(test() == false, "Function should now return false")
+assert(originalBackup() == true, "Original backup should return the original value (true)")
+```
+
+</CodeGroup>
+
+<Tip>
+  `hookfunction` is one of the most powerful utilities for scripting, commonly used to intercept namecalls, RemoteEvents, or service methods.
+</Tip>

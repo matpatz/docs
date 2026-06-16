@@ -1,0 +1,30 @@
+---
+title: "crypt.base64decode"
+---
+
+Decodes a Base64-encoded string back to its original plain text representation.
+
+```luau
+crypt.base64decode(data: string): string
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `data` | `string` | The Base64 encoded string to decode. |
+
+## Returns
+
+`string` - The decoded plain text string.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local decoded = crypt.base64decode("dGVzdA==")
+assert(decoded == "test", "Base64 decoding failed")
+```
+
+</CodeGroup>

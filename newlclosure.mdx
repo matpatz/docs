@@ -1,0 +1,31 @@
+---
+title: "newlclosure"
+---
+
+Wraps a C closure (such as a Roblox native function or a custom executor function) in a Lua closure.
+
+```luau
+newlclosure(func: function): function
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `func` | `function` | The C closure or function to wrap in a Lua closure. |
+
+## Returns
+
+`function` - The wrapped Lua closure.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local luaPrint = newlclosure(print)
+assert(islclosure(luaPrint) == true, "Should identify as a Lua closure")
+luaPrint("Hello from a wrapped C function!")
+```
+
+</CodeGroup>

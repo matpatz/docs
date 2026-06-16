@@ -1,0 +1,24 @@
+---
+title: "crypt.generatekey"
+---
+
+Generates a cryptographically secure random 32-byte key suitable for encryption and decryption.
+
+```luau
+crypt.generatekey(): string
+```
+
+## Returns
+
+`string` - A Base64-encoded string representing the generated 32-byte key.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local key = crypt.generatekey()
+assert(#crypt.base64decode(key) == 32, "Key should be 32 bytes long when decoded")
+```
+
+</CodeGroup>

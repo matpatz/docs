@@ -1,0 +1,35 @@
+---
+title: "crypt.decrypt"
+---
+
+Decrypts an encrypted cipher string back to its original plain text using a key, initialization vector (IV), and specified cipher mode.
+
+```luau
+crypt.decrypt(data: string, key: string, iv: string, cipher: string): string
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `data` | `string` | The encrypted cipher string (Base64-encoded or raw bytes depending on executor, typically Base64). |
+| `key` | `string` | The decryption key (Base64-encoded or raw). |
+| `iv` | `string` | The initialization vector used when encrypting. |
+| `cipher` | `string` | The cipher mode (e.g. `"CBC"`, `"ECB"`, etc.). |
+
+## Returns
+
+`string` - The decrypted plain text.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local key = crypt.generatekey()
+local encrypted, iv = crypt.encrypt("test", key, nil, "CBC")
+local decrypted = crypt.decrypt(encrypted, key, iv, "CBC")
+assert(decrypted == "test", "Failed to decrypt data")
+```
+
+</CodeGroup>

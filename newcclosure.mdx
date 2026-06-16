@@ -1,0 +1,35 @@
+---
+title: "newcclosure"
+---
+
+Wraps a standard Lua function in a C closure wrapper. This hides the function's internal Lua state and prevents detection by checks that inspect function types (like `iscclosure`).
+
+```luau
+newcclosure(func: function): function
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `func` | `function` | The Lua function to wrap as a C closure. |
+
+## Returns
+
+`function` - The wrapped C closure.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local function myLuaFunc()
+    return "Hello"
+end
+
+local cclosure = newcclosure(myLuaFunc)
+assert(myLuaFunc() == cclosure(), "Wrapped function should return the same values")
+assert(iscclosure(cclosure) == true, "The wrapped function should identify as a C closure")
+```
+
+</CodeGroup>

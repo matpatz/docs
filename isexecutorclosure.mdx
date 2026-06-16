@@ -1,0 +1,36 @@
+---
+title: "isexecutorclosure"
+---
+
+Checks whether the specified function is owned or created by the executor environment, rather than being a native Roblox or game-defined function.
+
+```luau
+isexecutorclosure(func: function): boolean
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `func` | `function` | The function to inspect. |
+
+## Returns
+
+`boolean` - `true` if the function originated from the executor, `false` otherwise.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+-- Check if this itself is an executor closure
+assert(isexecutorclosure(isexecutorclosure) == true, "Executor globals should be executor closures")
+
+-- Check a Lua function defined in the script
+assert(isexecutorclosure(function() end) == true, "Scripts running in the executor context produce executor closures")
+
+-- Check a Roblox native function
+assert(isexecutorclosure(print) == false, "Roblox native functions are not executor closures")
+```
+
+</CodeGroup>

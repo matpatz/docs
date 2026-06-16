@@ -1,0 +1,30 @@
+---
+title: "islclosure"
+---
+
+Checks whether the specified function is a Lua closure (a function implemented in Luau source code).
+
+```luau
+islclosure(func: function): boolean
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `func` | `function` | The function to inspect. |
+
+## Returns
+
+`boolean` - `true` if the function is a Lua closure, `false` otherwise.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+assert(islclosure(function() end) == true, "Standard Lua functions are Lua closures")
+assert(islclosure(print) == false, "C functions are not Lua closures")
+```
+
+</CodeGroup>

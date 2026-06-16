@@ -1,0 +1,35 @@
+---
+title: "crypt.lz4compress"
+---
+
+Compresses a plain text string using the LZ4 compression algorithm.
+
+```luau
+crypt.lz4compress(data: string): string
+```
+
+<Tip>
+  Alias: `lz4compress`
+</Tip>
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `data` | `string` | The plain text string to compress. |
+
+## Returns
+
+`string` - The compressed binary/hex string.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local raw = "Hello, world!"
+local compressed = crypt.lz4compress(raw)
+assert(type(compressed) == "string", "Compression should return a string")
+```
+
+</CodeGroup>

@@ -1,0 +1,35 @@
+---
+title: "crypt.encrypt"
+---
+
+Encrypts a plain text string using a key, cipher mode, and optional initialization vector (IV).
+
+```luau
+crypt.encrypt(data: string, key: string, iv: string?, cipher: string): (string, string)
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `data` | `string` | The plain text data to encrypt. |
+| `key` | `string` | The encryption key. |
+| `iv` | `string` | *(Optional)* The initialization vector. If not provided or `nil`, a random IV is generated and returned. |
+| `cipher` | `string` | The cipher mode (e.g. `"CBC"`, `"ECB"`, etc.). |
+
+## Returns
+
+1. `string` - The encrypted cipher text.
+2. `string` - The initialization vector (IV) used for the encryption.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local key = crypt.generatekey()
+local encrypted, iv = crypt.encrypt("test", key, nil, "CBC")
+assert(iv, "crypt.encrypt should return an IV")
+```
+
+</CodeGroup>

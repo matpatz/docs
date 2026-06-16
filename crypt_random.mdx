@@ -1,0 +1,30 @@
+---
+title: "crypt.random"
+---
+
+Generates a cryptographically secure random string of the specified size.
+
+```luau
+crypt.random(size: number): string
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `size` | `number` | The length of the random string to generate (in bytes). |
+
+## Returns
+
+`string` - A random string of the specified size.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local randomStr = crypt.random(16)
+assert(#randomStr == 16, "Generated string size should match the requested size")
+```
+
+</CodeGroup>

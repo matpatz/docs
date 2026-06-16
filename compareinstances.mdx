@@ -1,0 +1,37 @@
+---
+title: "compareinstances"
+---
+
+Compares two reference wrappers to determine if they point to the same underlying Roblox instance, even if the references themselves are not equal in Lua.
+
+```luau
+compareinstances(instance1: Instance, instance2: Instance): boolean
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `instance1` | [`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance) | The first instance reference. |
+| `instance2` | [`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance) | The second instance reference. |
+
+## Returns
+
+`boolean` - `true` if both references point to the same underlying instance, `false` otherwise.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local part = Instance.new("Part")
+local clone = cloneref(part)
+
+-- The wrappers are different
+assert(part ~= clone, "Clone should not be equal to original")
+
+-- But they point to the same underlying object
+assert(compareinstances(part, clone), "Clone should be equal to original when using compareinstances")
+```
+
+</CodeGroup>

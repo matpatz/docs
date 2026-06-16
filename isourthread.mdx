@@ -1,0 +1,30 @@
+---
+title: "isourthread"
+---
+
+Checks whether the specified thread (or the current thread if none is provided) belongs to the executor's context rather than the game's internal thread pool.
+
+```luau
+isourthread(thread: thread?): boolean
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `thread` | `thread` | *(Optional)* The thread to check. Defaults to the current thread. |
+
+## Returns
+
+`boolean` - `true` if the thread belongs to the executor, `false` otherwise.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+-- Check if the current thread belongs to the executor
+assert(isourthread() == true, "The script should be running in the executor's thread context")
+```
+
+</CodeGroup>

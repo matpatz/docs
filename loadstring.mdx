@@ -1,0 +1,46 @@
+---
+title: "loadstring"
+---
+
+Compiles the given Luau source code string into an executable Lua closure.
+
+```luau
+loadstring(chunk: string, chunkname: string?): (function?, string?)
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `chunk` | `string` | The Luau source code string to compile. |
+| `chunkname` | `string` | *(Optional)* The name of the chunk to use for error reporting and debugging. |
+
+## Returns
+
+1. `function?` - The compiled function, or `nil` if compilation failed.
+2. `string?` - The compilation error message if compilation failed.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local func, err = loadstring("return ... + 1")
+if func then
+    print(func(5)) -- Outputs: 6
+else
+    warn("Failed to compile: " .. err)
+end
+```
+
+```luau Example 2
+local func, err = loadstring("syntax error!")
+assert(func == nil, "Should fail to compile")
+assert(type(err) == "string", "Should return error message")
+```
+
+</CodeGroup>
+
+<Tip>
+  `loadstring` compiles standard Luau source code. Attempting to pass raw Luau bytecode will result in a compilation error.
+</Tip>

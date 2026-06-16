@@ -1,0 +1,31 @@
+---
+title: "crypt.hash"
+---
+
+Hashes the input string using the specified cryptographic hashing algorithm.
+
+```luau
+crypt.hash(data: string, algorithm: string): string
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `data` | `string` | The plain text data to hash. |
+| `algorithm` | `string` | The hashing algorithm to use (e.g. `'md5'`, `'sha1'`, `'sha256'`, `'sha512'`, `'sha3-256'`, etc.). |
+
+## Returns
+
+`string` - The hexadecimal hash string representing the input data.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local hash = crypt.hash("test", "sha256")
+print("SHA256: " .. hash)
+```
+
+</CodeGroup>

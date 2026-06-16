@@ -1,0 +1,30 @@
+---
+title: "crypt.base64encode"
+---
+
+Encodes a plain text string into a Base64-encoded representation.
+
+```luau
+crypt.base64encode(data: string): string
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `data` | `string` | The plain text string to encode. |
+
+## Returns
+
+`string` - The Base64-encoded string.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local encoded = crypt.base64encode("test")
+assert(encoded == "dGVzdA==", "Base64 encoding failed")
+```
+
+</CodeGroup>

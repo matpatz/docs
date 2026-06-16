@@ -37,11 +37,30 @@
           },
           {
             "group": "Cache Library",
-            "pages": []
+            "pages": [
+              "cache_invalidate",
+              "cache_iscached",
+              "cloneref",
+              "compareinstances"
+            ]
           },
           {
             "group": "Closures",
-            "pages": []
+            "pages": [
+              "getfunctionhash",
+              "iscclosure",
+              "isexecutorclosure",
+              "islclosure",
+              "isnewcclosure",
+              "hookfunction",
+              "isfunctionhooked",
+              "isourthread",
+              "loadstring",
+              "newcclosure",
+              "newlclosure",
+              "restorefunction",
+              "setstackhidden"
+            ]
           },
           {
             "group": "Console",
@@ -49,7 +68,19 @@
           },
           {
             "group": "Crypt Library",
-            "pages": []
+            "pages": [
+              "crypt_base64decode",
+              "crypt_base64encode",
+              "crypt_decrypt",
+              "crypt_encrypt",
+              "crypt_generatebytes",
+              "crypt_generatekey",
+              "crypt_hash",
+              "crypt_hmac",
+              "crypt_lz4compress",
+              "crypt_lz4decompress",
+              "crypt_random"
+            ]
           },
           {
             "group": "Debug Library",

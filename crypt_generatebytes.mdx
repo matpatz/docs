@@ -1,0 +1,30 @@
+---
+title: "crypt.generatebytes"
+---
+
+Generates a cryptographically secure random sequence of bytes of the specified size.
+
+```luau
+crypt.generatebytes(size: number): string
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `size` | `number` | The number of random bytes to generate. |
+
+## Returns
+
+`string` - A Base64-encoded string containing the generated random bytes.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local bytes = crypt.generatebytes(32)
+assert(#crypt.base64decode(bytes) == 32, "Decoded bytes length should match requested size")
+```
+
+</CodeGroup>

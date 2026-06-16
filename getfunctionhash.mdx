@@ -1,0 +1,38 @@
+---
+title: "getfunctionhash"
+---
+
+Generates a cryptographic hash of the specified Luau function's bytecode. This is useful for identifying unique functions or checking if they have been modified.
+
+```luau
+getfunctionhash(func: function): string
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| `func` | `function` | The Luau function to generate a hash for. |
+
+## Returns
+
+`string` - A hash representation (typically MD5 or SHA-256 hex string) of the function's bytecode.
+
+## Example
+
+<CodeGroup>
+
+```luau Example 1
+local function myTestFunction()
+    return "Hello, world!"
+end
+
+local hash = getfunctionhash(myTestFunction)
+print("Function hash: " .. hash)
+```
+
+</CodeGroup>
+
+<Tip>
+  Comparing the output of `getfunctionhash` on two functions is a highly reliable way to determine if their underlying bytecode is identical.
+</Tip>
