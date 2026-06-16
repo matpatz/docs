@@ -16,7 +16,7 @@ Turns function `func` into a C function.
 newcclosure(func: function): function
 ```
 
-The result classifies as a <abbr title="A function written in C (by Roblox itself), not in Luau. Example: print, task.wait, error, math.sqrt, etc.">**C closure**</abbr> - `iscclosure`, `isnewcclosure`, and `isexecutorclosure` all return `true` on it. <br />Already-`newcclosure`-wrapped functions are accepted too - each call adds another <abbr title="A function inside another function.">**wrapper**</abbr> layer.
+The result classifies as a **C closure** - `iscclosure`, `isnewcclosure`, and `isexecutorclosure` all return `true` on it. <br />Already-`newcclosure`-wrapped functions are accepted too - each call adds another **wrapper** layer.
 
 Most commonly used to disguise your Luau code as a built-in C function - so it passes `iscclosure` checks instead of failing them.
 
@@ -28,9 +28,9 @@ Most commonly used to disguise your Luau code as a built-in C function - so it p
 
 ## Returns
 
-`function` - a wrapper around `func`. When called, it runs the same <abbr title="The code inside the function.">**body**</abbr>, but the wrapper itself reports as C.<br />Every call to `newcclosure` produces a new closure: `newcclosure(f) ~= newcclosure(f)`.
+`function` - a wrapper around `func`. When called, it runs the same **body**, but the wrapper itself reports as C.<br />Every call to `newcclosure` produces a new closure: `newcclosure(f) ~= newcclosure(f)`.
 
-The wrapper preserves <abbr title="Tracking of who is calling - tells your script's calls apart from the game's.">**identity context**</abbr> - both `getthreadidentity` and `checkcaller` inside the body see the same values they would outside.
+The wrapper preserves **identity context** - both `getthreadidentity` and `checkcaller` inside the body see the same values they would outside.
 
 <Tip>
   If you save the wrapper as `local wrapper = newcclosure(func)` and then call `wrapper("a", nil, "b")`, the original `func` will still receive all three values in the same order - the `nil` in the middle stays put, instead of being skipped.

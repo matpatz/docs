@@ -8,7 +8,7 @@ Writes `\r` followed by `text` to the user's clipboard.
 toclipboard(text: string): ()
 ```
 
-The resulting clipboard contents start with a <abbr title="ASCII byte 13. Historically moved a typewriter or terminal cursor back to the start of a line.">carriage return byte</abbr> (`0x0D`), then the input string. Not equivalent to `setclipboard`, which writes a `string` argument without any prefix.
+The resulting clipboard contents start with a carriage return byte (`0x0D`), then the input string. Not equivalent to `setclipboard`, which writes a `string` argument without any prefix.
 
 ## Parameters
 

@@ -2,13 +2,13 @@
 title: "debug.getconstants"
 ---
 
-Returns the constant table of a Luau function - every <abbr title="A fixed value written directly in the code - a number, some text, or true/false.">literal</abbr> and global name the compiler stored in its bytecode.
+Returns the constant table of a Luau function - every literal and global name the compiler stored in its bytecode.
 
 ```luau
 debug.getconstants(func: function | number): {boolean | nil | number | string}
 ```
 
-When <abbr title="Luau Virtual Machine - the part of Roblox that runs your compiled script bytecode.">Roblox's LVM</abbr> builds a function, it stores every literal that function uses - strings, numbers and booleans - plus the name of every global it calls, in a constant table attached to that function. `debug.getconstants` returns that whole table.
+When Roblox's LVM builds a function, it stores every literal that function uses - strings, numbers and booleans - plus the name of every global it calls, in a constant table attached to that function. `debug.getconstants` returns that whole table.
 
 Hand it a function and you get that function's constants. Hand it a number instead and that number is read as a stack level. Level `0` is the call you are in, `1` is the one that called it, and the lookup runs on whichever function sits at that level.
 
@@ -24,7 +24,7 @@ Most commonly used while reversing a game - to see what a ModuleScript or a Loca
 
 ## Returns
 
-`{boolean | nil | number | string}` - a table of the function's constants. Each one sits at a numbered slot from the <abbr title="The code Roblox turns your script into so it can actually run it.">compiled bytecode</abbr>.
+`{boolean | nil | number | string}` - a table of the function's constants. Each one sits at a numbered slot from the compiled bytecode.
 
 A constant table belongs to one function. If you passed a number instead of a function, it belongs to whichever function is running that many calls up from where you called this. The table can have gaps, so iterate over it with `pairs` and not `ipairs`.
 

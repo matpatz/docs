@@ -10,7 +10,7 @@ isnewcclosure(func: function): boolean
 
 Most commonly used to filter `getgc()` or `filtergc()` output down to wrapped Luau functions - the hooks and disguises another script left behind.
 
-A <abbr title="A function written in C (by Roblox itself), not in Luau. Example: print, task.wait, error, math.sqrt, etc.">C function made by roblox</abbr> and a `newcclosure`-wrapped one both return `true` from `iscclosure`. `isnewcclosure` is the only built-in predicate that separates the two.
+A C function made by roblox and a `newcclosure`-wrapped one both return `true` from `iscclosure`. `isnewcclosure` is the only built-in predicate that separates the two.
 
 ## Parameters
 

@@ -10,7 +10,7 @@ is_parallel(): boolean
 
 Roblox runs most code on one serial thread. Code inside an [Actor](https://create.roblox.com/docs/reference/engine/classes/Actor) that has called `task.desynchronize()` runs in parallel instead - it is desynchronized. `task.synchronize()` brings that thread back to serial. `is_parallel()` reports which side the thread that calls it is on right now.
 
-A parallel thread can read values from the game, but it cannot change <abbr title="TODO link user to thread-safe properties">some of them</abbr>. Call `is_parallel()` before a write and run `task.synchronize()` first if it returns `true`.
+A parallel thread can read values from the game, but it cannot change some of them. Call `is_parallel()` before a write and run `task.synchronize()` first if it returns `true`.
 
 - [Parallel Luau](https://create.roblox.com/docs/scripting/multithreading) - Roblox multithreading concepts: Actors, desynchronize, synchronize.
 
