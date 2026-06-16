@@ -2,41 +2,6 @@
 title: "crypt.hash"
 ---
 
-```luau
-crypt.hash(data: string, algorithm: string): string
-```
-
-Accepted algorithms:
-
-- `"md5"{:luau}` - 32-character digest
-- `"sha1"{:luau}` - 40-character digest
-- `"sha256"{:luau}` - 64-character digest
-- `"sha384"{:luau}` - 96-character digest
-- `"sha512"{:luau}` - 128-character digest
-- `"sha3-256"{:luau}` - 64-character digest
-- `"sha3-512"{:luau}` - 128-character digest
-
-Most commonly used to compare two large strings fastly - hash both and compare them, instead of running a byte-by-byte equality.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `data` | `string` | The content to hash. |
-| `algorithm` | `string` | One of the algorithm names listed above. Case-sensitive.|
-
-## Returns
-
-`string` - the hex digest. Length depends on the algorithm (see list above).
-
-## Example
-
-Detect whether an <abbr title="The original source you downloaded the file from.">upstream</abbr> file has changed since you last cached it.
-
-<details>
-<summary>Solution</summary>
-```
-
 Hashes a string with the named algorithm and returns the digest as a hex string.
 
 ```luau
@@ -68,10 +33,12 @@ Most commonly used to compare two large strings fastly - hash both and compare t
 
 ## Example
 
+Detect whether an <abbr title="The original source you downloaded the file from.">upstream</abbr> file has changed since you last cached it.
+
 <CodeGroup>
 
 ```luau Example 1
-crypt.hash(data: string, algorithm: string): string
+local hash = crypt.hash("Hello, world!", "test")
 ```
 
 ```luau Example 2

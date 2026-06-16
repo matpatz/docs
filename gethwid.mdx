@@ -2,21 +2,6 @@
 title: "gethwid"
 ---
 
-```luau
-gethwid(): string
-```
-
-Most commonly used to gate script hubs behind an HWID whitelist.
-
-## Returns
-
-`string` - a 64-character hash.
-
-## Example
-
-Block unauthorised users at script load by checking the HWID against a whitelist.
-```
-
 Returns the user's Hardware ID.
 
 ```luau
@@ -31,10 +16,12 @@ Most commonly used to gate script hubs behind an HWID whitelist.
 
 ## Example
 
+Block unauthorised users at script load by checking the HWID against a whitelist.
+
 <CodeGroup>
 
 ```luau Example 1
-gethwid(): string
+local hwid = gethwid()
 ```
 
 ```luau Example 2

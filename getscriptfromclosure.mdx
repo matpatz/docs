@@ -23,12 +23,7 @@ Returns the script instance that defined the given Lua closure function.
 <CodeGroup>
 
 ```luau Example 1
--- Get the script that created a local function
-local function test() end
-local script = getscriptfromclosure(test)
-if script then
-    print("Closure belongs to script: " .. script:GetFullName())
-end
+local script = getscriptfromclosure(print)
 ```
 
 ```luau Example 2

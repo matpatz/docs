@@ -2,36 +2,6 @@
 title: "setthreadidentity"
 ---
 
-```luau
-setthreadidentity(identity: number): number
-```
-
-Every thread on Roblox carries an identity number that decides what the running script is allowed to touch.<br />Read the `getthreadidentity{:luau}` page entry to learn more.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `identity` | `number` | The new identity level for the current thread. |
-
-## Returns
-
-`number` - the previous identity (the level that was active before this call). Useful for save/restore: capture the return, do your work at the new identity, then pass it back into a second call to restore.
-
-## Aliases
-
-- `setidentity{:luau}`
-- `set_thread_identity{:luau}`
-- `setthreadcontext{:luau}`
-
-## Example
-
-If you try to `require(){:luau}` a ModuleScript, while having your identity level set to `2{:luau}`, <br />you will get an error: `Lacking capability RobloxScript`.
-
-<details>
-<summary>Solution</summary>
-```
-
 Sets the current thread's identity to `identity` and returns the level that was active before the call.
 
 ```luau
@@ -50,12 +20,20 @@ Every thread on Roblox carries an identity number that decides what the running 
 
 `number` - the previous identity (the level that was active before this call). Useful for save/restore: capture the return, do your work at the new identity, then pass it back into a second call to restore.
 
+## Aliases
+
+- `setidentity`
+- `set_thread_identity`
+- `setthreadcontext`
+
 ## Example
+
+If you try to `require()` a ModuleScript, while having your identity level set to `2`, <br />you will get an error: `Lacking capability RobloxScript`.
 
 <CodeGroup>
 
 ```luau Example 1
-setthreadidentity(identity: number): number
+local setthreadidentity = setthreadidentity(8)
 ```
 
 ```luau Example 2

@@ -2,28 +2,6 @@
 title: "setrawmetatable"
 ---
 
-```luau
-setrawmetatable(object: any, metatable: table?): any
-```
-
-If `object{:luau}`'s current metatable has `__metatable{:luau}` set, `setmetatable{:luau}` errors out. <br /> `setrawmetatable{:luau}` skips that lock and writes the metatable directly. Pass `nil{:luau}` for `metatable{:luau}` to clear `object{:luau}`'s metatable instead.
-
-Most commonly used to replace the metatable of an Instance whose `__metatable{:luau}` field would otherwise block a normal `setmetatable{:luau}` call.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `object` | `any` | The value to attach the metatable to. |
-| `metatable` | `table?` | The metatable to write. |
-
-## Returns
-
-`any` - the same `object{:luau}` passed in, by reference. Useful for chaining: `local t = setrawmetatable({}, mt){:luau}`.
-
-## Example
-```
-
 Sets the raw metatable of `object`, even when `__metatable` is set to lock it.
 
 ```luau
@@ -50,7 +28,7 @@ Most commonly used to replace the metatable of an Instance whose `__metatable` f
 <CodeGroup>
 
 ```luau Example 1
-setrawmetatable(object: any, metatable: table?): any
+setrawmetatable(game, {})
 ```
 
 ```luau Example 2

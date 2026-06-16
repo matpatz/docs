@@ -2,37 +2,6 @@
 title: "debug.isvalidlevel"
 ---
 
-```luau
-debug.isvalidlevel(level: number): boolean
-```
-
-New to stack levels? [Learn more here](/docs/notes/#stack-levels).
-
-It tracks `debug.getinfo{:luau}` exactly: a level this returns `true{:luau}` for is one `debug.getinfo{:luau}` can read, and a level it returns `false{:luau}` for is one `debug.getinfo{:luau}` errors on.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `level` | `number` | Which stack frame to test. |
-
-## Returns
-
-`boolean` - `true{:luau}` for a level the calling thread currently has on its stack, `false{:luau}` for one it does not.
-
-## Aliases
-
-- `isvalidlevel{:luau}`
-- `validlevel{:luau}`
-
-## Example
-
-Measure how deep the current call stack is by counting levels until `debug.isvalidlevel{:luau}` runs off the top.
-
-<details>
-<summary>Solution</summary>
-```
-
 Checks whether a number is a valid stack level for the thread that calls it.
 
 ```luau
@@ -53,12 +22,19 @@ It tracks `debug.getinfo` exactly: a level this returns `true` for is one `debug
 
 `boolean` - `true` for a level the calling thread currently has on its stack, `false` for one it does not.
 
+## Aliases
+
+- `isvalidlevel`
+- `validlevel`
+
 ## Example
+
+Measure how deep the current call stack is by counting levels until `debug.isvalidlevel` runs off the top.
 
 <CodeGroup>
 
 ```luau Example 1
-debug.isvalidlevel(level: number): boolean
+local isvalidlevel = debug.isvalidlevel(8)
 ```
 
 ```luau Example 2

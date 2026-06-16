@@ -2,42 +2,6 @@
 title: "debug.setstack"
 ---
 
-```luau
-debug.setstack(level: number, index: number, value: any): ()
-```
-
-New to stack levels? [Learn more here](/docs/notes/#stack-levels).
-
-Most commonly used from a hook running inside a game script's thread, to flip one of that script's locals or rewrite a return slot before the frame returns.
-
-`value{:luau}` has to match the type already in the slot. There is no coercion.
-
-The call only reaches frames on the thread it runs on. The target script also has to be running, or the access fails.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `level` | `number` | The stack frame to write into, counted outward from this call. |
-| `index` | `number` | The slot within that frame's local window. |
-| `value` | `any` | The replacement written into the slot. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code> - the slot is overwritten in place.
-
-## Aliases
-
-- `setstack{:luau}`
-
-## Example
-
-A local starts `false{:luau}` in one frame. A deeper call overwrites that frame's first slot, so the frame returns `true{:luau}` instead.
-
-<details>
-<summary>Solution</summary>
-```
-
 Writes a value into a single local slot of a live stack frame on the current thread.
 
 ```luau
@@ -64,12 +28,18 @@ The call only reaches frames on the thread it runs on. The target script also ha
 
 <code title="the function does not return a value.">void</code> - the slot is overwritten in place.
 
+## Aliases
+
+- `setstack`
+
 ## Example
+
+A local starts `false` in one frame. A deeper call overwrites that frame's first slot, so the frame returns `true` instead.
 
 <CodeGroup>
 
 ```luau Example 1
-debug.setstack(level: number, index: number, value: any): ()
+debug.setstack(8, 1, "test")
 ```
 
 ```luau Example 2

@@ -2,36 +2,6 @@
 title: "restorefunction"
 ---
 
-```luau
-restorefunction(func: function): ()
-```
-
-Pass the function you hooked and it stops running the hook. If the same function was hooked more than once, one `restorefunction{:luau}` call still reverts it to the very first original. After it runs, `isfunctionhooked{:luau}` reports `false{:luau}` for that function.
-
-Throws an error if the function you passed was never hooked.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `func` | `function` | The hooked function to restore. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-## Aliases
-
-- `restorefunc{:luau}`
-
-## Example
-
-Hook a function only while you need it, then put it back so the rest of the game keeps seeing the real one.
-
-<details>
-<summary>Solution</summary>
-```
-
 Reverses `hookfunction` - the target goes back to running its original body.
 
 ```luau
@@ -52,12 +22,18 @@ Throws an error if the function you passed was never hooked.
 
 <code title="the function does not return a value.">void</code>
 
+## Aliases
+
+- `restorefunc`
+
 ## Example
+
+Hook a function only while you need it, then put it back so the rest of the game keeps seeing the real one.
 
 <CodeGroup>
 
 ```luau Example 1
-restorefunction(func: function): ()
+restorefunction(print)
 ```
 
 ```luau Example 2

@@ -2,37 +2,6 @@
 title: "crypt.lz4decompress"
 ---
 
-```luau
-crypt.lz4decompress(compressed: string, expectedSize: number): string
-```
-
-Input must be LZ4 Block format - see the page entry `crypt.lz4compress{:luau}` to learn more.<br />  `expectedSize{:luau}` is the length of the original plaintext in bytes, *not* the length of the compressed input - you have to track and pass it yourself.
-
-There is no integrity check - if the bytes are damaged or `expectedSize{:luau}` is wrong, <br />the function still returns a string of that length without raising an error.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `compressed` | `string` | An LZ4 Block-format payload. |
-| `expectedSize` | `number` | The desired output length in bytes (size of the original plaintext). |
-
-## Returns
-
-`string` - the decompressed bytes, padded or truncated to exactly `expectedSize{:luau}` characters. <br />When `expectedSize{:luau}` matches the original length, the result is the full plaintext.
-
-## Aliases
-
-- `lz4decompress{:luau}`
-
-## Example
-
-In a chat-event-based Roblox game, stream Bad Apple as ASCII video over a remote at 30fps. <br /> Reason: storing >1800 frames and parsing them would be a lot more easier if you compress the data beforehand.
-
-<details>
-<summary>Solution</summary>
-```
-
 Decompresses `compressed` and returns exactly `expectedSize` bytes.
 
 ```luau
@@ -54,12 +23,18 @@ There is no integrity check - if the bytes are damaged or `expectedSize` is wron
 
 `string` - the decompressed bytes, padded or truncated to exactly `expectedSize` characters. <br />When `expectedSize` matches the original length, the result is the full plaintext.
 
+## Aliases
+
+- `lz4decompress`
+
 ## Example
+
+In a chat-event-based Roblox game, stream Bad Apple as ASCII video over a remote at 30fps. <br /> Reason: storing >1800 frames and parsing them would be a lot more easier if you compress the data beforehand.
 
 <CodeGroup>
 
 ```luau Example 1
-crypt.lz4decompress(compressed: string, expectedSize: number): string
+local lz4decompress = crypt.lz4decompress("test", 10)
 ```
 
 ```luau Example 2

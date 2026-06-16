@@ -2,29 +2,6 @@
 title: "cache.iscached"
 ---
 
-```luau
-cache.iscached(instance: Instance): boolean
-```
-
-Seliware keeps an internal cache of game Instances; an Instance you reach through the game tree is normally tracked there, so `cache.iscached{:luau}` returns `true{:luau}` for it. Once `cache.invalidate{:luau}` removes an Instance from that cache, `cache.iscached{:luau}` returns `false{:luau}` for it.
-
-Most commonly used to confirm a reference was actually detached after an invalidate call.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `instance` | [`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance) | The Instance to look up in the cache. |
-
-## Returns
-
-`true{:luau}` if `instance{:luau}` is tracked in the instance cache, `false{:luau}` if it is not.
-
-## Example
-
-In a Roblox game, confirm that a RemoteEvent was actually detached before you rely on a `cache.invalidate{:luau}` to dodge its anti-cheat:
-```
-
 Tells you whether an Instance is still in Seliware's internal instance cache.
 
 ```luau
@@ -47,10 +24,12 @@ Most commonly used to confirm a reference was actually detached after an invalid
 
 ## Example
 
+In a Roblox game, confirm that a RemoteEvent was actually detached before you rely on a `cache.invalidate` to dodge its anti-cheat:
+
 <CodeGroup>
 
 ```luau Example 1
-cache.iscached(instance: Instance): boolean
+local iscached = cache.iscached(game:GetService("Players"))
 ```
 
 ```luau Example 2

@@ -2,32 +2,6 @@
 title: "cloneref"
 ---
 
-```luau
-cloneref(instance: Instance): Instance
-```
-
-Commonly written wrapping a service - `cloneref(game:GetService("CoreGui")){:luau}`. Considered industry-standard for all scripts written in a Roblox Executor context. [See more here](https://www.youtube.com/watch?v=Ny28cEovcu0).
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `instance` | `Instance` | The Instance to clone. |
-
-## Returns
-
-[`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance)
-
-## Aliases
-
-- `clonereference{:luau}`
-
-## Example <a href="/docs/contributors#blastbrean" title="Contributed by blastbrean"><img src={pfpBlastbrean.src} alt="blastbrean" style="width:1.75rem;height:1.75rem;border-radius:9999px;display:inline-block;vertical-align:middle;object-fit:cover;margin-left:0.5rem;" /></a>
-```
-
-import pfpBlastbrean from '../../../assets/a_ca6fd9c8127a18fc2d9fe21fd0436d97.gif';
-import pfpMainstreamed from '../../../assets/ceb191165ff263870095e4901d1eeee7.webp';
-
 Returns a separate Lua reference to `instance` - Roblox treats both as the same Instance.
 
 ```luau
@@ -46,12 +20,16 @@ Commonly written wrapping a service - `cloneref(game:GetService("CoreGui"))`. Co
 
 [`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance)
 
+## Aliases
+
+- `clonereference`
+
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-cloneref(instance: Instance): Instance
+local players = cloneref(game:GetService("Players"))
 ```
 
 ```luau Example 2

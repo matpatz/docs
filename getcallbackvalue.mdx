@@ -2,30 +2,6 @@
 title: "getcallbackvalue"
 ---
 
-```luau
-getcallbackvalue(object: Instance, property: string): function?
-```
-
-Usually, you can only **assign** a callback like `OnInvoke{:luau}`, but reading it back throws an error. <br /> `getcallbackvalue{:luau}` gets the function you assigned.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `object` | `Instance` | The Instance owning the callback property. |
-| `property` | `string` | The callback property name. |
-
-## Returns
-
-`function?` - the function assigned to the callback, or `nil{:luau}` if none was assigned.
-
-## Aliases
-
-- `getcallbackmember`
-
-## Example
-```
-
 Reads the function bound to a callback property on a `BindableFunction` or `RemoteFunction`.
 
 ```luau
@@ -45,12 +21,16 @@ Usually, you can only **assign** a callback like `OnInvoke`, but reading it back
 
 `function?` - the function assigned to the callback, or `nil` if none was assigned.
 
+## Aliases
+
+- `getcallbackmember`
+
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-getcallbackvalue(object: Instance, property: string): function?
+local val = getcallbackvalue(game:GetService("Players").LocalPlayer, "OnTeleport")
 ```
 
 ```luau Example 2

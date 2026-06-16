@@ -2,38 +2,6 @@
 title: "crypt.lz4compress"
 ---
 
-```luau
-crypt.lz4compress(plaintext: string): string
-```
-
-There is no header, no checksum, and no trailing size marker, so you have to remember (or store separately) the original byte length to decompress later.
-
-Most commonly used to shrink a large JSON dump or serialized table before writing it to disk with `writefile{:luau}` or sending it over `request{:luau}` + `base64encode{:luau}`.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `plaintext` | `string` | The data to compress. |
-
-Note: any byte value is allowed, including embedded zeros.
-
-## Returns
-
-`string` - the compressed payload.
-
-## Aliases
-
-- `lz4compress{:luau}`
-
-## Example
-
-In a chat-event-based Roblox game, stream Bad Apple as ASCII video over a remote at 30fps. <br /> Reason: storing >1800 frames and parsing them would be a lot more easier if you compress the data beforehand.
-
-<details>
-<summary>Solution</summary>
-```
-
 Compresses `plaintext` into the LZ4 Block format and returns the compressed bytes as a string.
 
 ```luau
@@ -56,12 +24,18 @@ Note: any byte value is allowed, including embedded zeros.
 
 `string` - the compressed payload.
 
+## Aliases
+
+- `lz4compress`
+
 ## Example
+
+In a chat-event-based Roblox game, stream Bad Apple as ASCII video over a remote at 30fps. <br /> Reason: storing >1800 frames and parsing them would be a lot more easier if you compress the data beforehand.
 
 <CodeGroup>
 
 ```luau Example 1
-crypt.lz4compress(plaintext: string): string
+local lz4compress = crypt.lz4compress("Hello, world!")
 ```
 
 ```luau Example 2

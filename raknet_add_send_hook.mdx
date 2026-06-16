@@ -2,37 +2,6 @@
 title: "raknet.add_send_hook"
 ---
 
-```luau
-raknet.add_send_hook(hook: function): ()
-```
-
-RakNet is how Roblox connects you to the server over the internet. <br />Pretty much the same thing as `RemoteEvent{:luau}`'s and `RemoteFunction{:luau}`'s - they do the same job, but in RakNet you work with the raw packets instead of simple remotes.
-
-Your hook receives one `RakNetMessage{:luau}` for the packet. From inside the hook you can read its payload, replace it with `RakNetMessage:SetData{:luau}`, or stop the packet with `RakNetMessage:Block{:luau}`. The hook runs on outgoing packets only. Several hooks can be registered at once and every one of them runs per packet.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `hook` | `function` | The function to run. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-`raknet.add_send_hook{:luau}` returns nothing. Your hook decides the packet's fate by its return value:
-
-- `return false{:luau}` - the packet is dropped and never sent.
-- `return nil{:luau}`, or nothing - the packet passes through unchanged.
-
-## Example
-
-Log every outgoing packet's metadata.
-
-<details>
-<summary>Solution</summary>
-```
-
 Runs your function on every outgoing packet, just before it leaves the client.
 
 ```luau
@@ -60,10 +29,14 @@ Your hook receives one `RakNetMessage` for the packet. From inside the hook you 
 
 ## Example
 
+Log every outgoing packet's metadata.
+
 <CodeGroup>
 
 ```luau Example 1
-raknet.add_send_hook(hook: function): ()
+raknet.add_send_hook(function(bitBuffer, channel, reliability)
+    return true
+end)
 ```
 
 ```luau Example 2

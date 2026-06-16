@@ -2,33 +2,9 @@
 title: "newcclosure"
 ---
 
-```luau
-newcclosure(func: function): function
-```
-
-The result classifies as a <abbr title="A function written in C (by Roblox itself), not in Luau. Example: print, task.wait, error, math.sqrt, etc.">**C closure**</abbr> - `iscclosure{:luau}`, `isnewcclosure{:luau}`, and `isexecutorclosure{:luau}` all return `true{:luau}` on it. <br />Already-`newcclosure{:luau}`-wrapped functions are accepted too - each call adds another <abbr title="A function inside another function.">**wrapper**</abbr> layer.
-
-Most commonly used to disguise your Luau code as a built-in C function - so it passes `iscclosure{:luau}` checks instead of failing them.
-
-## Parameters
-
-| Parameter | Type       | Description |
-|-----------|------------|-------------|
-| `func`    | `function` | The function to wrap. |
-
-## Returns
-
-`function{:luau}` - a wrapper around `func{:luau}`. When called, it runs the same <abbr title="The code inside the function.">**body**</abbr>, but the wrapper itself reports as C.<br />Every call to `newcclosure{:luau}` produces a new closure: `newcclosure(f) ~= newcclosure(f){:luau}`.
-
-The wrapper preserves <abbr title="Tracking of who is calling - tells your script's calls apart from the game's.">**identity context**</abbr> - both `getthreadidentity{:luau}` and `checkcaller{:luau}` inside the body see the same values they would outside.
-
-<Aside type="tip">
-If you save the wrapper as `local wrapper = newcclosure(func){:luau}` and then call `wrapper("a", nil, "b"){:luau}`, the original `func{:luau}` will still receive all three values in the same order - the `nil{:luau}` in the middle stays put, instead of being skipped.
-</Aside>
-
 ## Example
 
-In any Roblox game, block every `FireServer{:luau}` while your script sets up - the metatable slot needs a C closure, so the hook body has to be wrapped in `newcclosure{:luau}`.
+In any Roblox game, block every `FireServer` while your script sets up - the metatable slot needs a C closure, so the hook body has to be wrapped in `newcclosure`.
 
 <details>
 <summary>Solution</summary>
@@ -65,7 +41,7 @@ The wrapper preserves <abbr title="Tracking of who is calling - tells your scrip
 <CodeGroup>
 
 ```luau Example 1
-newcclosure(func: function): function
+local cFunc = newcclosure(function() end)
 ```
 
 ```luau Example 2

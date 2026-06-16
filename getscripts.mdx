@@ -2,19 +2,6 @@
 title: "getscripts"
 ---
 
-```luau
-getscripts(): {LocalScript | ModuleScript}
-```
-
-Most commonly used to iterate every script in the place for a `decompile{:luau}` sweep, or to find a specific script by name without knowing its path.
-
-## Returns
-
-`{LocalScript | ModuleScript | Script}{:luau}` - an array of script Instances. CoreScripts are not included. Each call returns a fresh table - edits don't carry between calls.
-
-## Example
-```
-
 Returns every LocalScript and ModuleScript the executor is tracking in the current Roblox session.
 
 ```luau
@@ -32,7 +19,7 @@ Most commonly used to iterate every script in the place for a `decompile` sweep,
 <CodeGroup>
 
 ```luau Example 1
-getscripts(): {LocalScript | ModuleScript}
+local scripts = getscripts()
 ```
 
 ```luau Example 2

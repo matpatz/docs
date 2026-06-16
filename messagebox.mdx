@@ -2,56 +2,6 @@
 title: "messagebox"
 ---
 
-```luau
-messagebox(text: string, caption: string, flags: number): number
-```
-
-`text{:luau}` is the popup body, `caption{:luau}` is the title bar, and `flags{:luau}` is a number that packs three things at once: the button set in the low 4 bits, an icon, and which button starts selected. The value passes straight to Win32's `MessageBoxA{:luau}`, so the codes below come from Microsoft's docs.
-
-Most commonly used to ask the user to confirm before a script does something they can't undo.
-
-<Aside type="caution">
-Calling `messagebox{:luau}` freezes the entire Roblox client until the user dismisses the popup. Visuals don't redraw, input doesn't register, and no Luau coroutine runs while it's open.
-</Aside>
-
-**Common button styles** (low 4 bits, mutually exclusive):
-
-- `0{:luau}` - MB_OK: just OK
-- `1{:luau}` - MB_OKCANCEL: OK and Cancel
-- `3{:luau}` - MB_YESNOCANCEL: Yes, No, and Cancel
-- `4{:luau}` - MB_YESNO: Yes and No
-
-**Icon bits** (added to the button style for a coloured icon next to the text):
-
-- `0x10{:luau}` - red error
-- `0x20{:luau}` - question mark (deprecated by Microsoft but still works)
-- `0x30{:luau}` - yellow warning triangle
-- `0x40{:luau}` - blue info (i)
-
-`flags = 4 + 0x30{:luau}` opens a Yes/No popup with the warning icon. Default-button selectors (`0x100{:luau}`, `0x200{:luau}`, `0x300{:luau}`) and rarer button sets (Abort/Retry/Ignore, Cancel/TryAgain/Continue) live in the Microsoft docs. <br /> [Learn more here.](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-messagebox)
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `text` | `string` | Body text shown inside the popup. |
-| `caption` | `string` | Title bar text. |
-| `flags` | `number` | Bitfield - button style, optional icon, optional default-button. |
-
-## Returns
-
-`number` - the Win32 ID constant for the button the user clicked:
-
-| Value | Constant | Triggered by |
-|-------|----------|--------------|
-| `1` | IDOK | OK |
-| `2` | IDCANCEL | Cancel |
-| `6` | IDYES | Yes |
-| `7` | IDNO | No |
-
-## Example
-```
-
 Opens a Windows message-box popup and returns the code of the button the user clicked.
 
 ```luau
@@ -106,7 +56,7 @@ Most commonly used to ask the user to confirm before a script does something the
 <CodeGroup>
 
 ```luau Example 1
-messagebox(text: string, caption: string, flags: number): number
+local choice = messagebox("Click OK to continue", "Alert", 0)
 ```
 
 ```luau Example 2

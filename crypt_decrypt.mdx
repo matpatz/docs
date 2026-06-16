@@ -2,37 +2,6 @@
 title: "crypt.decrypt"
 ---
 
-```luau
-crypt.decrypt(data: string, key: string, iv: string, mode: string?): string
-```
-
-`key{:luau}` and `iv{:luau}` must match the values used during encryption - implying same 32-byte base64 key, same 16-byte base64 IV.
-
-`mode{:luau}` defaults to `"CBC"{:luau}` if omitted. <br /> Accepts the same set as `crypt.encrypt(){:luau}`: `"CBC"{:luau}`, `"ECB"{:luau}`, `"CTR"{:luau}`, `"CFB"{:luau}`, `"OFB"{:luau}`, `"GCM"{:luau}`. <br /> [Learn more here](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation).
-
-Most commonly used to recover payloads sent via `crypt.encrypt(){:luau}`.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `data` | `string` | The base64-encoded ciphertext to decrypt. |
-| `key` | `string` | Base64-encoded 32-byte AES key. Must match the key used to encrypt. |
-| `iv` | `string` | Base64-encoded 16-byte IV. Must match the IV used to encrypt. |
-| `mode` | `string?` | One of `"CBC"`, `"ECB"`, `"CTR"`, `"CFB"`, `"OFB"`, `"GCM"`. Defaults to `"CBC"`. |
-
-## Returns
-
-`string` - the recovered plaintext.
-
-## Example
-
-Read a token cached to disk by `crypt.encrypt{:luau}` and recover the plaintext.
-
-<details>
-<summary>Solution</summary>
-```
-
 Decrypts an AES-encrypted string using the matching key, IV, and mode.
 
 ```luau
@@ -60,10 +29,12 @@ Most commonly used to recover payloads sent via `crypt.encrypt()`.
 
 ## Example
 
+Read a token cached to disk by `crypt.encrypt` and recover the plaintext.
+
 <CodeGroup>
 
 ```luau Example 1
-crypt.decrypt(data: string, key: string, iv: string, mode: string?): string
+local decrypt = crypt.decrypt("Hello, world!", "test", "test", "test")
 ```
 
 ```luau Example 2

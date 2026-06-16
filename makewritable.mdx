@@ -2,28 +2,6 @@
 title: "makewritable"
 ---
 
-```luau
-makewritable(t: table): ()
-```
-
-Acts as a shortcut for `setreadonly(t, false){:luau}`. 
-
-Most commonly used to lift a frozen table you can't otherwise write to.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `t` | `table` | The table to unlock. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-
-## Example
-```
-
 Unlocks a read-only table so its contents can be changed again.
 
 ```luau
@@ -49,7 +27,7 @@ Most commonly used to lift a frozen table you can't otherwise write to.
 <CodeGroup>
 
 ```luau Example 1
-makewritable(t: table): ()
+makewritable(getrawmetatable(game))
 ```
 
 ```luau Example 2

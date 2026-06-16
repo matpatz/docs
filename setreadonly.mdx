@@ -2,31 +2,6 @@
 title: "setreadonly"
 ---
 
-```luau
-setreadonly(t: table, readonly: boolean): ()
-```
-
-Most commonly used to lock the table again after unlocking it.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `t` | `table` | The table to lock or unlock. |
-| `readonly` | `boolean` | `true{:luau}` locks the table, `false{:luau}` unlocks it. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-## Example
-
-Hook the __namecall metamethod, and prevent the \<RemoteEvent\> UpdateFPS from firing.
-
-<details>
-<summary>Solution</summary>
-```
-
 Locks or unlocks a table - locked tables can't have their contents changed until they're unlocked.
 
 ```luau
@@ -48,10 +23,12 @@ Most commonly used to lock the table again after unlocking it.
 
 ## Example
 
+Hook the __namecall metamethod, and prevent the \<RemoteEvent\> UpdateFPS from firing.
+
 <CodeGroup>
 
 ```luau Example 1
-setreadonly(t: table, readonly: boolean): ()
+setreadonly(getrawmetatable(game), false)
 ```
 
 ```luau Example 2

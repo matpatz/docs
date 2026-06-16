@@ -23,9 +23,7 @@ debug.getcallstack(thread: thread?): {table}
 <CodeGroup>
 
 ```luau Example 1
--- Get current thread call stack
-local stack = debug.getcallstack()
-print("Current call stack depth: ", #stack)
+local getcallstack = debug.getcallstack("test")
 ```
 
 ```luau Example 2

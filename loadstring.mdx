@@ -2,33 +2,6 @@
 title: "loadstring"
 ---
 
-```luau
-loadstring(source: string, chunkname: string?): function?, string?
-```
-
-Most commonly used to run a script hub fetched over HTTP in one line: `loadstring(game:HttpGet(url))(){:luau}`.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `source` | `string` | The Luau source code to compile. |
-| `chunkname` | `string?` | Optional label that appears in stack traces and error messages. Defaults to a generated string. |
-
-## Returns
-
-`(function, nil)` on success, `(nil, string)` on failure.
-
-| Outcome | First return | Second return |
-|---------|--------------|---------------|
-| Source compiled cleanly | callable function | `nil{:luau}` |
-| Syntax / compile error | `nil{:luau}` | error message |
-
-## Example
-
-Fetch a script hub over HTTP and run it through `loadstring(){:luau}`, guarding the compile so a syntax error in the fetched source warns you instead of failing silently:
-```
-
 Takes a string of Luau source code, compiles it, and returns the compiled chunk as a function. Compiling doesn't run the code - call the returned function to do that.
 
 ```luau
@@ -55,10 +28,12 @@ Most commonly used to run a script hub fetched over HTTP in one line: `loadstrin
 
 ## Example
 
+Fetch a script hub over HTTP and run it through `loadstring()`, guarding the compile so a syntax error in the fetched source warns you instead of failing silently:
+
 <CodeGroup>
 
 ```luau Example 1
-loadstring(source: string, chunkname: string?): function?, string?
+local fn = loadstring("print('hello')")
 ```
 
 ```luau Example 2

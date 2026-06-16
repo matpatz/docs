@@ -2,31 +2,6 @@
 title: "getscriptfromthread"
 ---
 
-```luau
-getscriptfromthread(t: thread): Instance?
-```
-
-Game-side threads spawned by a running LocalScript map back to that LocalScript Instance. 
-
-The common source of valid threads is the table returned by `getreg(){:luau}`. Pass each thread from the registry to `getscriptfromthread{:luau}` and you get the owning script back. Multiple threads can map to the same script - one LocalScript can spawn many coroutines, and each one points to that same LocalScript.
-
-Most commonly used inside a hook to figure out which game script triggered the call, by passing `coroutine.running(){:luau}` from the hook body.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `t` | `thread` | The Lua thread to look up. |
-
-## Returns
-
-`Instance?{:luau}` - the script that owns `t{:luau}`, or `nil{:luau}` if no script owns it. Executor-created threads always return `nil{:luau}`.
-
-## Example
-
-Print the owning script for every thread `getreg(){:luau}` returns. Threads with no game-side owner are skipped.
-```
-
 Maps a Lua thread back to the script Instance it belongs to.
 
 ```luau
@@ -51,10 +26,12 @@ Most commonly used inside a hook to figure out which game script triggered the c
 
 ## Example
 
+Print the owning script for every thread `getreg()` returns. Threads with no game-side owner are skipped.
+
 <CodeGroup>
 
 ```luau Example 1
-getscriptfromthread(t: thread): Instance?
+local script = getscriptfromthread(coroutine.running())
 ```
 
 ```luau Example 2

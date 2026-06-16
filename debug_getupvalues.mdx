@@ -2,40 +2,6 @@
 title: "debug.getupvalues"
 ---
 
-```luau
-debug.getupvalues(func: function | number): {any}
-```
-
-New to upvalues? [Learn more here](/docs/notes/#upvalues).
-
-<Aside type="note">
-Give it a number instead of a function and it reads a stack level, exactly like `debug.getupvalue{:luau}`.
-</Aside>
-
-Most commonly used to snapshot a closure's captured state in one call: find an unknown
-function with `getgc{:luau}`, dump its upvalues, and read off the objects it is holding
-before touching it.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `func` | <span style="white-space: nowrap;">`function` or `number`</span> | The closure to read. |
-
-## Returns
-
-`{any}` - an array-style table of the captured upvalues, in the order they were
-captured. A closure with no upvalues returns an empty table, never `nil{:luau}`.
-
-## Aliases
-
-- `getupvalues{:luau}`
-
-## Example
-
-A closure with two upvalues, dumped with `pairs{:luau}`:
-```
-
 Returns the upvalues captured by a closure or by a running stack frame, as a table.
 
 ```luau
@@ -63,12 +29,18 @@ before touching it.
 `{any}` - an array-style table of the captured upvalues, in the order they were
 captured. A closure with no upvalues returns an empty table, never `nil`.
 
+## Aliases
+
+- `getupvalues`
+
 ## Example
+
+A closure with two upvalues, dumped with `pairs`:
 
 <CodeGroup>
 
 ```luau Example 1
-debug.getupvalues(func: function | number): {any}
+local getupvalues = debug.getupvalues(function(...) end)
 ```
 
 ```luau Example 2

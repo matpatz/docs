@@ -2,42 +2,6 @@
 title: "debug.setupvalue"
 ---
 
-```luau
-debug.setupvalue(func: function | number, index: number, value: any): ()
-```
-
-New to upvalues? [Learn more here](/docs/notes/#upvalues).
-
-<Aside type="note">
-Give it a number instead of a function and it targets the closure running at that stack level.
-</Aside>
-
-Most commonly used to change a closure's captured state mid-run - for example, swapping a config table for one that skips a check.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `func` | <span style="white-space: nowrap;">`function \| number`</span> | The closure to change, or a stack level pointing at one. |
-| `index` | `number` | Which upvalue to overwrite. |
-| `value` | `any` | What to store in the slot. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-## Aliases
-
-- `setupvalue{:luau}`
-
-## Example
-
-Jump a closure's captured counter to any value without calling it that many times.
-
-<details>
-<summary>Solution</summary>
-```
-
 Sets a captured upvalue of a function to a new value.
 
 ```luau
@@ -64,12 +28,18 @@ Most commonly used to change a closure's captured state mid-run - for example, s
 
 <code title="the function does not return a value.">void</code>
 
+## Aliases
+
+- `setupvalue`
+
 ## Example
+
+Jump a closure's captured counter to any value without calling it that many times.
 
 <CodeGroup>
 
 ```luau Example 1
-debug.setupvalue(func: function | number, index: number, value: any): ()
+debug.setupvalue(function(...) end, 1, "test")
 ```
 
 ```luau Example 2

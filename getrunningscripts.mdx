@@ -2,19 +2,6 @@
 title: "getrunningscripts"
 ---
 
-```luau
-getrunningscripts(): {LuaSourceContainer}
-```
-
-## Returns
-
-`{LuaSourceContainer}` - an array of active scripts, that is randomly ordered. Changing the returned array, or any of its' values, will not affect any future calls.
-
-## Example
-
-Print every loaded script's path and pick out names worth taking a look at.
-```
-
 Returns every client-replicated script that the Roblox game has started running so far.
 
 ```luau
@@ -27,10 +14,12 @@ getrunningscripts(): {LuaSourceContainer}
 
 ## Example
 
+Print every loaded script's path and pick out names worth taking a look at.
+
 <CodeGroup>
 
 ```luau Example 1
-getrunningscripts(): {LuaSourceContainer}
+local scripts = getrunningscripts()
 ```
 
 ```luau Example 2

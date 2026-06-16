@@ -2,28 +2,6 @@
 title: "getloadedmodules"
 ---
 
-```luau
-getloadedmodules(): {ModuleScript}
-```
-
-Most commonly used for reverse engineering - the name of the loaded module could give you some hints on what it does. Useful, when you're only inspecting ModuleScripts and not LocalScripts.
-
-## Returns
-
-`{ModuleScript}{:luau}` - an array of every loaded `ModuleScript{:luau}`. Every time you call `getloadedmodules{:luau}`, it will give you a new array - edits don't carry between calls.
-
-## Aliases
-
-- `getmodules{:luau}`
-
-## Example
-
-Print every loaded module's path and pick out names worth taking a look at - depending on your script.
-
-<details>
-<summary>Solution</summary>
-```
-
 Returns every `ModuleScript` currently loaded on the client, implying that `require` has been called on it at least once.
 
 ```luau
@@ -36,12 +14,18 @@ Most commonly used for reverse engineering - the name of the loaded module could
 
 `{ModuleScript}` - an array of every loaded `ModuleScript`. Every time you call `getloadedmodules`, it will give you a new array - edits don't carry between calls.
 
+## Aliases
+
+- `getmodules`
+
 ## Example
+
+Print every loaded module's path and pick out names worth taking a look at - depending on your script.
 
 <CodeGroup>
 
 ```luau Example 1
-getloadedmodules(): {ModuleScript}
+local modules = getloadedmodules()
 ```
 
 ```luau Example 2

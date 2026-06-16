@@ -17,10 +17,7 @@ Returns a dictionary of all active communication channels created via `create_co
 <CodeGroup>
 
 ```luau Example 1
--- Print details of all active communication channels
-for id, event in pairs(get_comm_channels()) do
-    print(`Channel ID: {id}, Event: {event}`)
-end
+local get_comm_channels = get_comm_channels()
 ```
 
 ```luau Example 2

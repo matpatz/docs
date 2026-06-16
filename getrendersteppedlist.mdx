@@ -2,19 +2,6 @@
 title: "getrendersteppedlist"
 ---
 
-```luau
-getrendersteppedlist(): {any}
-```
-
-Most commonly used to find per-frame render hooks - things like an ESP or aimbot loop that a script attached to `RenderStepped{:luau}`.
-
-## Returns
-
-`{any}{:luau}` - a table of the callbacks and connections wired to `RenderStepped{:luau}` at the moment of the call.
-
-## Example
-```
-
 Returns a table of the functions and connections currently bound to `RunService.RenderStepped`.
 
 ```luau
@@ -32,7 +19,7 @@ Most commonly used to find per-frame render hooks - things like an ESP or aimbot
 <CodeGroup>
 
 ```luau Example 1
-getrendersteppedlist(): {any}
+local getrendersteppedlist = getrendersteppedlist()
 ```
 
 ```luau Example 2

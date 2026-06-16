@@ -2,31 +2,6 @@
 title: "getconnections"
 ---
 
-```luau
-getconnections(signal: RBXScriptSignal): {Connection}
-```
-
-Each entry in the returned table is a `Connection{:luau}` object - one per live `:Connect{:luau}` call on `signal{:luau}` at the moment you call. See [`Connection`](/docs/signals/connection) for the object's fields and methods.
-
-Most commonly used to break anti-AFK by disabling every handler on `Player.Idled{:luau}`.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `signal` | [`RBXScriptSignal`](https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal) | The signal whose connections to enumerate. |
-
-## Returns
-
-[`{Connection}`](/docs/signals/connection) - an array of wrappers, one per live `:Connect{:luau}` call on `signal{:luau}`. Foreign-state connections are included; their `Function{:luau}` and `Thread{:luau}` fields read as `nil{:luau}` but the methods still work.
-
-## Example <a href="/docs/contributors#lishbon" title="Contributed by lishbon"><img src={pfpLishbon.src} alt="lishbon" style="width:1.75rem;height:1.75rem;border-radius:9999px;display:inline-block;vertical-align:middle;object-fit:cover;margin-left:0.5rem;" /></a>
-
-In a Roblox game, `Player.Idled{:luau}` fires after ~5 minutes of no input - and Roblox kicks you for being AFK for >20 minutes. Disable every connection on the signal so the handler never runs.
-```
-
-import pfpLishbon from '../../../assets/f34325c420ee4b735ce883c193628496.webp';
-
 Returns the connection objects attached to a `signal`, including ones connected by <abbr title="A Luau script not created by Seliware - the engine's own CoreScripts, or game-side LocalScripts.">foreign Luau states</abbr>.
 
 ```luau
@@ -49,10 +24,12 @@ Most commonly used to break anti-AFK by disabling every handler on `Player.Idled
 
 ## Example
 
+In a Roblox game, `Player.Idled` fires after ~5 minutes of no input - and Roblox kicks you for being AFK for >20 minutes. Disable every connection on the signal so the handler never runs.
+
 <CodeGroup>
 
 ```luau Example 1
-getconnections(signal: RBXScriptSignal): {Connection}
+local connections = getconnections(workspace.ChildAdded)
 ```
 
 ```luau Example 2

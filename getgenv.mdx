@@ -2,27 +2,6 @@
 title: "getgenv"
 ---
 
-```luau
-getgenv(): table
-```
-
-## Returns
-
-| Top-level | What's in it |
-|-----------|--------------|
-| Seliware's environment | Seliware's functions and libraries (`getgc{:luau}`, `hookfunction{:luau}`, the `WebSocket{:luau}` library, and the rest), including whatever a user's script writes there - bools, numbers, tables, etc. |
-| Roblox globals | Reachable through the env's raw metatable - `print{:luau}`, `task{:luau}`, and everything else a normal Roblox script sees. |
-
-<span class="subtext">Reaching Roblox globals through `getgenv(){:luau}` (like `getgenv().print{:luau}`) works, but there is no reason to - they are already in scope, so call `print{:luau}`, `task{:luau}`, and the rest directly. The one exception is `require{:luau}`: use `getrenv().require{:luau}` for the game's copy, covered on the `getrenv{:luau}` page.</span>
-
-## Example
-
-In a Roblox game, stop your script from running twice - executing it again stacks hooks and breaks what the first run set up.
-
-<details>
-<summary>Solution</summary>
-```
-
 Returns the executor's global environment - a shared table across all scripts in the same Roblox session.
 <span class="subtext">Userscripts can add values to it, but they're gone the moment you leave a Roblox game.</span>
 
@@ -41,10 +20,12 @@ getgenv(): table
 
 ## Example
 
+In a Roblox game, stop your script from running twice - executing it again stacks hooks and breaks what the first run set up.
+
 <CodeGroup>
 
 ```luau Example 1
-getgenv(): table
+local env = getgenv()
 ```
 
 ```luau Example 2

@@ -2,37 +2,6 @@
 title: "isexecutorclosure"
 ---
 
-```luau
-isexecutorclosure(func: function): boolean
-```
-
-Most commonly used to filter the `getgc(){:luau}`/`filtergc(){:luau}` output down to functions your script has created.
-
-The check looks at where the closure was made, not which script it came from originally. <br /> A function *pulled* from a Roblox script's environment with `getsenv(){:luau}` keeps its Roblox origin, and returns `false{:luau}`.<br /> A function *produced* from that same script with `getscriptclosure(){:luau}` returns `true{:luau}` instead.
-
-## Parameters
-
-| Parameter | Type       | Description |
-|-----------|------------|-------------|
-| `func`    | `function` | The function to check. |
-
-## Returns
-
-`true{:luau}` if `func{:luau}` was created by the executor.<br /> `false{:luau}` if the Roblox game has created it.
-
-## Aliases
-
-- `checkclosure{:luau}`
-- `isourclosure{:luau}`
-
-## Example
-
-In a Roblox game, use `getgc(){:luau}` and split the function results into executor-allocated vs Roblox-built.
-
-<details>
-<summary>Solution</summary>
-```
-
 Tells you whether a function was created by Seliware, or by Roblox.
 
 ```luau
@@ -53,12 +22,19 @@ The check looks at where the closure was made, not which script it came from ori
 
 `true` if `func` was created by the executor.<br /> `false` if the Roblox game has created it.
 
+## Aliases
+
+- `checkclosure`
+- `isourclosure`
+
 ## Example
+
+In a Roblox game, use `getgc()` and split the function results into executor-allocated vs Roblox-built.
 
 <CodeGroup>
 
 ```luau Example 1
-isexecutorclosure(func: function): boolean
+local isExec = isexecutorclosure(print)
 ```
 
 ```luau Example 2

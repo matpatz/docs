@@ -2,31 +2,6 @@
 title: "debug.getregistry"
 ---
 
-```luau
-debug.getregistry(): table
-```
-
-The same table object comes back on every call. Its direct contents are the VM's live internal references (threads, functions, userdata) plus `_LOADED{:luau}` - every library and module required this session. The threads sitting in here are what `getscriptfromthread{:luau}` walks to map a thread back to its owning script.
-
-## Returns
-
-`table{:luau}` - the live registry. The same object is returned on every call.
-
-| Key | What's in it |
-|-----|--------------|
-| `_LOADED` | Every library and module required in this session. |
-| Internal keys | Live VM references the engine holds - threads, functions, userdata. |
-
-## Aliases
-
-- `getreg{:luau}`
-- `getregistry{:luau}`
-
-## Example
-
-In a Roblox game, list every library and module the Luau VM has loaded so far this session.
-```
-
 Returns the Luau registry - the table the VM keeps its internal references and loaded libraries in.
 
 ```luau
@@ -44,12 +19,19 @@ The same table object comes back on every call. Its direct contents are the VM's
 | `_LOADED` | Every library and module required in this session. |
 | Internal keys | Live VM references the engine holds - threads, functions, userdata. |
 
+## Aliases
+
+- `getreg`
+- `getregistry`
+
 ## Example
+
+In a Roblox game, list every library and module the Luau VM has loaded so far this session.
 
 <CodeGroup>
 
 ```luau Example 1
-debug.getregistry(): table
+local getregistry = debug.getregistry()
 ```
 
 ```luau Example 2

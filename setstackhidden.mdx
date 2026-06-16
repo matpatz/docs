@@ -2,35 +2,6 @@
 title: "setstackhidden"
 ---
 
-```luau
-setstackhidden(func: function, hidden: boolean?): ()
-```
-
-Pass the function whose frame you want hidden. The optional `hidden{:luau}` flag picks the direction: `true{:luau}` keeps that call out of what `debug.traceback(){:luau}` returns, `false{:luau}` lets it back in.
-
-The code still runs. Nothing about how the function behaves changes, only whether a traceback dump lists it.
-
-Most commonly used to keep an executor function out of an anti-cheat's sight. Even after `newcclosure{:luau}` wraps a script function, its Luau name can still show up in `debug.traceback(){:luau}`. A game that scans the traceback for known names can then flag the user. Hiding the call makes the scan come up empty.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `func` | `function` | The function whose frame to hide. |
-| `hidden` | `boolean?` | Whether to hide that frame or show it. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-## Example
-
-See whether your own executor leaks an injected closure's name into `debug.traceback(){:luau}`. Hide the frame so a traceback name-scan can't spot it.
-
-<details>
-<summary>Solution</summary>
-```
-
 Hides a function's frame from `debug.traceback()` output so a traceback name-scan can't find it.
 
 ```luau
@@ -56,10 +27,12 @@ Most commonly used to keep an executor function out of an anti-cheat's sight. Ev
 
 ## Example
 
+See whether your own executor leaks an injected closure's name into `debug.traceback()`. Hide the frame so a traceback name-scan can't spot it.
+
 <CodeGroup>
 
 ```luau Example 1
-setstackhidden(func: function, hidden: boolean?): ()
+setstackhidden(coroutine.running(), true)
 ```
 
 ```luau Example 2

@@ -2,45 +2,13 @@
 title: "getsenv"
 ---
 
-```luau
-getsenv(script: LocalScript): table
-```
-
-The simplest way to picture it: `getsenv(script){:luau}` hands back the same table [`getfenv(){:luau}`](https://create.roblox.com/docs/reference/engine/globals/LuaGlobals#getfenv) would return if you called it from inside that running script. <a href="/docs/contributors#lishbon" title="framing by lishbon"><img src={pfpLishbon.src} alt="lishbon" style="width:1.25rem;height:1.25rem;border-radius:9999px;object-fit:cover;vertical-align:middle;display:inline-block;" /></a>
-
-Most commonly used to read or rewrite a running `LocalScript{:luau}`'s globals - spoof config flags, capture debug state, all without modifying the source.
-
-`getsenv{:luau}` only works once the script is running. A `LocalScript{:luau}` that has not started executing yet has no environment to return.
-
-The table's direct keys are the script's own globals. `GLOBAL_VAR = true{:luau}` at the top of the script becomes the `GLOBAL_VAR{:luau}` key; locals declared with `local{:luau}` never reach the table - Luau's compiler inlines them into stack slots and upvalues.
-
-Roblox globals (`game{:luau}`, `print{:luau}`, `task{:luau}`, `require{:luau}`) reach the table through its metatable's `__index{:luau}` instead of as direct keys. For a `LocalScript{:luau}` thread, `gettenv(t){:luau}` returns the same table (`rawequal{:luau}` true).
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `script` | [`LocalScript`](https://create.roblox.com/docs/reference/engine/classes/LocalScript) | The running LocalScript whose environment to fetch. |
-
-## Returns
-
-`table{:luau}` - the LocalScript's global environment.
-
-## Example
-
-Pick a target `LocalScript{:luau}` with a known boolean global (e.g. an admin script's `IS_ADMIN{:luau}` flag), read its current value, flip it, observe the script's behavior change.
-```
-
-import pfpLishbon from '../../../assets/f34325c420ee4b735ce883c193628496.webp';
-
-
 Returns the script environment of a running `LocalScript`.
 
 ```luau
 getsenv(script: LocalScript): table
 ```
 
-The simplest way to picture it: `getsenv(script)` hands back the same table [`getfenv()`](https://create.roblox.com/docs/reference/engine/globals/LuaGlobals#getfenv) would return if you called it from inside that running script. <a href="/docs/contributors#lishbon" title="framing by lishbon"><img src={pfpLishbon.src} alt="lishbon" style="width:1.25rem;height:1.25rem;border-radius:9999px;object-fit:cover;vertical-align:middle;display:inline-block;" /></a>
+The simplest way to picture it: `getsenv(script)` hands back the same table [`getfenv()`](https://create.roblox.com/docs/reference/engine/globals/LuaGlobals#getfenv) would return if you called it from inside that running script. 
 
 Most commonly used to read or rewrite a running `LocalScript`'s globals - spoof config flags, capture debug state, all without modifying the source.
 
@@ -62,10 +30,12 @@ Roblox globals (`game`, `print`, `task`, `require`) reach the table through its 
 
 ## Example
 
+Pick a target `LocalScript` with a known boolean global (e.g. an admin script's `IS_ADMIN` flag), read its current value, flip it, observe the script's behavior change.
+
 <CodeGroup>
 
 ```luau Example 1
-getsenv(script: LocalScript): table
+local scriptEnv = getsenv(workspace.Part.LocalScript)
 ```
 
 ```luau Example 2

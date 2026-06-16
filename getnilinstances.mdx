@@ -2,25 +2,6 @@
 title: "getnilinstances"
 ---
 
-```luau
-getnilinstances(): {Instance}
-```
-
-These are usually Instances a script created with `Instance.new{:luau}` and never gave a parent, or Instances the game detached from `workspace{:luau}` but a reference is still holding onto.
-
-Every Instance `getnilinstances{:luau}` returns is also in `getinstances(){:luau}`'s result - `getnilinstances{:luau}` is the floating-in-memory slice of the same set.
-
-## Returns
-
-`{Instance}{:luau}` - an array of Instances with no spot in the game hierarchy. Order is not guaranteed.
-
-## Example <a href="/docs/contributors#blastbrean" title="Contributed by blastbrean"><img src={pfpBlastbrean.src} alt="blastbrean" style="width:1.75rem;height:1.75rem;border-radius:9999px;display:inline-block;vertical-align:middle;object-fit:cover;margin-left:0.5rem;" /></a>
-
-A client anti-cheat <a href="https://discord.com/channels/1395020539915014185/1395020539915014188/1498234542266253374">may unparent itself</a> to stay out of `game{:luau}` traversal. `getnilinstances{:luau}` still returns it, so you can walk the list and inspect every detached Instance:
-```
-
-import pfpBlastbrean from '../../../assets/a_ca6fd9c8127a18fc2d9fe21fd0436d97.gif';
-
 Returns the Instances Roblox is holding alive that are not currently parented in the game hierarchy.
 
 ```luau
@@ -37,10 +18,12 @@ Every Instance `getnilinstances` returns is also in `getinstances()`'s result - 
 
 ## Example
 
+A client anti-cheat <a href="https://discord.com/channels/1395020539915014185/1395020539915014188/1498234542266253374">may unparent itself</a> to stay out of `game` traversal. `getnilinstances` still returns it, so you can walk the list and inspect every detached Instance:
+
 <CodeGroup>
 
 ```luau Example 1
-getnilinstances(): {Instance}
+local nilInstances = getnilinstances()
 ```
 
 ```luau Example 2

@@ -2,39 +2,6 @@
 title: "debug.setconstant"
 ---
 
-```luau
-debug.setconstant(func: function | number, index: number, value: any): ()
-```
-
-New to constants? [Learn more here](/docs/notes/#constants). 
-
-The replacement takes effect the next time that function runs. Pass a Luau function to target its constant table, or a number for the running function at that stack level.
-
-Indices come from the compiled constant table, not the source you read. The compiler folds math and string concatenation and strips dead code, so a decompiled listing may not line up one-to-one.
-
-Most often used to change a value a game's code checks against: swap the number or text it compares to, and a check that should fail can pass instead.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `func` | <span style="white-space: nowrap;">`function` or `number`</span> | The Luau function to patch. |
-| `index` | `number` | Which constant to replace. |
-| `value` | `any` | The replacement value. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code> - the target's constant table is mutated in place.
-
-## Aliases
-
-- `setconstant{:luau}`
-
-## Example
-
-In a Roblox game, a function returns a hardcoded number you want to override. Find the constant's index, then repatch it.
-```
-
 Replaces the constant at `index` in a Luau function's constant table with `value`.
 
 ```luau
@@ -61,12 +28,18 @@ Most often used to change a value a game's code checks against: swap the number 
 
 <code title="the function does not return a value.">void</code> - the target's constant table is mutated in place.
 
+## Aliases
+
+- `setconstant`
+
 ## Example
+
+In a Roblox game, a function returns a hardcoded number you want to override. Find the constant's index, then repatch it.
 
 <CodeGroup>
 
 ```luau Example 1
-debug.setconstant(func: function | number, index: number, value: any): ()
+debug.setconstant(function(...) end, 1, "test")
 ```
 
 ```luau Example 2

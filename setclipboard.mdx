@@ -2,27 +2,6 @@
 title: "setclipboard"
 ---
 
-```luau
-setclipboard(value: any): ()
-```
-
-The clipboard is OS-visible, so a paste anywhere outside Roblox shows what got written. The function does not enforce a type on `value{:luau}` - a `string{:luau}` lands in the clipboard raw, while a `number{:luau}`, `table{:luau}`, or `nil{:luau}` value is coerced and prefixed with a carriage return byte (`\r{:luau}`).
-
-Personally? I use it to redirect users to a Discord server, or to copy my HRP's position to hardcode the value into an autofarm script.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `value` | `any` | The value to write to the clipboard. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-## Example
-```
-
 Sets the user's OS clipboard to `value`.
 
 ```luau
@@ -48,7 +27,7 @@ Personally? I use it to redirect users to a Discord server, or to copy my HRP's 
 <CodeGroup>
 
 ```luau Example 1
-setclipboard(value: any): ()
+setclipboard("text to copy")
 ```
 
 ```luau Example 2

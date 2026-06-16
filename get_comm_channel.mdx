@@ -2,27 +2,6 @@
 title: "get_comm_channel"
 ---
 
-```luau
-get_comm_channel(id: number): BindableEvent?
-```
-
-`id{:luau}` is the number that `create_comm_channel{:luau}` gave you back when the channel was opened. Used on the receiving side of an actor split: a <span title="A script running on its own Roblox Actor (e.g. started via run_on_actor), with an isolated environment separate from the main thread." style="text-decoration:underline dotted;text-underline-offset:0.2em;cursor:help;">worker thread</span> should call `get_comm_channel(id){:luau}` to reach the same one. The result is a Roblox [`BindableEvent`](https://create.roblox.com/docs/reference/engine/classes/BindableEvent), so use `:Fire(...){:luau}` to send messages and `.Event:Connect(...){:luau}` to receive them, or `.Event:Wait(){:luau}` to yield until the next one arrives.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | `number` | The channel id from `create_comm_channel{:luau}`. |
-
-## Returns
-
-[`BindableEvent`](https://create.roblox.com/docs/reference/engine/classes/BindableEvent)? - the event for that channel, or `nil{:luau}` if no channel was ever opened with that id.
-
-## Example
-
-The main thread opens a channel and starts a `run_on_actor{:luau}` worker thread with the id. The worker thread resolves the same channel with `get_comm_channel{:luau}` and fires a message back to the main thread.
-```
-
 Returns the event for an already-opened channel (by its id).
 
 ```luau
@@ -43,10 +22,12 @@ get_comm_channel(id: number): BindableEvent?
 
 ## Example
 
+The main thread opens a channel and starts a `run_on_actor` worker thread with the id. The worker thread resolves the same channel with `get_comm_channel` and fires a message back to the main thread.
+
 <CodeGroup>
 
 ```luau Example 1
-get_comm_channel(id: number): BindableEvent?
+local get_comm_channel = get_comm_channel(10)
 ```
 
 ```luau Example 2

@@ -2,13 +2,6 @@
 title: "iscclosure"
 ---
 
-```luau
-iscclosure(func: function): boolean
-```
-
-Most commonly used to tell a real Roblox Instance apart from a Luau table pretending to be one - real Instance methods like `Destroy{:luau}` are always C closures, so a Luau result means the object is a fake.
-```
-
 Tells you whether a function was written in C or in Luau.
 
 ```luau
@@ -46,7 +39,7 @@ end
 <CodeGroup>
 
 ```luau Example 1
-iscclosure(func: function): boolean
+local isC = iscclosure(print)
 ```
 
 ```luau Example 2

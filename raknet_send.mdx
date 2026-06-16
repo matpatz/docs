@@ -2,32 +2,6 @@
 title: "raknet.send"
 ---
 
-```luau
-raknet.send(data: buffer | string | {number}, priority: number, reliability: number, orderingChannel: number): ()
-```
-
-RakNet is the network connection between your client and the Roblox server over the internet. <br />Pretty much the same as `RemoteEvent{:luau}`s and `RemoteFunction{:luau}`s - they send their data the same way. This function just builds the packet yourself instead of going through a remote.
-
-`data{:luau}` is the payload, in any of the same three forms a `RakNetMessage{:luau}` exposes. `priority{:luau}`, `reliability{:luau}`, and `orderingChannel{:luau}` are RakNet's standard send numbers; copy them from the packet you are replaying instead of guessing.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `data` | `buffer \| string \| {number}` | The packet payload. |
-| `priority` | `number` | RakNet send priority. |
-| `reliability` | `number` | RakNet reliability mode. |
-| `orderingChannel` | `number` | Ordering channel used for ordered traffic. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-## Example
-
-Send a payload built from a byte array.
-```
-
 Sends a packet of your own onto the network, as if the client sent it.
 
 ```luau
@@ -53,10 +27,12 @@ RakNet is the network connection between your client and the Roblox server over 
 
 ## Example
 
+Send a payload built from a byte array.
+
 <CodeGroup>
 
 ```luau Example 1
-raknet.send(data: buffer | string | {number}, priority: number, reliability: number, orderingChannel: number): ()
+raknet.send(bitBuffer, 1, 0)
 ```
 
 ```luau Example 2

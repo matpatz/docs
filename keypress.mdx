@@ -2,38 +2,6 @@
 title: "keypress"
 ---
 
-```luau
-keypress(keycode: number): ()
-```
-
-The keycode is a Win32 Virtual Key Code, not a Roblox `Enum.KeyCode{:luau}` value. For letters, pass the uppercase ASCII byte (`string.byte("A"){:luau}` returns `65{:luau}`, which is `VK_A`). [Learn more here.](https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes)
-
-The Roblox window must be focused for the call to register. See `iswindowactive(){:luau}`.
-
-The pressed key stays held until you call `keyrelease(keycode){:luau}`.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `keycode` | `number` | Win32 Virtual Key Code |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-## Aliases
-
-- `KeyPress{:luau}`
-
-## Example
-
-In a chase or sprint sequence, hold W while the round's Sprint Sound is playing under workspace and release the moment it ends.
-
-<details>
-<summary>Solution</summary>
-```
-
 Simulates a key press, leaving the key held until you call `keyrelease`.
 
 ```luau
@@ -56,12 +24,18 @@ The pressed key stays held until you call `keyrelease(keycode)`.
 
 <code title="the function does not return a value.">void</code>
 
+## Aliases
+
+- `KeyPress`
+
 ## Example
+
+In a chase or sprint sequence, hold W while the round's Sprint Sound is playing under workspace and release the moment it ends.
 
 <CodeGroup>
 
 ```luau Example 1
-keypress(keycode: number): ()
+keypress(0x41) -- Press "A"
 ```
 
 ```luau Example 2

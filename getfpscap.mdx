@@ -2,17 +2,6 @@
 title: "getfpscap"
 ---
 
-```luau
-getfpscap(): number
-```
-
-## Returns
-
-`number` - the active FPS limit. <br /> On injection, mirrors Roblox's own setting (commonly set to `240{:luau}`, but reflects whatever the player has it set to).
-
-## Example
-```
-
 Returns the active frame rate cap.
 
 ```luau
@@ -28,7 +17,7 @@ getfpscap(): number
 <CodeGroup>
 
 ```luau Example 1
-getfpscap(): number
+local cap = getfpscap()
 ```
 
 ```luau Example 2
