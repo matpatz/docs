@@ -49,9 +49,13 @@ Always wrap your logic in `pcall`: if your code (inside the hook) errors, the na
 <CodeGroup>
 
 ```luau Example 1
+<<<<<<< HEAD
 local oldNamecall = hookmetamethod(game, "__namecall", function(self, ...)
     return oldNamecall(self, ...)
 end)
+=======
+-- hookmetamethod(object: any, method: string, hook: function): function
+>>>>>>> 50e30f53759b0538759af25c9b271514aa2c9290
 ```
 
 ```luau Example 2
