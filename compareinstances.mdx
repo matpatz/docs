@@ -2,32 +2,6 @@
 title: "compareinstances"
 ---
 
-```luau
-compareinstances(a: Instance, b: Instance): boolean
-```
-
-Calling `cloneref{:luau}` on an Instance gives you a separate Lua reference. Roblox treats both as the same Instance, but using the `=={:luau}` operator compares the objects themselves - so `original == cloneref(original){:luau}` will return `false{:luau}`. `compareinstances{:luau}` checks the Roblox Instances behind them instead.
-
-Most commonly used after `cloneref{:luau}` to confirm a clone and its original are the same Roblox Instance.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `a` | `Instance` | The first instance to compare. |
-| `b` | `Instance` | The second instance to compare. |
-
-## Returns
-
-`boolean` - `true{:luau}` when both arguments are the same Roblox Instance; otherwise `false{:luau}`.
-
-## Aliases
-
-- `checkinst{:luau}`
-
-## Example
-```
-
 Checks whether `a` and `b` are the same Roblox Instance.
 
 ```luau
@@ -49,12 +23,16 @@ Most commonly used after `cloneref` to confirm a clone and its original are the 
 
 `boolean` - `true` when both arguments are the same Roblox Instance; otherwise `false`.
 
+## Aliases
+
+- `checkinst`
+
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-compareinstances(a: Instance, b: Instance): boolean
+-- compareinstances(a: Instance, b: Instance): boolean
 ```
 
 ```luau Example 2

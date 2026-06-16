@@ -2,27 +2,6 @@
 title: "crypt.random"
 ---
 
-```luau
-crypt.random(size: number): string
-```
-
-Each call returns a different result. For random bytes already Base64-encoded use `crypt.generatebytes{:luau}`; for an AES key use `crypt.generatekey{:luau}`.
-
-Most commonly used as a raw-randomness source for tokens, salts, and nonces.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `size` | `number` | Number of random bytes to return. |
-
-## Returns
-
-`string` - `size{:luau}` random bytes.
-
-## Example
-```
-
 Returns a string of `size` random bytes.
 
 ```luau
@@ -48,7 +27,7 @@ Most commonly used as a raw-randomness source for tokens, salts, and nonces.
 <CodeGroup>
 
 ```luau Example 1
-crypt.random(size: number): string
+-- crypt.random(size: number): string
 ```
 
 ```luau Example 2

@@ -2,38 +2,6 @@
 title: "keyrelease"
 ---
 
-```luau
-keyrelease(keycode: number): ()
-```
-
-The keycode is a Win32 Virtual Key Code, not a Roblox `Enum.KeyCode{:luau}` value. For letters, pass the uppercase ASCII byte (`string.byte("A"){:luau}` returns `65{:luau}`, which is `VK_A`). [Learn more here.](https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes)
-
-The Roblox window must be focused for the call to register. See `iswindowactive(){:luau}`.
-
-Pair this with the `keypress(keycode){:luau}` call that started the hold.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `keycode` | `number` | Win32 Virtual Key Code |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-## Aliases
-
-- `KeyRelease{:luau}`
-
-## Example
-
-In a chase or sprint sequence, hold W while the round's Sprint Sound is playing under workspace and release the moment it ends.
-
-<details>
-<summary>Solution</summary>
-```
-
 Releases a key previously held by `keypress`.
 
 ```luau
@@ -56,12 +24,18 @@ Pair this with the `keypress(keycode)` call that started the hold.
 
 <code title="the function does not return a value.">void</code>
 
+## Aliases
+
+- `KeyRelease`
+
 ## Example
+
+In a chase or sprint sequence, hold W while the round's Sprint Sound is playing under workspace and release the moment it ends.
 
 <CodeGroup>
 
 ```luau Example 1
-keyrelease(keycode: number): ()
+-- keyrelease(keycode: number): ()
 ```
 
 ```luau Example 2

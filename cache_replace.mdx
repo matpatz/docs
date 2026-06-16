@@ -2,28 +2,6 @@
 title: "cache.replace"
 ---
 
-```luau
-cache.replace(old: Instance, new: Instance): ()
-```
-
-After the call, any script still holding `old{:luau}` is really working with `new{:luau}` - reading `old.Name{:luau}` returns `new.Name{:luau}`, and `print(old){:luau}` shows `new{:luau}`. The `old{:luau}` Instance is no longer reachable through the cache.
-
-Most commonly used to hide a watched Instance from anti-cheat scanners: swap the real object for a harmless decoy so game scripts that re-resolve it through the cache get the decoy, while your code keeps the real one with `cloneref{:luau}`.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `old` | [`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance) | The cached Instance to repoint. |
-| `new` | [`Instance`](https://create.roblox.com/docs/reference/engine/classes/Instance) | The Instance its references now resolve to. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-## Example
-```
-
 Swaps a cached Instance with another so every existing reference to it resolves to the replacement.
 
 ```luau
@@ -50,7 +28,7 @@ Most commonly used to hide a watched Instance from anti-cheat scanners: swap the
 <CodeGroup>
 
 ```luau Example 1
-cache.replace(old: Instance, new: Instance): ()
+-- cache.replace(old: Instance, new: Instance): ()
 ```
 
 ```luau Example 2

@@ -2,28 +2,6 @@
 title: "mousemoverel"
 ---
 
-```luau
-mousemoverel(x: number, y: number): ()
-```
-
-`x{:luau}` and `y{:luau}` are pixel offsets applied to the current cursor position.
-
-Most commonly used for smooth aim curves - call `mousemoverel{:luau}` in small steps inside a loop instead of a single `mousemoveabs{:luau}` jump, so the cursor's path looks human.
-
-## Parameters
-
-| Parameter | Type     | Description                          |
-|-----------|----------|--------------------------------------|
-| `x`       | `number` | Pixel offset added to the current x. |
-| `y`       | `number` | Pixel offset added to the current y. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-## Example
-```
-
 Moves the mouse cursor by an offset from its current position, in pixels.
 
 ```luau
@@ -50,7 +28,7 @@ Most commonly used for smooth aim curves - call `mousemoverel` in small steps in
 <CodeGroup>
 
 ```luau Example 1
-mousemoverel(x: number, y: number): ()
+-- mousemoverel(x: number, y: number): ()
 ```
 
 ```luau Example 2

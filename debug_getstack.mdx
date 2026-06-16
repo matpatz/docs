@@ -2,47 +2,6 @@
 title: "debug.getstack"
 ---
 
-```luau
-debug.getstack(level: number, index: number?): any | {any}
-```
-
-Every running function keeps its working values in numbered slots. `debug.getstack{:luau}` hands you those slots for one function on the call chain.
-
-`level{:luau}` chooses which function: `1{:luau}` is the one that called `debug.getstack{:luau}`. `2{:luau}` is the function that called that one, and so on up the chain.
-
-`index{:luau}` chooses one slot. Leave it out to get the whole set back as a table.
-
-Slots are not only the variables you named. The Luau compiler adds its own values too, so slot `1{:luau}` is not always your first variable.
-
-Most commonly used while reversing a game script. You hook a function, then read the caller's slots to see the values it was about to pass in before the real call runs.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `level` | `number` | Which function on the call chain to read. `1` is the caller of `debug.getstack`. |
-| `index` | `number?` | Which slot to return. Leave out to get the whole set. |
-
-## Returns
-
-`any | {any}` - the shape depends on whether you pass `index{:luau}`.
-
-| Call | Returns |
-|------|---------|
-| `index` left out | `{any}` - a table of every slot value: your variables and the compiler's, mixed types. |
-| `index` given | `any` - the one value in that slot. |
-
-A slot that has no value throws an error. It does not come back as `nil{:luau}`.
-
-## Aliases
-
-- `getstack{:luau}`
-
-## Example
-
-Read a function's whole frame. `peek{:luau}` is called from `run{:luau}`, so `level{:luau}` `2{:luau}` is `run{:luau}` - its locals are still live while `peek{:luau}` runs.
-```
-
 Reads the values a running function has on the Lua stack.
 
 ```luau
@@ -77,12 +36,18 @@ Most commonly used while reversing a game script. You hook a function, then read
 
 A slot that has no value throws an error. It does not come back as `nil`.
 
+## Aliases
+
+- `getstack`
+
 ## Example
+
+Read a function's whole frame. `peek` is called from `run`, so `level` `2` is `run` - its locals are still live while `peek` runs.
 
 <CodeGroup>
 
 ```luau Example 1
-debug.getstack(level: number, index: number?): any | {any}
+-- debug.getstack(level: number, index: number?): any | {any}
 ```
 
 ```luau Example 2

@@ -2,38 +2,6 @@
 title: "debug.getconstant"
 ---
 
-```luau
-debug.getconstant(func: function | number, index: number): boolean | nil | number | string
-```
-
-Every Luau function keeps a constant table in its compiled bytecode: the string, number and boolean literals it uses, and the names of the globals it calls. `debug.getconstant{:luau}` returns the single entry at the index you ask for.
-
-The first argument is either the function itself or a stack level. A number is treated as a level - `0{:luau}` is the call running right now, higher numbers walk up the callers - and the lookup then happens on whichever function is running there.
-
-Run `debug.getconstants{:luau}` first to see the whole table and its indices, then come back here for the one you want. C closures have no constants, so confirm the target with `islclosure{:luau}` before calling or it will error.
-
-Most commonly used to pull one known constant straight out of a script's closure once `debug.getconstants{:luau}` has shown you which index it sits at.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `func` | `function \| number` | A Luau function, or a number read as a stack level. |
-| `index` | `number` | Which constant slot to read. |
-
-## Returns
-
-`boolean | nil | number | string` - the single constant sitting at `index{:luau}` in the target's constant table.
-
-That value is whatever the compiler stored in that slot: a string or number literal, a boolean, or the name of a global the function calls.
-
-## Aliases
-
-- `getconstant{:luau}`
-
-## Example
-```
-
 Returns one value from a Luau function's constant table, picked by its bytecode index.
 
 ```luau
@@ -61,12 +29,16 @@ Most commonly used to pull one known constant straight out of a script's closure
 
 That value is whatever the compiler stored in that slot: a string or number literal, a boolean, or the name of a global the function calls.
 
+## Aliases
+
+- `getconstant`
+
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-debug.getconstant(func: function | number, index: number): boolean | nil | number | string
+-- debug.getconstant(func: function | number, index: number): boolean | nil | number | string
 ```
 
 ```luau Example 2

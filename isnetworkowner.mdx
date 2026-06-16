@@ -2,29 +2,6 @@
 title: "isnetworkowner"
 ---
 
-```luau
-isnetworkowner(part: BasePart): boolean
-```
-
-Network ownership decides who simulates a part's physics. If the local client owns `part{:luau}`, your writes to its `Velocity{:luau}` or `CFrame{:luau}` stick and replicate. If the server or another client owns it, the engine overwrites them on the next physics step.
-
-Ownership is automatic. The server gives an unanchored part to the closest player within that player's simulation radius, and anchored parts stay server-owned. `setsimulationradius{:luau}` widens that range, so you can take parts farther from your character.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `part` | `BasePart` | The part to check ownership of. |
-
-## Returns
-
-`boolean` - `true{:luau}` if the local client currently owns `part{:luau}`'s physics, `false{:luau}` if the server or another client does.
-
-## Example
-
-Expand the simulation radius to claim a far-away unanchored part, then confirm ownership before flinging it.
-```
-
 Checks whether you (the client) own a part's physics simulation.
 
 ```luau
@@ -47,10 +24,12 @@ Ownership is automatic. The server gives an unanchored part to the closest playe
 
 ## Example
 
+Expand the simulation radius to claim a far-away unanchored part, then confirm ownership before flinging it.
+
 <CodeGroup>
 
 ```luau Example 1
-isnetworkowner(part: BasePart): boolean
+-- isnetworkowner(part: BasePart): boolean
 ```
 
 ```luau Example 2

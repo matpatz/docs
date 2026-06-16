@@ -2,27 +2,6 @@
 title: "gettenv"
 ---
 
-```luau
-gettenv(t: thread): table
-```
-
-When `t{:luau}` belongs to a `LocalScript{:luau}`, `gettenv(t){:luau}` returns the same table as `getsenv(script){:luau}` (`rawequal{:luau}` true). `gettenv(t).script{:luau}` is the owning script, the same Instance `getscriptfromthread(t){:luau}` returns.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `t` | `thread` | The Lua thread whose environment to fetch. |
-
-## Returns
-
-`table{:luau}` - the thread's global environment. For a `LocalScript{:luau}` thread it is identical (`rawequal{:luau}`) to `getsenv(thatScript){:luau}`: direct keys are the script's own globals, Roblox globals (`game{:luau}`, `print{:luau}`, `task{:luau}`) resolve through the metatable. Carries a `.script{:luau}` field pointing at the owning script.
-
-## Example
-
-In a Roblox game, confirm a thread's environment is the same table as its script's environment.
-```
-
 Returns the global environment table of a Lua thread - for a `LocalScript` thread, the exact same table `getsenv(script)` returns.
 
 ```luau
@@ -43,10 +22,12 @@ When `t` belongs to a `LocalScript`, `gettenv(t)` returns the same table as `get
 
 ## Example
 
+In a Roblox game, confirm a thread's environment is the same table as its script's environment.
+
 <CodeGroup>
 
 ```luau Example 1
-gettenv(t: thread): table
+-- gettenv(t: thread): table
 ```
 
 ```luau Example 2

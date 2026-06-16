@@ -2,27 +2,6 @@
 title: "Drawing.new"
 ---
 
-```luau
-Drawing.new(type: string): DrawingObject
-```
-
-The drawing is not part of the Roblox UI, so game scripts can't see it. Set its properties (like `Position{:luau}`, `Color{:luau}`, `Visible{:luau}`) to control how it looks, and call `:Remove(){:luau}` when you're done with it.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `type` | `string` | The kind of drawing to make. [See complete list here.](/docs/drawing/types/). |
-
-## Returns
-
-`DrawingObject{:luau}` - the new drawing. Every type shares the base properties (`Visible{:luau}`, `ZIndex{:luau}`, `Transparency{:luau}`, `Color{:luau}`) plus the ones specific to its type.
-
-## Example
-
-A red circle in the middle of common screen space, then cleaned up.
-```
-
 Creates a new drawing object that renders on top of all UIs, including those that are parented under CoreGui.
 
 ```luau
@@ -43,10 +22,12 @@ The drawing is not part of the Roblox UI, so game scripts can't see it. Set its 
 
 ## Example
 
+A red circle in the middle of common screen space, then cleaned up.
+
 <CodeGroup>
 
 ```luau Example 1
-Drawing.new(type: string): DrawingObject
+-- Drawing.new(type: string): DrawingObject
 ```
 
 ```luau Example 2

@@ -2,32 +2,6 @@
 title: "crypt.generatebytes"
 ---
 
-```luau
-crypt.generatebytes(size: number): string
-```
-
-The returned string's length is `4 * math.ceil(size / 3){:luau}` - implying `crypt.generatebytes(10){:luau}` returns a 16-character string.
-
-Most commonly used to generate IVs, salts, nonces, and request tokens.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `size` | `number` | Number of raw bytes to generate before base64-encoding. |
-
-## Returns
-
-`string` - sequence of random bytes, encoded in base64. 
-
-## Example
-
-Pull 16 random bytes for use as a session ID, request <abbr title="A one-time random number, never re-used. Stops people copying and re-sending a request.">nonce</abbr>, or <abbr title="Random noise added before scrambling. Stops two identical things from looking identical after.">salt</abbr>. 
-
-<details>
-<summary>Solution</summary>
-```
-
 Generates `size` random bytes, and returns them encoded in base64.
 
 ```luau
@@ -50,10 +24,12 @@ Most commonly used to generate IVs, salts, nonces, and request tokens.
 
 ## Example
 
+Pull 16 random bytes for use as a session ID, request <abbr title="A one-time random number, never re-used. Stops people copying and re-sending a request.">nonce</abbr>, or <abbr title="Random noise added before scrambling. Stops two identical things from looking identical after.">salt</abbr>.
+
 <CodeGroup>
 
 ```luau Example 1
-crypt.generatebytes(size: number): string
+-- crypt.generatebytes(size: number): string
 ```
 
 ```luau Example 2

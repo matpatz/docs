@@ -2,32 +2,6 @@
 title: "getfunctionhash"
 ---
 
-```luau
-getfunctionhash(func: function): string
-```
-
-The hash covers the function's compiled bytecode instructions together with its constants. Two functions that compile to the same body with the same constants produce the same hash; changing a single constant changes it.
-
-Most commonly used to fingerprint a function so a later hash mismatch reveals it was hooked or replaced, or to confirm a `clonefunction{:luau}` copy still matches the function it was cloned from.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `func` | `function{:luau}` | The Luau function to hash. |
-
-## Returns
-
-`string` - a 96-character hexadecimal string (SHA-384 over the bytecode and constants). The same function hashes to the same string on every call, and the value stays stable across sessions while the function's code is unchanged.
-
-## Example
-
-In an RPG Roblox game, fingerprint a Luau function you located and re-check it later, so you notice if the game swapped it out from under your hook.
-
-<details>
-<summary>Solution</summary>
-```
-
 Returns a deterministic hash of a Luau function's compiled body as a hexadecimal string.
 
 ```luau
@@ -50,10 +24,12 @@ Most commonly used to fingerprint a function so a later hash mismatch reveals it
 
 ## Example
 
+In an RPG Roblox game, fingerprint a Luau function you located and re-check it later, so you notice if the game swapped it out from under your hook.
+
 <CodeGroup>
 
 ```luau Example 1
-getfunctionhash(func: function): string
+-- getfunctionhash(func: function): string
 ```
 
 ```luau Example 2

@@ -2,27 +2,6 @@
 title: "dofile"
 ---
 
-```luau
-dofile(path: string): ()
-```
-
-`path{:luau}` is workspace-relative. The file must contain valid Luau source (not bytecode). Use `loadfile{:luau}` when you want to inspect the chunk or call it more than once - `dofile{:luau}` always runs it exactly once and throws the return values away.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `path` | `string` | Luau source file to execute. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code> - anything the file returns is discarded.
-
-## Example
-
-Save a script to a file, then run it:
-```
-
 Reads the file at `path` and runs it as Luau code. Whatever the file sets - locals, globals, even `_G` - stays in the file.
 
 ```luau
@@ -43,10 +22,12 @@ dofile(path: string): ()
 
 ## Example
 
+Save a script to a file, then run it:
+
 <CodeGroup>
 
 ```luau Example 1
-dofile(path: string): ()
+-- dofile(path: string): ()
 ```
 
 ```luau Example 2

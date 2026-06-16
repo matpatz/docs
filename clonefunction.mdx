@@ -2,15 +2,6 @@
 title: "clonefunction"
 ---
 
-```luau
-clonefunction(func: function): function
-```
-
-Works on Lclosures/CClosures. The bytecode is identical, so `getfunctionhash(clone) == getfunctionhash(func){:luau}`.
-
-Mainly used to grab a clean copy of a function before some other script hooks it. <br /> The clone keeps the original behavior, so calls through it bypass the hook entirely:
-```
-
 Returns a copy of `func` that runs the same code, but is a separate function: `clone == func` is always `false`.
 
 ```luau
@@ -42,7 +33,7 @@ local cleanFunction = clonefunction(someFunction)
 <CodeGroup>
 
 ```luau Example 1
-clonefunction(func: function): function
+-- clonefunction(func: function): function
 ```
 
 ```luau Example 2

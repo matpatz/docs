@@ -2,62 +2,6 @@
 title: "filtergc"
 ---
 
-```luau
-filtergc(filterType: "function" | "table", filterOptions: table, returnOne: boolean?): {any} | any?
-```
-
-`filterOptions{:luau}` is always a table. The more criteria you pass in it, the narrower the result set.
-
-This function only sees values still referenced by a live thread. Once a reference drops, the value is gone before the call ever runs.
-
-Most commonly used to find a Luau closure to hook, or to find an object you want to investigate.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `filterType` | `"function" \| "table"` | Picks which GC value type to filter. |
-| `filterOptions` | `table` | Criteria the value must match. |
-| `returnOne` | `boolean?` | If `true{:luau}`, return the first match instead of a list. |
-
-## Returns
-
-`{any} | any?` - shape depends on `returnOne{:luau}`:
-
-| `returnOne` value | Returned shape |
-|-------------------|----------------|
-| omitted, `nil`, or `false` | `{any}` - table of every match. Empty if nothing matched. |
-| `true` | `any` - the first match, or `nil` if nothing matched. |
-
-## FilterOptions: Function
-
-When `filterType{:luau}` is `"function"{:luau}`, `filterOptions{:luau}` accepts:
-
-- `Name` (`string?`) - only keep the functions whose name matches.
-- `IgnoreExecutor` (`boolean?`) - defaults to `true{:luau}`. Set to `false{:luau}` to include functions created inside the executor.
-- `Hash` (`string?`) - only keep the functions whose `getfunctionhash{:luau}` matches.
-- `Constants` (`{any}?`) - only keep the functions whose constants table contains every value in the list.
-- `Upvalues` (`{any}?`) - only keep the functions whose upvalues contain every value in the list.
-
-`Hash{:luau}`, `Constants{:luau}`, and `Upvalues{:luau}` are Luau-closure-only filters. They never match a C closure - see Edge cases.
-
-## FilterOptions: Table
-
-When `filterType{:luau}` is `"table"{:luau}`, `filterOptions{:luau}` accepts:
-
-- `Keys` (`{any}?`) - keep only tables that contain every key in the list.
-- `Values` (`{any}?`) - keep only tables that contain every value in the list.
-- `KeyValuePairs` (`{[any]: any}?`) - keep only tables that contain every key-value pair.
-- `Metatable` (`table?`) - keep only tables whose metatable is the same physical table as the one passed.
-
-## Example
-
-In a Roblox game, locate a uniquely-named Luau function with `filtergc("function", {Name = "..."}, true){:luau}`, hook it with `hookfunction{:luau}`, and verify the hook fires when the function is called.
-
-<details>
-<summary>Solution</summary>
-```
-
 Returns functions or tables from the GC pool that match what you ask for.
 
 ```luau
@@ -89,10 +33,12 @@ Most commonly used to find a Luau closure to hook, or to find an object you want
 
 ## Example
 
+In a Roblox game, locate a uniquely-named Luau function with `filtergc("function", {Name = "..."}, true)`, hook it with `hookfunction`, and verify the hook fires when the function is called.
+
 <CodeGroup>
 
 ```luau Example 1
-filtergc(filterType: "function" | "table", filterOptions: table, returnOne: boolean?): {any} | any?
+-- filtergc(filterType: "function" | "table", filterOptions: table, returnOne: boolean?): {any} | any?
 ```
 
 ```luau Example 2

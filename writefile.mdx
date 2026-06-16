@@ -2,30 +2,6 @@
 title: "writefile"
 ---
 
-```luau
-writefile(path: string, data: string): ()
-```
-
-`path{:luau}` is workspace-relative. Don't put `"workspace/"{:luau}` in front of it, and `"../"{:luau}` won't get you out of the sandbox.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `path` | `string` | File to write. |
-| `data` | `string` | The string to write. Bytes go in as-is, no encoding step. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-## Example
-
-Save the script's settings as JSON:
-```
-
-import pfpLaquf from '../../../assets/6f9c13350ab0bea3719bd99c3575e577.webp';
-
 Writes `data` to the file at `path`. Any old contents are replaced. If folders in the path don't exist yet, they're created too.
 
 ```luau
@@ -47,10 +23,12 @@ writefile(path: string, data: string): ()
 
 ## Example
 
+Save the script's settings as JSON:
+
 <CodeGroup>
 
 ```luau Example 1
-writefile(path: string, data: string): ()
+-- writefile(path: string, data: string): ()
 ```
 
 ```luau Example 2

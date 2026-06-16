@@ -2,32 +2,10 @@
 title: "makereadonly"
 ---
 
-```luau
-makereadonly(t: table): ()
-```
-
-Acts as a shortcut for `setreadonly(t, true){:luau}`. Once locked, `rawset{:luau}` and direct key assignment both fail.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `t` | `table` | The table to lock. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-## Example
-```
-
 Locks a table so its contents can't be changed.
 
-luau
-local cfg = {speed = 16}
-
-makereadonly(cfg)
-cfg.speed = 100 --> errors: attempt to modify a readonly table
+```luau
+makereadonly(t: table): ()
 ```
 
 ## Parameters
@@ -45,7 +23,7 @@ cfg.speed = 100 --> errors: attempt to modify a readonly table
 <CodeGroup>
 
 ```luau Example 1
-makereadonly(t: table): ()
+-- makereadonly(t: table): ()
 ```
 
 ```luau Example 2

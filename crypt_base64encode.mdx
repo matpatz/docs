@@ -2,40 +2,6 @@
 title: "crypt.base64encode"
 ---
 
-```luau
-crypt.base64encode(data: string): string
-```
-
-Base64 turns any data - even bytes that aren't normal text - into plain text characters. That lets it go through JSON, a remote, or a file without breaking. The result is about a third bigger than the input.
-
-Most commonly used to make a binary payload safe to send over `request{:luau}` or store with `writefile{:luau}`.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `data` | `string` | The bytes to encode.  |
-
-## Returns
-
-`string` - the Base64-encoded text.
-
-## Aliases
-
-- `base64.encode{:luau}`
-- `base64_encode{:luau}`
-- `base64encode{:luau}`
-- `crypt.base64.encode{:luau}`
-- `crypt.base64_encode{:luau}`
-
-## Example
-
-Encode a value with Base64, then cache it to disk with `writefile{:luau}`.
-
-<details>
-<summary>Solution</summary>
-```
-
 Encodes `data` into a Base64 string.
 
 ```luau
@@ -56,12 +22,22 @@ Most commonly used to make a binary payload safe to send over `request` or store
 
 `string` - the Base64-encoded text.
 
+## Aliases
+
+- `base64.encode`
+- `base64_encode`
+- `base64encode`
+- `crypt.base64.encode`
+- `crypt.base64_encode`
+
 ## Example
+
+Encode a value with Base64, then cache it to disk with `writefile`.
 
 <CodeGroup>
 
 ```luau Example 1
-crypt.base64encode(data: string): string
+-- crypt.base64encode(data: string): string
 ```
 
 ```luau Example 2

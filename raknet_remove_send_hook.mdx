@@ -2,32 +2,6 @@
 title: "raknet.remove_send_hook"
 ---
 
-```luau
-raknet.remove_send_hook(hook: function): ()
-```
-
-RakNet is the connection Roblox uses to talk to the server over the internet. <br />It does the same job as `RemoteEvent{:luau}` and `RemoteFunction{:luau}`, just with raw packets rather than ready-made remotes.
-
-Pass the exact same function you gave `raknet.add_send_hook{:luau}`. That hook stops running on outgoing packets. Any other registered hooks keep running.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `hook` | `function` | The hook to remove. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-## Example
-
-Run a send hook, then detach it with the same stored reference.
-
-<details>
-<summary>Solution</summary>
-```
-
 Stops a hook you added with `raknet.add_send_hook` from running.
 
 ```luau
@@ -50,10 +24,12 @@ Pass the exact same function you gave `raknet.add_send_hook`. That hook stops ru
 
 ## Example
 
+Run a send hook, then detach it with the same stored reference.
+
 <CodeGroup>
 
 ```luau Example 1
-raknet.remove_send_hook(hook: function): ()
+-- raknet.remove_send_hook(hook: function): ()
 ```
 
 ```luau Example 2

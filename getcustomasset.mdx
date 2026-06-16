@@ -2,27 +2,6 @@
 title: "getcustomasset"
 ---
 
-```luau
-getcustomasset(path: string): string
-```
-
-`path{:luau}` is workspace-relative. In return, you get a string that works anywhere Roblox takes a content id - `ImageLabel.Image{:luau}`, `Decal.Texture{:luau}`, `Sound.SoundId{:luau}`, `MeshPart` textures, and so on. Most commonly used to pull your own images and audio into a game, like a custom UI skin or a custom sound.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `path` | `string` | Workspace-relative file to register. |
-
-## Returns
-
-`string` - an `rbxasset://...{:luau}` content id pointing at the file. 
-
-## Example
-
-Save an image to the workspace, then show it in your own GUI.
-```
-
 Turns a file in your workspace folder into a Roblox content id you can use in-game.
 
 ```luau
@@ -43,10 +22,12 @@ getcustomasset(path: string): string
 
 ## Example
 
+Save an image to the workspace, then show it in your own GUI.
+
 <CodeGroup>
 
 ```luau Example 1
-getcustomasset(path: string): string
+-- getcustomasset(path: string): string
 ```
 
 ```luau Example 2

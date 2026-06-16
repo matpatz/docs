@@ -2,25 +2,6 @@
 title: "getnamecallmethod"
 ---
 
-```luau
-getnamecallmethod(): string?
-```
-
-Most commonly paired with `hookmetamethod{:luau}` to read the method name and decide whether to block, log, or redirect that specific call.
-
-## Returns
-
-`string?{:luau}` - the method name as a string when called from inside a `__namecall{:luau}` metamethod, otherwise `nil{:luau}`.
-
-## Example
-
-
-Pick any Roblox game, where a LocalScript (or a ModuleScript) triggers a `:Kick(){:luau}` on the `LocalPlayer{:luau}` - detect the `Kick{:luau}` namecall, and silence it before it executes.
-
-<details>
-<summary>Solution</summary>
-```
-
 Returns the name of the method being called: for `player:Kick()`, that is `"Kick"`. <br /> Only `__namecall` produces this; no other metamethod does.
 
 ```luau
@@ -35,10 +16,12 @@ Most commonly paired with `hookmetamethod` to read the method name and decide wh
 
 ## Example
 
+Pick any Roblox game, where a LocalScript (or a ModuleScript) triggers a `:Kick()` on the `LocalPlayer` - detect the `Kick` namecall, and silence it before it executes.
+
 <CodeGroup>
 
 ```luau Example 1
-getnamecallmethod(): string?
+-- getnamecallmethod(): string?
 ```
 
 ```luau Example 2

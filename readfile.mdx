@@ -2,27 +2,6 @@
 title: "readfile"
 ---
 
-```luau
-readfile(path: string): string
-```
-
-`path{:luau}` is workspace-relative. There's no encoding step - you get the exact bytes that are on disk, so binary files read fine too.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `path` | `string` | File to read. |
-
-## Returns
-
-`string` - raw contents of the file. The string can contain any byte value, including embedded `"\0"{:luau}` and binary data.
-
-## Example
-
-Load a saved config back into a Lua table:
-```
-
 Returns the full contents of the file at `path` as a single string.
 
 ```luau
@@ -43,10 +22,12 @@ readfile(path: string): string
 
 ## Example
 
+Load a saved config back into a Lua table:
+
 <CodeGroup>
 
 ```luau Example 1
-readfile(path: string): string
+-- readfile(path: string): string
 ```
 
 ```luau Example 2

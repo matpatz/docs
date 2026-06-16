@@ -2,27 +2,6 @@
 title: "cansignalreplicate"
 ---
 
-```luau
-cansignalreplicate(signal: RBXScriptSignal): boolean
-```
-
-That covers `RemoteEvent.OnServerEvent{:luau}`, `RemoteEvent.OnClientEvent{:luau}`, `BindableEvent.Event{:luau}`, `Folder.ChildAdded{:luau}`, and the rest.
-
-Most commonly used to confirm a value is a valid `RBXScriptSignal{:luau}` before passing it to `firesignal{:luau}` or other signal functions.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `signal` | `RBXScriptSignal` | The signal to check. |
-
-## Returns
-
-`boolean{:luau}`
-
-## Example
-```
-
 Returns `true` for any value that's a valid `RBXScriptSignal`.
 
 ```luau
@@ -48,7 +27,7 @@ Most commonly used to confirm a value is a valid `RBXScriptSignal` before passin
 <CodeGroup>
 
 ```luau Example 1
-cansignalreplicate(signal: RBXScriptSignal): boolean
+-- cansignalreplicate(signal: RBXScriptSignal): boolean
 ```
 
 ```luau Example 2

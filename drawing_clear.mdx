@@ -2,21 +2,6 @@
 title: "Drawing.clear"
 ---
 
-```luau
-Drawing.clear(): ()
-```
-
-This is the real "remove all my drawings" call. It is not the same function as `cleardrawcache{:luau}` - that one only clears an internal cache and leaves your drawings alive.
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-## Example
-
-Draw a row of circles, then wipe them all at once.
-```
-
 Removes every drawing object your script made with `Drawing.new`.
 
 ```luau
@@ -31,10 +16,12 @@ This is the real "remove all my drawings" call. It is not the same function as `
 
 ## Example
 
+Draw a row of circles, then wipe them all at once.
+
 <CodeGroup>
 
 ```luau Example 1
-Drawing.clear(): ()
+-- Drawing.clear(): ()
 ```
 
 ```luau Example 2

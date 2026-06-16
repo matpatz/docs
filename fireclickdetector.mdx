@@ -2,29 +2,6 @@
 title: "fireclickdetector"
 ---
 
-```luau
-fireclickdetector(detector: ClickDetector, distance: number?, event: string?): ()
-```
-
-The `event{:luau}` argument names which signal on the detector fires. Pass one of `"MouseClick"{:luau}`, `"RightMouseClick"{:luau}`, `"MouseHoverEnter"{:luau}`, or `"MouseHoverLeave"{:luau}`. When omitted, it defaults to `"MouseClick"{:luau}`.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `detector` | `ClickDetector` | The detector to dispatch the event on. |
-| `distance` | `number?` | Simulated activation distance. Defaults to `0{:luau}`. |
-| `event` | `string?` | One of the four valid event names. Defaults to `"MouseClick"{:luau}`. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-## Example
-
-In a tycoon, every upgrade has a buy button you walk up to and click. Fire `MouseClick{:luau}` on all of them and buy the whole tycoon from spawn.
-```
-
 Dispatches a click or hover event on a `ClickDetector`.
 
 ```luau
@@ -47,10 +24,12 @@ The `event` argument names which signal on the detector fires. Pass one of `"Mou
 
 ## Example
 
+In a tycoon, every upgrade has a buy button you walk up to and click. Fire `MouseClick` on all of them and buy the whole tycoon from spawn.
+
 <CodeGroup>
 
 ```luau Example 1
-fireclickdetector(detector: ClickDetector, distance: number?, event: string?): ()
+-- fireclickdetector(detector: ClickDetector, distance: number?, event: string?): ()
 ```
 
 ```luau Example 2

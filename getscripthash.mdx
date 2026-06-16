@@ -2,23 +2,6 @@
 title: "getscripthash"
 ---
 
-```luau
-getscripthash(script: LuaSourceContainer): string
-```
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `script` | [`LuaSourceContainer`](https://create.roblox.com/docs/reference/engine/classes/LuaSourceContainer) | The script to hash. |
-
-## Returns
-
-`string` - a 96-character hexadecimal string (48 bytes).
-
-## Example
-```
-
 Returns a SHA-384 hash of a script's bytecode. Most commonly used to detect when a script's source has been modified or recompiled.
 
 ```luau
@@ -40,7 +23,7 @@ getscripthash(script: LuaSourceContainer): string
 <CodeGroup>
 
 ```luau Example 1
-getscripthash(script: LuaSourceContainer): string
+-- getscripthash(script: LuaSourceContainer): string
 ```
 
 ```luau Example 2

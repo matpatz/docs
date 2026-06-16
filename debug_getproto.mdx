@@ -2,43 +2,10 @@
 title: "debug.getproto"
 ---
 
-```luau
-debug.getproto(func: function | level: number, index: number, activated: boolean?): function | {function}
-```
-
-`debug.getproto{:luau}` reaches one of a Luau function's protos by number. [Learn more here.](/docs/notes#protos)
-
-The first argument is the parent function, or a number. A number is read as a stack level instead of a direct function, the same way `debug.getinfo{:luau}` takes a level.
-
-Most commonly used to reach an inner function the game never stores anywhere you can reference, so you can read it or hook it.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `func` | <span style="white-space: nowrap;">`function \| number`</span> | The parent function, or a stack level pointing at the running closure to read protos from. |
-| `index` | `number` | Which proto to return, 1-based. |
-| `activated` | `boolean?` | `true` returns a table of the proto's live closures instead of the proto itself. Defaults to `false`. |
-
-## Returns
-
-With `activated{:luau}` left out or `false{:luau}`, returns the single proto function sitting at `index{:luau}`.
-
-With `activated{:luau}` set to `true{:luau}`, returns a table of that proto's closures. Index it with `[1]{:luau}` to get an inner function you can call straight away.
-
-## Aliases
-
-- `getproto`
-
-## Example
-```
-
 Returns the inner function at `index` inside a Luau function.
 
-luau
-local mainfn = getscriptclosure(targetScript)
-local inner = debug.getproto(mainfn, 1, true)[1]
-print(`first proto: {tostring(inner)}`)
+```luau
+debug.getproto(func: function | level: number, index: number, activated: boolean?): function | {function}
 ```
 
 <Tip>
@@ -59,12 +26,16 @@ With `activated` left out or `false`, returns the single proto function sitting 
 
 With `activated` set to `true`, returns a table of that proto's closures. Index it with `[1]` to get an inner function you can call straight away.
 
+## Aliases
+
+- `getproto`
+
 ## Example
 
 <CodeGroup>
 
 ```luau Example 1
-debug.getproto(func: function | level: number, index: number, activated: boolean?): function | {function}
+-- debug.getproto(func: function | level: number, index: number, activated: boolean?): function | {function}
 ```
 
 ```luau Example 2

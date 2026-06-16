@@ -2,19 +2,6 @@
 title: "getcallingscript"
 ---
 
-```luau
-getcallingscript(): LuaSourceContainer?
-```
-
-Used inside `hookfunction(){:luau}` or signal callbacks to find which script triggered the call. If you only need to know whether the caller was your script or a Roblox-side one, use `checkcaller(){:luau}` instead.
-
-## Returns
-
-[`LuaSourceContainer`](https://create.roblox.com/docs/reference/engine/classes/LuaSourceContainer)? - the Roblox script that called the function.<br />`nil{:luau}` when called directly from the executor's main thread.
-
-## Example
-```
-
 Returns the script that called the current function, or `nil` when called directly from the executor's main thread.
 
 ```luau
@@ -32,7 +19,7 @@ Used inside `hookfunction()` or signal callbacks to find which script triggered 
 <CodeGroup>
 
 ```luau Example 1
-getcallingscript(): LuaSourceContainer?
+-- getcallingscript(): LuaSourceContainer?
 ```
 
 ```luau Example 2

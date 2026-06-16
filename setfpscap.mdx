@@ -2,43 +2,13 @@
 title: "setfpscap"
 ---
 
-```luau
-setfpscap(fps: number): number
-```
-
-Most often used to bypass Roblox's built-in fps settings restrictions. Common pattern: drop to `30{:luau}` on alt accounts or autofarm scripts. Frees CPU and GPU headroom for the active client. <a href="/docs/contributors#Identity8" title="Contributed by Identity8"><img src={pfpIdentity8.src} alt="Identity8" style="width:1.25rem;height:1.25rem;border-radius:9999px;display:inline-block;vertical-align:middle;object-fit:cover;margin-left:0.25rem;" /></a>
-
-## Parameters
-
-| Parameter | Type     | Description |
-|-----------|----------|-------------|
-| `fps`     | `number` | The new cap, floored to an integer. |
-
-## Returns
-
-`number` - the cap that was active *before* calling `setfpscap(){:luau}`.
-
-## Aliases
-
-- `setfps{:luau}`
-
-## Example
-
-In Roblox, wallhops land more reliably at 60 fps.<br />Bind F1 to toggle the cap between 60 and the player's previous setting.
-
-<details>
-<summary>Solution</summary>
-```
-
-import pfpIdentity8 from '../../../assets/64cf03f0449e99f7eb1d003ae2d9a44c.png';
-
 Sets the game's frame-rate limit.
 
 ```luau
 setfpscap(fps: number): number
 ```
 
-Most often used to bypass Roblox's built-in fps settings restrictions. Common pattern: drop to `30` on alt accounts or autofarm scripts. Frees CPU and GPU headroom for the active client. <a href="/docs/contributors#Identity8" title="Contributed by Identity8"><img src={pfpIdentity8.src} alt="Identity8" style="width:1.25rem;height:1.25rem;border-radius:9999px;display:inline-block;vertical-align:middle;object-fit:cover;margin-left:0.25rem;" /></a>
+Most often used to bypass Roblox's built-in fps settings restrictions. Common pattern: drop to `30` on alt accounts or autofarm scripts. Frees CPU and GPU headroom for the active client. 
 
 ## Parameters
 
@@ -50,12 +20,18 @@ Most often used to bypass Roblox's built-in fps settings restrictions. Common pa
 
 `number` - the cap that was active *before* calling `setfpscap()`.
 
+## Aliases
+
+- `setfps`
+
 ## Example
+
+In Roblox, wallhops land more reliably at 60 fps.<br />Bind F1 to toggle the cap between 60 and the player's previous setting.
 
 <CodeGroup>
 
 ```luau Example 1
-setfpscap(fps: number): number
+-- setfpscap(fps: number): number
 ```
 
 ```luau Example 2

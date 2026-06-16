@@ -2,34 +2,6 @@
 title: "replicatesignal"
 ---
 
-```luau
-replicatesignal(signal: RBXScriptSignal, ...: any): ()
-```
-
-Pass `remote.OnServerEvent{:luau}` with `LocalPlayer` first, then your args. The server receives `(LocalPlayer, ...args){:luau}` - same shape as a normal `remote:FireServer(...args){:luau}` call.
-
-Local-only signals don't fire through this - reach for `firesignal{:luau}` instead.
-
-Most commonly used for server-side actions your own script can't normally trigger - firing a hooked `RemoteEvent{:luau}`, or forcing a respawn without dying. <a href="/docs/contributors#lishbon" title="Contributed by lishbon"><img src={pfpLishbon.src} alt="lishbon" style="width:1.25rem;height:1.25rem;border-radius:9999px;display:inline-block;vertical-align:middle;object-fit:cover;margin-left:0.25rem;" /></a>
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `signal` | `RBXScriptSignal` | The signal to replicate. |
-| `...` | `any` | Args matching the signal's expected signature. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-## Example
-
-You want the server to respawn you without your character actually dying. Fire `Player.ConnectDiedSignalBackend{:luau}` and the engine treats it as a real death.
-```
-
-import pfpLishbon from '../../../assets/f34325c420ee4b735ce883c193628496.webp';
-
 Fires a signal that Roblox usually raises after a network or input event - most often `RemoteEvent.OnServerEvent`.
 
 ```luau
@@ -40,7 +12,7 @@ Pass `remote.OnServerEvent` with `LocalPlayer` first, then your args. The server
 
 Local-only signals don't fire through this - reach for `firesignal` instead.
 
-Most commonly used for server-side actions your own script can't normally trigger - firing a hooked `RemoteEvent`, or forcing a respawn without dying. <a href="/docs/contributors#lishbon" title="Contributed by lishbon"><img src={pfpLishbon.src} alt="lishbon" style="width:1.25rem;height:1.25rem;border-radius:9999px;display:inline-block;vertical-align:middle;object-fit:cover;margin-left:0.25rem;" /></a>
+Most commonly used for server-side actions your own script can't normally trigger - firing a hooked `RemoteEvent`, or forcing a respawn without dying. 
 
 ## Parameters
 
@@ -55,10 +27,12 @@ Most commonly used for server-side actions your own script can't normally trigge
 
 ## Example
 
+You want the server to respawn you without your character actually dying. Fire `Player.ConnectDiedSignalBackend` and the engine treats it as a real death.
+
 <CodeGroup>
 
 ```luau Example 1
-replicatesignal(signal: RBXScriptSignal, ...: any): ()
+-- replicatesignal(signal: RBXScriptSignal, ...: any): ()
 ```
 
 ```luau Example 2

@@ -2,28 +2,6 @@
 title: "appendfile"
 ---
 
-```luau
-appendfile(path: string, data: string): ()
-```
-
-`path{:luau}` is relative to Seliware's workspace folder. 
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `path` | `string` | File to append to. |
-| `data` | `string` | Content to append. |
-
-## Returns
-
-<code title="the function does not return a value.">void</code>
-
-## Example
-
-Keep a rolling log without overwriting earlier lines:
-```
-
 Appends `data` to the end of the file at `path`. If the file doesn't exist, it gets created on the spot - the same way `writefile` would.
 
 ```luau
@@ -45,10 +23,12 @@ appendfile(path: string, data: string): ()
 
 ## Example
 
+Keep a rolling log without overwriting earlier lines:
+
 <CodeGroup>
 
 ```luau Example 1
-appendfile(path: string, data: string): ()
+-- appendfile(path: string, data: string): ()
 ```
 
 ```luau Example 2

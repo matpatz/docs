@@ -2,41 +2,6 @@
 title: "debug.getupvalue"
 ---
 
-```luau
-debug.getupvalue(func: function | number, index: number): any
-```
-
-New to upvalues? [Learn more here](/docs/notes/#upvalues).
-
-<Aside type="note">
-Give it a number instead of a function and the number is treated as a stack level - `0{:luau}` is the call running right now, `1{:luau}` its caller, and so on - and the upvalue comes from whatever closure is running there.
-</Aside>
-
-Most commonly used while reversing a game script: grab a closure with `getgc{:luau}` and
-read its upvalues to see the state it holds before deciding whether to read, change, or
-hook it.
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `func` | <span style="white-space: nowrap;">`function` or `number`</span> | The closure to read from. |
-| `index` | `number` | Which upvalue to read, counting from `1{:luau}`. |
-
-## Returns
-
-`any` - whatever the closure stored at that slot. The type is not fixed: a table, an
-Instance, a function, and so on.
-
-## Aliases
-
-- `getupvalue{:luau}`
-
-## Example
-
-A closure that captures a table, read straight back out by index:
-```
-
 Returns the upvalue at a given index in a closure or a running stack frame.
 
 ```luau
@@ -65,12 +30,18 @@ hook it.
 `any` - whatever the closure stored at that slot. The type is not fixed: a table, an
 Instance, a function, and so on.
 
+## Aliases
+
+- `getupvalue`
+
 ## Example
+
+A closure that captures a table, read straight back out by index:
 
 <CodeGroup>
 
 ```luau Example 1
-debug.getupvalue(func: function | number, index: number): any
+-- debug.getupvalue(func: function | number, index: number): any
 ```
 
 ```luau Example 2

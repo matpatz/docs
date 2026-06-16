@@ -2,49 +2,10 @@
 title: "hookmetamethod"
 ---
 
-```luau
-hookmetamethod(object: any, method: string, hook: function): function
-```
-
-`game{:luau}`'s metatable is locked - unlock it with `setreadonly{:luau}` before you hook.
-
-Most commonly used to hook `game{:luau}`'s `__namecall{:luau}` metamethod and watch every method call the game makes, which is how a remote spy or an anti-kick works. Other metamethods come up too - `__index{:luau}`, `__newindex{:luau}`, `__tostring{:luau}`, `__eq{:luau}`, `__call{:luau}`, etc.
-
-<Aside type="danger">
-Always call the **returned handle** from inside your hook, never re-call the method on `object{:luau}`. For a `__namecall{:luau}` hook, calling `self:Method(){:luau}` again triggers the same metamethod and recurses until the client crashes. The handle skips the hook and runs the original metamethod - `return old(self, ...){:luau}`.
-</Aside>
-
-## Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `object`  | `any` | The object whose metatable is hooked (table, Instance, or userdata). |
-| `method`  | `string` | Name of the metamethod to hook, e.g. `"__namecall"{:luau}`. |
-| `hook`    | `function` | The function that runs in the metamethod's place. |
-
-## Returns
-
-`function` - the original metamethod, captured before the hook was applied. Call it from inside `hook{:luau}` to run the original behavior - `return original(self, ...){:luau}` for a `__namecall{:luau}` hook.
-
-Keep this handle in a local. Calling it is the only safe way to reach the original metamethod once the hook is live.
-
-## Aliases
-
-- `hookmeta{:luau}`
-
-## Example <a href="/docs/contributors#essenly" title="Contributed by essenly"><img src={pfpEssenly.src} alt="essenly" style="width:1.75rem;height:1.75rem;border-radius:9999px;display:inline-block;vertical-align:middle;object-fit:cover;margin-left:0.5rem;" /></a>
-
-In a Roblox game, a LocalScript or ModuleScript can call `:Kick(){:luau}` on the `LocalPlayer{:luau}` to boot you out. Catch that `Kick{:luau}` namecall and stop it before it runs.
-
-<Aside type="note">
-Always wrap your logic in `pcall{:luau}`: if your code (inside the hook) errors, the namecall returns nothing - same break as a bare `return{:luau}`.
-</Aside>
-
 <details>
 <summary>Solution</summary>
 ```
 
-import pfpEssenly from '../../../assets/a_2c04fbcedb068e15437bbfe1073dca99.gif';
 
 Swaps the `method` metamethod on `object`'s metatable for `hook`, and returns the original metamethod.
 
@@ -74,12 +35,21 @@ Most commonly used to hook `game`'s `__namecall` metamethod and watch every meth
 
 Keep this handle in a local. Calling it is the only safe way to reach the original metamethod once the hook is live.
 
+## Aliases
+
+- `hookmeta`
+
 ## Example
+
+In a Roblox game, a LocalScript or ModuleScript can call `:Kick()` on the `LocalPlayer` to boot you out. Catch that `Kick` namecall and stop it before it runs.
+
+<Aside type="note">
+Always wrap your logic in `pcall`: if your code (inside the hook) errors, the namecall returns nothing - same break as a bare `return`.
 
 <CodeGroup>
 
 ```luau Example 1
-hookmetamethod(object: any, method: string, hook: function): function
+-- hookmetamethod(object: any, method: string, hook: function): function
 ```
 
 ```luau Example 2
