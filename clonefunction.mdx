@@ -21,7 +21,7 @@ local cleanFunction = clonefunction(someFunction)
 ## Parameters
 
 | Parameter | Type | Description |
-|-----------|------|-------------|
+| --- | --- | --- |
 | `func` | `function` | The function to clone. |
 
 ## Returns
@@ -33,13 +33,45 @@ local cleanFunction = clonefunction(someFunction)
 <CodeGroup>
 
 ```luau Example 1
-local clean = clonefunction(print)
+local Old = clonefunction(print)
+Old = hookfunction(print, function(...)
+	if not checkcaller() then
+		Old(...)
+	end
+	warn(...)
+end)
+
+print("Hello, World!")
 ```
 
 ```luau Example 2
-local cleanFunction = clonefunction(someFunction)
--- another script may hookfunction(someFunction, ...) later,
--- cleanFunction still calls the original.
+local cloned_function = clonefunction(print)
+local function loop()
+	while task.wait() do
+		if print ~= cloned_function then
+			restorefunction(cloned_function)
+			print("sad")
+
+			break
+		end
+	end
+end
+task.spawn(loop)
+
+local old; old = hookfunction(print, function(...)
+	warn(...)
+end)
+```
+
+```text Example 3
+local Lua_Closure = newlclosure(function()
+	return "Hello, World!"
+end)
+
+local cloned_function = clonefunction(Lua_Closure)
+if dumpbytecode(Lua_Closure) == dumpbytecode(cloned_function) then
+	print(cloned_function)
+end
 ```
 
 </CodeGroup>

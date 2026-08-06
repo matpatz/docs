@@ -8,6 +8,44 @@ Shows you all [`Actor`](https://create.roblox.com/docs/reference/engine/classes/
 getactors(): {Actor}
 ```
 
+Shows you all [`Actor`](https://create.roblox.com/docs/reference/engine/classes/Actor)s a game has, so it can run code on one.
+
+```luau
+getactors(): {Actor}
+```
+
+The table is a plain array, so `getactors()[1]` is the first actor. Hand one of them to `run_on_actor` to run code on that thread.
+
+## Returns
+
+`{Actor}` - an array of every [`Actor`](https://create.roblox.com/docs/reference/engine/classes/Actor) instance currently in the game. The array is empty when the game has no actors.
+
+## Example
+
+Grab the first actor in the game and run a script on it.
+
+<CodeGroup>
+
+```luau Example 1
+-- getactors(): {Actor}
+```
+
+```luau Example 2
+local actors = getactors()
+
+if actors[1] then -- its not nil[1] its {}[1] -> nil. pls know the difference
+    run_on_actor(actors[1], [[
+        print("I'm running on an actor! is_parallel: ".. is_parallel())
+    ]])
+end
+```
+
+</CodeGroup>
+
+<Tip>
+  Not every Roblox game has actors. Many developers rarely create an [`Actor`](https://create.roblox.com/docs/reference/engine/classes/Actor), so `getactors` returns an empty table - check it has an entry before indexing.
+</Tip>
+
 The table is a plain array, so `getactors()[1]` is the first actor. Hand one of them to `run_on_actor` to run code on that thread.
 
 ## Returns

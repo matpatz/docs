@@ -13,7 +13,7 @@ Commonly written wrapping a service - `cloneref(game:GetService("CoreGui"))`. Co
 ## Parameters
 
 | Parameter | Type | Description |
-|-----------|------|-------------|
+| --- | --- | --- |
 | `instance` | `Instance` | The Instance to clone. |
 
 ## Returns
@@ -29,7 +29,9 @@ Commonly written wrapping a service - `cloneref(game:GetService("CoreGui"))`. Co
 <CodeGroup>
 
 ```luau Example 1
-local players = cloneref(game:GetService("Players"))
+local fake_players = cloneref(game:GetService("Players"))
+local real_players = game:GetService("Players")
+print(compareinstances(fake_players, real_players) -- uh false? I forgot
 ```
 
 ```luau Example 2

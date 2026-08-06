@@ -27,22 +27,20 @@ A parallel thread can read values from the game, but it cannot change some of th
 <CodeGroup>
 
 ```luau Example 1
-local is_parallel = is_parallel()
+local is_parallel: boolean = is_parallel()
 ```
 
 ```luau Example 2
--- script parented to an Actor
+local Actor = getactors()[1]
+run_on_actor(Actor, [[
 print(is_parallel()) -- false: serial by default
-
--- some code here ...
 
 task.desynchronize()
 print(is_parallel()) -- true: now parallel
 
--- some code here ...
-
 task.synchronize()
 print(is_parallel()) -- false again
+]])
 ```
 
 </CodeGroup>
