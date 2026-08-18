@@ -41,14 +41,26 @@ Old = hookfunction(print, function(...)
 	warn(...)
 end)
 
-print("Hello, World!") -- warn
+print("Hello, World!")
 ```
 
 ```luau Example 2
-local cloned = clonefunction(print)
-local p = print
+local cloned_function = clonefunction(print)
+local function loop()
+	while task.wait() do
+		if print ~= cloned_function then
+			restorefunction(cloned_function)
+			print("sad")
 
-print(cloned == p) -- false
+			break
+		end
+	end
+end
+task.spawn(loop)
+
+local old; old = hookfunction(print, function(...)
+	warn(...)
+end)
 ```
 
 ```text Example 3
@@ -58,7 +70,7 @@ end)
 
 local cloned_function = clonefunction(Lua_Closure)
 if dumpbytecode(Lua_Closure) == dumpbytecode(cloned_function) then
-	print("same bytecode")
+	print(cloned_function)
 end
 ```
 

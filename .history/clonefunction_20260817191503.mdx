@@ -41,7 +41,7 @@ Old = hookfunction(print, function(...)
 	warn(...)
 end)
 
-print("Hello, World!") -- warn
+print("Hello, World!")
 ```
 
 ```luau Example 2
@@ -58,7 +58,7 @@ end)
 
 local cloned_function = clonefunction(Lua_Closure)
 if dumpbytecode(Lua_Closure) == dumpbytecode(cloned_function) then
-	print("same bytecode")
+	print(cloned_function)
 end
 ```
 
